@@ -9,6 +9,10 @@ namespace Droid_Booking
         #region Attribtue
         private Panel _sheet;
         private ToolStripMenuBooking _tsm;
+        private ViewCalendar _viewCalendar;
+        private ViewUser _viewUser;
+        private ViewArea _viewArea;
+        private ViewWelcome _viewWelcome;
         #endregion
 
         #region Properties
@@ -119,8 +123,28 @@ namespace Droid_Booking
         {
             switch (act.ToLower())
             {
-                case "buttonclic":
+                case "viewwelcome":
+                    LaunchViewWelcome();
                     break;
+                case "viewcalendar":
+                    LaunchViewCalendar();
+                    break;
+                case "viewuserdetail":
+                    LaunchViewUserDetails();
+                    break;
+                case "viewusersearch":
+                    LaunchViewUserSearch();
+                    break;
+                case "viewuseradd":
+                    LaunchViewUserAdd();
+                    break;
+                case "areaadd":
+                    LaunchViewAreaDetail();
+                    break;
+                case "areasearch":
+                    LaunchViewAreaSearch();
+                    break;
+                    
             }
         }
         #endregion
@@ -133,7 +157,64 @@ namespace Droid_Booking
             _sheet.Dock = DockStyle.Fill;
 
             BuildToolBar();
+
+            _viewCalendar = new ViewCalendar();
+            _viewCalendar.Dock = DockStyle.Fill;
+
+            _viewUser = new ViewUser();
+            _viewUser.Dock = DockStyle.Fill;
+
+            _viewArea = new ViewArea();
+            _viewArea.Dock = DockStyle.Fill;
+
+            _viewWelcome = new ViewWelcome();
+            _viewWelcome.Dock = DockStyle.Fill;
+            _sheet.Controls.Add(_viewWelcome);
         }
+
+        #region Launcher
+        private void LaunchViewWelcome()
+        {
+            _sheet.Controls.Clear();
+            _sheet.Controls.Add(_viewWelcome);
+        }
+        private void LaunchViewCalendar()
+        {
+            _sheet.Controls.Clear();
+            _sheet.Controls.Add(_viewCalendar);
+        }
+        private void LaunchViewUserDetails()
+        {
+            _sheet.Controls.Clear();
+            _viewUser.ModeView = ViewUser.Mode.DETAIL;
+            _sheet.Controls.Add(_viewUser);
+        }
+        private void LaunchViewUserSearch()
+        {
+            _sheet.Controls.Clear();
+            _viewUser.ModeView = ViewUser.Mode.SEARCH;
+            _sheet.Controls.Add(_viewUser);
+        }
+        private void LaunchViewUserAdd()
+        {
+            _sheet.Controls.Clear();
+            _viewUser.ModeView = ViewUser.Mode.ADD;
+            _sheet.Controls.Add(_viewUser);
+        }
+        private void LaunchViewAreaSearch()
+        {
+            _sheet.Controls.Clear();
+            _viewArea.ModeView = ViewArea.Mode.SEARCH;
+            _sheet.Controls.Add(_viewArea);
+        }
+        private void LaunchViewAreaDetail()
+        {
+            _sheet.Controls.Clear();
+            _viewArea.ModeView = ViewArea.Mode.ADD;
+            _sheet.Controls.Add(_viewArea);
+        }
+        #endregion
+
         #endregion
     }
 }
