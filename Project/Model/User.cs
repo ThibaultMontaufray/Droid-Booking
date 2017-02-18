@@ -19,6 +19,7 @@
         private string _country;
         private GENDER _gender;
         private string _comment;
+        private string _mail;
         #endregion
 
         #region Properties
@@ -52,7 +53,11 @@
             get { return _gender; }
             set { _gender = value; }
         }
-
+        public string Mail
+        {
+            get { return _mail; }
+            set { _mail = value; }
+        }
         #endregion
 
         #region Constructor

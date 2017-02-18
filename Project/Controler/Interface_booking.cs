@@ -194,12 +194,12 @@ namespace Droid_Booking
         }
         private void LoadDataDemo()
         {
-            _users.Add(new User() { Country = "New Zealand", FamilyName = "MIKOS", FirstName = "Adelaide", Gender = User.GENDER.FEMAL, Id = "0123456789" });
-            _users.Add(new User() { Country = "France", FamilyName = "MONTAUFRAY", FirstName = "Thibault", Gender = User.GENDER.MALE, Id = "0123456789" });
-            _users.Add(new User() { Country = "New Zealand", FamilyName = "HARRIS", FirstName = "Jeremy", Gender = User.GENDER.MALE, Id = "" });
-            _users.Add(new User() { Country = "France", FamilyName = "DUPONT", FirstName = "Pierre", Gender = User.GENDER.OTHER, Id = "0123456789" });
-            _users.Add(new User() { Country = "United States", FamilyName = "SMITH", FirstName = "John", Gender = User.GENDER.MALE, Id = "0123456789" });
-            _users.Add(new User() { Country = "Russia", FamilyName = "AJIKELIAMOV", FirstName = "Vladimir", Id = "9876543210" });
+            _users.Add(new User() { Mail = "MIKOS.Adelaide@totoweb.com", Country = "New Zealand", FamilyName = "MIKOS", FirstName = "Adelaide", Gender = User.GENDER.FEMAL, Id = "0127856789" });
+            _users.Add(new User() { Mail = "thibault.montaufray@hotmail.fr", Country = "France", FamilyName = "MONTAUFRAY", FirstName = "Thibault", Gender = User.GENDER.MALE, Id = "0125666789" });
+            _users.Add(new User() { Mail = "", Country = "New Zealand", FamilyName = "HARRIS", FirstName = "Jeremy", Gender = User.GENDER.MALE, Id = "5823697410" });
+            _users.Add(new User() { Mail = "", Country = "France", FamilyName = "DUPONT", FirstName = "Pierre", Gender = User.GENDER.OTHER, Id = "1111456789" });
+            _users.Add(new User() { Mail = "", Country = "United States", FamilyName = "SMITH", FirstName = "John", Gender = User.GENDER.MALE, Id = "0121156789" });
+            _users.Add(new User() { Mail = "vladAdj@gmail.com", Country = "Russia", FamilyName = "AJIKELIAMOV", FirstName = "Vladimir", Id = "9876543210" });
 
             _areas.Add(new Area() { Name = "G1", Floor = 0, Color = System.Drawing.Color.Brown, Capacity = 10, Type = Area.TYPE.DORM });
             _areas.Add(new Area() { Name = "G2", Floor = 0, Color = System.Drawing.Color.Brown, Capacity = 10, Type = Area.TYPE.DORM });
@@ -247,7 +247,8 @@ namespace Droid_Booking
         private void LaunchViewUserAdd()
         {
             _sheet.Controls.Clear();
-            _viewUser.ModeView = ViewUser.Mode.ADD;
+            _viewUser.CurrentUser = new User();
+            _viewUser.ModeView = ViewUser.Mode.EDIT;
             _sheet.Controls.Add(_viewUser);
         }
         private void LaunchViewAreaSearch()

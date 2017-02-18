@@ -10,7 +10,7 @@ namespace Droid_Booking
         #region Enum
         public enum Mode
         {
-            ADD,
+            EDIT,
             DETAIL,
             SEARCH
         }
@@ -53,8 +53,12 @@ namespace Droid_Booking
         private DataGridViewImageColumn ColumnGender;
         private DataGridViewTextBoxColumn ColumnCountry;
         private DataGridViewTextBoxColumn ColumnId;
+        private DataGridViewTextBoxColumn ColumnMail;
         private DataGridViewTextBoxColumn ColumnComment;
+        private DataGridViewImageColumn ColumnEdit;
+        private DataGridViewImageColumn ColumnDelete;
         private FontDialog fontDialog1;
+        private User _currentUser;
         #endregion
 
         #region Properties
@@ -66,6 +70,11 @@ namespace Droid_Booking
                 _mode = value;
                 RefreshDisplay();
             }
+        }
+        public User CurrentUser
+        {
+            get { return _currentUser; }
+            set { _currentUser = value; }
         }
         #endregion
 
@@ -95,8 +104,8 @@ namespace Droid_Booking
                 case Mode.SEARCH:
                     DisplayUserSearchingView();
                     break;
-                case Mode.ADD:
-                    DisplayUserAddView();
+                case Mode.EDIT:
+                    DisplayUserEditView();
                     break;
                 default:
                     break;
@@ -167,7 +176,10 @@ namespace Droid_Booking
             this.ColumnGender = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnMail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEdit = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnDelete = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this._dgvCalendar)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -474,11 +486,16 @@ namespace Droid_Booking
             this.ColumnGender,
             this.ColumnCountry,
             this.ColumnId,
-            this.ColumnComment});
+            this.ColumnMail,
+            this.ColumnComment,
+            this.ColumnEdit,
+            this.ColumnDelete});
             this._dgvSearchUser.Location = new System.Drawing.Point(0, 133);
             this._dgvSearchUser.Name = "_dgvSearchUser";
+            this._dgvSearchUser.RowHeadersVisible = false;
             this._dgvSearchUser.Size = new System.Drawing.Size(1434, 374);
             this._dgvSearchUser.TabIndex = 24;
+            this._dgvSearchUser.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._dgvSearchUser_CellClick);
             // 
             // ColumnName
             // 
@@ -505,11 +522,32 @@ namespace Droid_Booking
             this.ColumnId.HeaderText = "Id";
             this.ColumnId.Name = "ColumnId";
             // 
+            // ColumnMail
+            // 
+            this.ColumnMail.HeaderText = "Mail";
+            this.ColumnMail.Name = "ColumnMail";
+            // 
             // ColumnComment
             // 
             this.ColumnComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColumnComment.HeaderText = "Comment";
             this.ColumnComment.Name = "ColumnComment";
+            // 
+            // ColumnEdit
+            // 
+            this.ColumnEdit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColumnEdit.HeaderText = "Edit";
+            this.ColumnEdit.Name = "ColumnEdit";
+            this.ColumnEdit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnEdit.Width = 31;
+            // 
+            // ColumnDelete
+            // 
+            this.ColumnDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColumnDelete.HeaderText = "Delete";
+            this.ColumnDelete.Name = "ColumnDelete";
+            this.ColumnDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnDelete.Width = 44;
             // 
             // ViewUser
             // 
@@ -551,6 +589,7 @@ namespace Droid_Booking
         private void DisplayUserSearchingView()
         {
             if (!comboBoxGender.Items.Contains("All")) { comboBoxGender.Items.Add("All"); }
+            comboBoxGender.SelectedItem = "All";
 
             this.Controls.Remove(this._dgvCalendar);
             this.Controls.Add(this._dgvSearchUser);
@@ -591,7 +630,7 @@ namespace Droid_Booking
             
             buttonValidation.Visible = false;
         }
-        private void DisplayUserAddView()
+        private void DisplayUserEditView()
         {
             if (comboBoxGender.Items.Contains("All")) { comboBoxGender.Items.Remove("All"); }
 
@@ -610,14 +649,16 @@ namespace Droid_Booking
             labelNameValue.Visible = false;
             labelGenderValue.Visible = false;
 
-            buttonValidation.Text = "Add";
+            buttonValidation.Text = "Save";
             buttonValidation.Visible = true;
+
+            LoadUser();
         }
         private void ApplyButtonClick()
         {
             switch (_mode)
             {
-                case Mode.ADD:
+                case Mode.EDIT:
                     AddUser();
                     break;
                 case Mode.DETAIL:
@@ -635,8 +676,8 @@ namespace Droid_Booking
             if (!string.IsNullOrEmpty(textBoxFirstname.Text)) { _filteredUsers = _filteredUsers.Where(a => a.FirstName == textBoxFirstname.Text).ToList(); }
             if (!string.IsNullOrEmpty(textBoxFamilyName.Text)) { _filteredUsers = _filteredUsers.Where(a => a.FamilyName == textBoxFamilyName.Text).ToList(); }
             if (!string.IsNullOrEmpty(textBoxId.Text)) { _filteredUsers = _filteredUsers.Where(a => a.Id == textBoxId.Text).ToList(); }
-            if (comboBoxGender.SelectedItem != null && comboBoxCountry.SelectedItem.ToString() != "All") { _filteredUsers = _filteredUsers.Where(a => a.Gender == (User.GENDER)Enum.Parse(typeof(User.GENDER), comboBoxGender.SelectedItem.ToString())).ToList(); }
-            if (comboBoxCountry.SelectedItem != null) { _filteredUsers = _filteredUsers.Where(a => a.Country == comboBoxCountry.SelectedItem.ToString()).ToList(); }
+            if (comboBoxGender.SelectedItem != null && comboBoxGender.SelectedItem.ToString() != "All") { _filteredUsers = _filteredUsers.Where(a => a.Gender == (User.GENDER)Enum.Parse(typeof(User.GENDER), comboBoxGender.SelectedItem.ToString())).ToList(); }
+            if (comboBoxCountry.SelectedItem != null && comboBoxCountry.SelectedItem.ToString() != "All") { _filteredUsers = _filteredUsers.Where(a => a.Country == comboBoxCountry.SelectedItem.ToString()).ToList(); }
 
             LoadFilteredUsers();
         }
@@ -661,24 +702,81 @@ namespace Droid_Booking
                 row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnId)].Value = user.Id;
                 row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnCountry)].Value = user.Country;
                 row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnComment)].Value = user.Comment;
+                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnMail)].Value = user.Mail;
                 switch (user.Gender)
                 {
                     case User.GENDER.MALE:
                         row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.male;
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "MALE";
                         break;
                     case User.GENDER.FEMAL:
                         row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.female;
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "FEMAL";
                         break;
                     case User.GENDER.OTHER:
                         row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.rainbow;
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "OTHER";
                         break;
                     case User.GENDER.UNKNOW:
                         row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.question;
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "UNKNOW";
                         break;
                     default:
                         row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.question;
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "UNKNOW";
                         break;
                 }
+                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnDelete)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.cross;
+                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnEdit)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.user_edit;
+            }
+        }
+        private void DeleteUser(int rowIndex)
+        {
+            if (MessageBox.Show("Are you sure you want to delete this user ?", "Delete user", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+            {
+                if (DetectUser(rowIndex))
+                {
+                    _intBoo.Users.Remove(_currentUser);
+                }
+            }
+        }
+        private void EditUser(int rowIndex)
+        {
+            DetectUser(rowIndex);
+
+            _mode = Mode.EDIT;
+            RefreshDisplay();
+        }
+        private bool DetectUser(int rowIndex)
+        {
+            List<User> users = _intBoo.Users.Where(u => u.Id.Equals(_dgvSearchUser.Rows[rowIndex].Cells[ColumnId.Index].Value.ToString())).ToList();
+            users = users.Where(u => u.Country.Equals(_dgvSearchUser.Rows[rowIndex].Cells[ColumnCountry.Index].Value.ToString())).ToList();
+
+            if (users.Count == 0)
+            {
+                MessageBox.Show("This user has not be found", "User not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else if (users.Count > 1)
+            {
+                MessageBox.Show("Too many users found for this Id and Country. Please change users settings.", "User not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+            {
+                _currentUser = users[0];
+                return true;
+            }
+        }
+        private void LoadUser()
+        {
+            if (_currentUser != null)
+            { 
+                textBoxFamilyName.Text = _currentUser.FamilyName;
+                textBoxFirstname.Text = _currentUser.FirstName;
+                comboBoxCountry.Text = _currentUser.Country;
+                comboBoxGender.Text = _currentUser.Gender.ToString();
+                textBoxId.Text = _currentUser.Id;
             }
         }
         #endregion
@@ -695,6 +793,17 @@ namespace Droid_Booking
         private void buttonValidation_Click(object sender, EventArgs e)
         {
             ApplyButtonClick();
+        }
+        private void _dgvSearchUser_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == ColumnDelete.Index)
+            {
+                DeleteUser(e.RowIndex);
+            }
+            else if (e.ColumnIndex == ColumnEdit.Index)
+            {
+                EditUser(e.RowIndex);
+            }
         }
         #endregion
     }
