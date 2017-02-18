@@ -19,9 +19,15 @@ namespace Droid_Booking
         private int _capacity;
         private TYPE _type;
         private Color _color;
+        private string _comment;
         #endregion
 
         #region Properties
+        public string Comment
+        {
+            get { return _comment; }
+            set { _comment = value; }
+        }
         public Color Color
         {
             get { return _color; }

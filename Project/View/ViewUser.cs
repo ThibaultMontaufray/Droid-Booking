@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Droid_Booking
@@ -15,35 +17,44 @@ namespace Droid_Booking
         #endregion
 
         #region Attribute
+        private Interface_booking _intBoo;
         private Mode _mode;
+        private List<User> _filteredUsers;
         
         private System.ComponentModel.IContainer components = null;
-        private PictureBox pictureBox1;
-        private Label labelNameTitle;
-        private Label labelFirstname;
-        private Label labelNameValue;
-        private Label labelFamilyname;
-        private Label labelFamilynameValue;
-        private Label labelGender;
-        private Label labelGenderValue;
-        private Panel panel1;
         private DataGridView _dgvCalendar;
-        private Label labelCountry;
-        private Label labelCountryValue;
-        private TextBox textBoxName;
-        private Label labelId;
-        private TextBox textBoxCountry;
-        private Label labelIdValue;
-        private TextBox textBoxGender;
-        private TextBox textBoxFamilyName;
-        private TextBox textBoxId;
         private DataGridViewTextBoxColumn Month1;
         private DataGridViewTextBoxColumn Month2;
         private DataGridViewTextBoxColumn Month3;
         private DataGridViewTextBoxColumn Month4;
         private DataGridViewTextBoxColumn Month5;
+        private Panel panel1;
+        private ComboBox comboBoxGender;
+        private ComboBox comboBoxCountry;
         private Button buttonValidation;
+        private TextBox textBoxFamilyName;
+        private TextBox textBoxId;
+        private Label labelIdValue;
+        private Label labelGenderValue;
+        private Label labelId;
+        private Label labelFamilynameValue;
+        private Label labelCountry;
+        private Label labelCountryValue;
+        private Label labelGender;
+        private TextBox textBoxFirstname;
+        private PictureBox pictureBox1;
+        private Label labelNameValue;
+        private Label labelFamilyname;
+        private Label labelFirstname;
+        private Label labelNameTitle;
         private DataGridView _dgvSearchUser;
+        private DataGridViewTextBoxColumn ColumnName;
+        private DataGridViewTextBoxColumn ColumnFamilyName;
+        private DataGridViewImageColumn ColumnGender;
+        private DataGridViewTextBoxColumn ColumnCountry;
+        private DataGridViewTextBoxColumn ColumnId;
+        private DataGridViewTextBoxColumn ColumnComment;
+        private FontDialog fontDialog1;
         #endregion
 
         #region Properties
@@ -61,6 +72,13 @@ namespace Droid_Booking
         #region Constructor
         public ViewUser()
         {
+            InitializeComponent();
+            Init();
+        }
+        public ViewUser(Interface_booking intBoo)
+        {
+            _intBoo = intBoo;
+
             InitializeComponent();
             Init();
         }
@@ -111,255 +129,50 @@ namespace Droid_Booking
             }
             this.Controls.Add(this._dgvCalendar);
             RefreshDisplay();
+            LoadGender();
+            LoadCountries();
         }
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelNameTitle = new System.Windows.Forms.Label();
-            this.labelFirstname = new System.Windows.Forms.Label();
-            this.labelNameValue = new System.Windows.Forms.Label();
-            this.labelFamilyname = new System.Windows.Forms.Label();
-            this.labelFamilynameValue = new System.Windows.Forms.Label();
-            this.labelGender = new System.Windows.Forms.Label();
-            this.labelGenderValue = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonValidation = new System.Windows.Forms.Button();
-            this.textBoxGender = new System.Windows.Forms.TextBox();
-            this.textBoxFamilyName = new System.Windows.Forms.TextBox();
-            this.textBoxId = new System.Windows.Forms.TextBox();
-            this.labelIdValue = new System.Windows.Forms.Label();
-            this.labelId = new System.Windows.Forms.Label();
-            this.textBoxCountry = new System.Windows.Forms.TextBox();
-            this.labelCountry = new System.Windows.Forms.Label();
-            this.labelCountryValue = new System.Windows.Forms.Label();
-            this.textBoxName = new System.Windows.Forms.TextBox();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this._dgvCalendar = new System.Windows.Forms.DataGridView();
             this.Month1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Month2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Month3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Month4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Month5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBoxGender = new System.Windows.Forms.ComboBox();
+            this.comboBoxCountry = new System.Windows.Forms.ComboBox();
+            this.buttonValidation = new System.Windows.Forms.Button();
+            this.textBoxFamilyName = new System.Windows.Forms.TextBox();
+            this.textBoxId = new System.Windows.Forms.TextBox();
+            this.labelIdValue = new System.Windows.Forms.Label();
+            this.labelGenderValue = new System.Windows.Forms.Label();
+            this.labelId = new System.Windows.Forms.Label();
+            this.labelFamilynameValue = new System.Windows.Forms.Label();
+            this.labelCountry = new System.Windows.Forms.Label();
+            this.labelCountryValue = new System.Windows.Forms.Label();
+            this.labelGender = new System.Windows.Forms.Label();
+            this.textBoxFirstname = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelNameValue = new System.Windows.Forms.Label();
+            this.labelFamilyname = new System.Windows.Forms.Label();
+            this.labelFirstname = new System.Windows.Forms.Label();
+            this.labelNameTitle = new System.Windows.Forms.Label();
             this._dgvSearchUser = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnFamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnGender = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this._dgvCalendar)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearchUser)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Gray;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Image = global::Droid_Booking.Properties.Resources.shadow_man;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 13);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
-            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
-            // 
-            // labelNameTitle
-            // 
-            this.labelNameTitle.AutoSize = true;
-            this.labelNameTitle.BackColor = System.Drawing.Color.Maroon;
-            this.labelNameTitle.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNameTitle.ForeColor = System.Drawing.Color.White;
-            this.labelNameTitle.Location = new System.Drawing.Point(122, 12);
-            this.labelNameTitle.Name = "labelNameTitle";
-            this.labelNameTitle.Size = new System.Drawing.Size(57, 23);
-            this.labelNameTitle.TabIndex = 1;
-            this.labelNameTitle.Text = "Name";
-            // 
-            // labelFirstname
-            // 
-            this.labelFirstname.AutoSize = true;
-            this.labelFirstname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFirstname.ForeColor = System.Drawing.Color.White;
-            this.labelFirstname.Location = new System.Drawing.Point(122, 41);
-            this.labelFirstname.Name = "labelFirstname";
-            this.labelFirstname.Size = new System.Drawing.Size(85, 19);
-            this.labelFirstname.TabIndex = 2;
-            this.labelFirstname.Text = "Firstname : ";
-            // 
-            // labelNameValue
-            // 
-            this.labelNameValue.AutoSize = true;
-            this.labelNameValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNameValue.ForeColor = System.Drawing.Color.White;
-            this.labelNameValue.Location = new System.Drawing.Point(231, 38);
-            this.labelNameValue.Name = "labelNameValue";
-            this.labelNameValue.Size = new System.Drawing.Size(65, 19);
-            this.labelNameValue.TabIndex = 3;
-            this.labelNameValue.Text = "_______";
-            // 
-            // labelFamilyname
-            // 
-            this.labelFamilyname.AutoSize = true;
-            this.labelFamilyname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFamilyname.ForeColor = System.Drawing.Color.White;
-            this.labelFamilyname.Location = new System.Drawing.Point(122, 69);
-            this.labelFamilyname.Name = "labelFamilyname";
-            this.labelFamilyname.Size = new System.Drawing.Size(103, 19);
-            this.labelFamilyname.TabIndex = 4;
-            this.labelFamilyname.Text = "Family name : ";
-            // 
-            // labelFamilynameValue
-            // 
-            this.labelFamilynameValue.AutoSize = true;
-            this.labelFamilynameValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFamilynameValue.ForeColor = System.Drawing.Color.White;
-            this.labelFamilynameValue.Location = new System.Drawing.Point(231, 69);
-            this.labelFamilynameValue.Name = "labelFamilynameValue";
-            this.labelFamilynameValue.Size = new System.Drawing.Size(65, 19);
-            this.labelFamilynameValue.TabIndex = 5;
-            this.labelFamilynameValue.Text = "_______";
-            // 
-            // labelGender
-            // 
-            this.labelGender.AutoSize = true;
-            this.labelGender.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGender.ForeColor = System.Drawing.Color.White;
-            this.labelGender.Location = new System.Drawing.Point(122, 97);
-            this.labelGender.Name = "labelGender";
-            this.labelGender.Size = new System.Drawing.Size(68, 19);
-            this.labelGender.TabIndex = 6;
-            this.labelGender.Text = "Gender : ";
-            // 
-            // labelGenderValue
-            // 
-            this.labelGenderValue.AutoSize = true;
-            this.labelGenderValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGenderValue.ForeColor = System.Drawing.Color.White;
-            this.labelGenderValue.Location = new System.Drawing.Point(231, 102);
-            this.labelGenderValue.Name = "labelGenderValue";
-            this.labelGenderValue.Size = new System.Drawing.Size(65, 19);
-            this.labelGenderValue.TabIndex = 7;
-            this.labelGenderValue.Text = "_______";
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.DimGray;
-            this.panel1.Controls.Add(this.buttonValidation);
-            this.panel1.Controls.Add(this.textBoxGender);
-            this.panel1.Controls.Add(this.textBoxFamilyName);
-            this.panel1.Controls.Add(this.textBoxId);
-            this.panel1.Controls.Add(this.labelIdValue);
-            this.panel1.Controls.Add(this.labelGenderValue);
-            this.panel1.Controls.Add(this.labelId);
-            this.panel1.Controls.Add(this.labelFamilynameValue);
-            this.panel1.Controls.Add(this.textBoxCountry);
-            this.panel1.Controls.Add(this.labelCountry);
-            this.panel1.Controls.Add(this.labelCountryValue);
-            this.panel1.Controls.Add(this.labelGender);
-            this.panel1.Controls.Add(this.textBoxName);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.labelNameValue);
-            this.panel1.Controls.Add(this.labelFamilyname);
-            this.panel1.Controls.Add(this.labelFirstname);
-            this.panel1.Controls.Add(this.labelNameTitle);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1434, 133);
-            this.panel1.TabIndex = 9;
-            // 
-            // buttonValidation
-            // 
-            this.buttonValidation.Font = new System.Drawing.Font("Calibri", 11F);
-            this.buttonValidation.Location = new System.Drawing.Point(850, 99);
-            this.buttonValidation.Name = "buttonValidation";
-            this.buttonValidation.Size = new System.Drawing.Size(75, 27);
-            this.buttonValidation.TabIndex = 21;
-            this.buttonValidation.Text = "Search";
-            this.buttonValidation.UseVisualStyleBackColor = true;
-            this.buttonValidation.Click += new System.EventHandler(this.buttonSearch_Click);
-            // 
-            // textBoxGender
-            // 
-            this.textBoxGender.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxGender.Location = new System.Drawing.Point(231, 94);
-            this.textBoxGender.Name = "textBoxGender";
-            this.textBoxGender.Size = new System.Drawing.Size(300, 27);
-            this.textBoxGender.TabIndex = 20;
-            // 
-            // textBoxFamilyName
-            // 
-            this.textBoxFamilyName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFamilyName.Location = new System.Drawing.Point(231, 66);
-            this.textBoxFamilyName.Name = "textBoxFamilyName";
-            this.textBoxFamilyName.Size = new System.Drawing.Size(300, 27);
-            this.textBoxFamilyName.TabIndex = 19;
-            // 
-            // textBoxId
-            // 
-            this.textBoxId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxId.Location = new System.Drawing.Point(625, 66);
-            this.textBoxId.Name = "textBoxId";
-            this.textBoxId.Size = new System.Drawing.Size(300, 27);
-            this.textBoxId.TabIndex = 18;
-            // 
-            // labelIdValue
-            // 
-            this.labelIdValue.AutoSize = true;
-            this.labelIdValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelIdValue.ForeColor = System.Drawing.Color.White;
-            this.labelIdValue.Location = new System.Drawing.Point(625, 69);
-            this.labelIdValue.Name = "labelIdValue";
-            this.labelIdValue.Size = new System.Drawing.Size(65, 19);
-            this.labelIdValue.TabIndex = 11;
-            this.labelIdValue.Text = "_______";
-            // 
-            // labelId
-            // 
-            this.labelId.AutoSize = true;
-            this.labelId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelId.ForeColor = System.Drawing.Color.White;
-            this.labelId.Location = new System.Drawing.Point(548, 69);
-            this.labelId.Name = "labelId";
-            this.labelId.Size = new System.Drawing.Size(35, 19);
-            this.labelId.TabIndex = 15;
-            this.labelId.Text = "ID : ";
-            // 
-            // textBoxCountry
-            // 
-            this.textBoxCountry.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCountry.Location = new System.Drawing.Point(625, 38);
-            this.textBoxCountry.Name = "textBoxCountry";
-            this.textBoxCountry.Size = new System.Drawing.Size(300, 27);
-            this.textBoxCountry.TabIndex = 14;
-            // 
-            // labelCountry
-            // 
-            this.labelCountry.AutoSize = true;
-            this.labelCountry.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCountry.ForeColor = System.Drawing.Color.White;
-            this.labelCountry.Location = new System.Drawing.Point(548, 41);
-            this.labelCountry.Name = "labelCountry";
-            this.labelCountry.Size = new System.Drawing.Size(71, 19);
-            this.labelCountry.TabIndex = 8;
-            this.labelCountry.Text = "Country : ";
-            // 
-            // labelCountryValue
-            // 
-            this.labelCountryValue.AutoSize = true;
-            this.labelCountryValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCountryValue.ForeColor = System.Drawing.Color.White;
-            this.labelCountryValue.Location = new System.Drawing.Point(625, 41);
-            this.labelCountryValue.Name = "labelCountryValue";
-            this.labelCountryValue.Size = new System.Drawing.Size(65, 19);
-            this.labelCountryValue.TabIndex = 9;
-            this.labelCountryValue.Text = "_______";
-            // 
-            // textBoxName
-            // 
-            this.textBoxName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxName.Location = new System.Drawing.Point(231, 38);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(300, 27);
-            this.textBoxName.TabIndex = 11;
             // 
             // _dgvCalendar
             // 
@@ -367,17 +180,11 @@ namespace Droid_Booking
             this._dgvCalendar.AllowUserToDeleteRows = false;
             this._dgvCalendar.AllowUserToResizeColumns = false;
             this._dgvCalendar.AllowUserToResizeRows = false;
+            this._dgvCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._dgvCalendar.BackgroundColor = System.Drawing.Color.DimGray;
             this._dgvCalendar.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
-            this._dgvCalendar.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.DarkOrange;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Orange;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._dgvCalendar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this._dgvCalendar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._dgvCalendar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Month1,
@@ -385,19 +192,18 @@ namespace Droid_Booking
             this.Month3,
             this.Month4,
             this.Month5});
-            this._dgvCalendar.Dock = System.Windows.Forms.DockStyle.Fill;
             this._dgvCalendar.Location = new System.Drawing.Point(0, 133);
             this._dgvCalendar.MultiSelect = false;
             this._dgvCalendar.Name = "_dgvCalendar";
             this._dgvCalendar.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DarkOrange;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Orange;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._dgvCalendar.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.DarkOrange;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._dgvCalendar.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this._dgvCalendar.RowHeadersWidth = 76;
             this._dgvCalendar.Size = new System.Drawing.Size(1434, 374);
             this._dgvCalendar.TabIndex = 10;
@@ -438,15 +244,272 @@ namespace Droid_Booking
             this.Month5.Name = "Month5";
             this.Month5.ReadOnly = true;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.DimGray;
+            this.panel1.Controls.Add(this.comboBoxGender);
+            this.panel1.Controls.Add(this.comboBoxCountry);
+            this.panel1.Controls.Add(this.buttonValidation);
+            this.panel1.Controls.Add(this.textBoxFamilyName);
+            this.panel1.Controls.Add(this.textBoxId);
+            this.panel1.Controls.Add(this.labelIdValue);
+            this.panel1.Controls.Add(this.labelGenderValue);
+            this.panel1.Controls.Add(this.labelId);
+            this.panel1.Controls.Add(this.labelFamilynameValue);
+            this.panel1.Controls.Add(this.labelCountry);
+            this.panel1.Controls.Add(this.labelCountryValue);
+            this.panel1.Controls.Add(this.labelGender);
+            this.panel1.Controls.Add(this.textBoxFirstname);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.labelNameValue);
+            this.panel1.Controls.Add(this.labelFamilyname);
+            this.panel1.Controls.Add(this.labelFirstname);
+            this.panel1.Controls.Add(this.labelNameTitle);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1434, 133);
+            this.panel1.TabIndex = 23;
+            // 
+            // comboBoxGender
+            // 
+            this.comboBoxGender.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxGender.FormattingEnabled = true;
+            this.comboBoxGender.Location = new System.Drawing.Point(231, 94);
+            this.comboBoxGender.Name = "comboBoxGender";
+            this.comboBoxGender.Size = new System.Drawing.Size(300, 27);
+            this.comboBoxGender.TabIndex = 26;
+            // 
+            // comboBoxCountry
+            // 
+            this.comboBoxCountry.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxCountry.FormattingEnabled = true;
+            this.comboBoxCountry.Location = new System.Drawing.Point(625, 38);
+            this.comboBoxCountry.Name = "comboBoxCountry";
+            this.comboBoxCountry.Size = new System.Drawing.Size(300, 27);
+            this.comboBoxCountry.TabIndex = 25;
+            // 
+            // buttonValidation
+            // 
+            this.buttonValidation.Font = new System.Drawing.Font("Calibri", 11F);
+            this.buttonValidation.Location = new System.Drawing.Point(850, 99);
+            this.buttonValidation.Name = "buttonValidation";
+            this.buttonValidation.Size = new System.Drawing.Size(75, 27);
+            this.buttonValidation.TabIndex = 21;
+            this.buttonValidation.Text = "Search";
+            this.buttonValidation.UseVisualStyleBackColor = true;
+            this.buttonValidation.Click += new System.EventHandler(this.buttonValidation_Click);
+            // 
+            // textBoxFamilyName
+            // 
+            this.textBoxFamilyName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFamilyName.Location = new System.Drawing.Point(231, 66);
+            this.textBoxFamilyName.Name = "textBoxFamilyName";
+            this.textBoxFamilyName.Size = new System.Drawing.Size(300, 27);
+            this.textBoxFamilyName.TabIndex = 19;
+            // 
+            // textBoxId
+            // 
+            this.textBoxId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxId.Location = new System.Drawing.Point(625, 66);
+            this.textBoxId.Name = "textBoxId";
+            this.textBoxId.Size = new System.Drawing.Size(300, 27);
+            this.textBoxId.TabIndex = 18;
+            // 
+            // labelIdValue
+            // 
+            this.labelIdValue.AutoSize = true;
+            this.labelIdValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelIdValue.ForeColor = System.Drawing.Color.White;
+            this.labelIdValue.Location = new System.Drawing.Point(625, 69);
+            this.labelIdValue.Name = "labelIdValue";
+            this.labelIdValue.Size = new System.Drawing.Size(65, 19);
+            this.labelIdValue.TabIndex = 11;
+            this.labelIdValue.Text = "_______";
+            // 
+            // labelGenderValue
+            // 
+            this.labelGenderValue.AutoSize = true;
+            this.labelGenderValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGenderValue.ForeColor = System.Drawing.Color.White;
+            this.labelGenderValue.Location = new System.Drawing.Point(231, 102);
+            this.labelGenderValue.Name = "labelGenderValue";
+            this.labelGenderValue.Size = new System.Drawing.Size(65, 19);
+            this.labelGenderValue.TabIndex = 7;
+            this.labelGenderValue.Text = "_______";
+            // 
+            // labelId
+            // 
+            this.labelId.AutoSize = true;
+            this.labelId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelId.ForeColor = System.Drawing.Color.White;
+            this.labelId.Location = new System.Drawing.Point(548, 69);
+            this.labelId.Name = "labelId";
+            this.labelId.Size = new System.Drawing.Size(35, 19);
+            this.labelId.TabIndex = 15;
+            this.labelId.Text = "ID : ";
+            // 
+            // labelFamilynameValue
+            // 
+            this.labelFamilynameValue.AutoSize = true;
+            this.labelFamilynameValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFamilynameValue.ForeColor = System.Drawing.Color.White;
+            this.labelFamilynameValue.Location = new System.Drawing.Point(231, 69);
+            this.labelFamilynameValue.Name = "labelFamilynameValue";
+            this.labelFamilynameValue.Size = new System.Drawing.Size(65, 19);
+            this.labelFamilynameValue.TabIndex = 5;
+            this.labelFamilynameValue.Text = "_______";
+            // 
+            // labelCountry
+            // 
+            this.labelCountry.AutoSize = true;
+            this.labelCountry.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCountry.ForeColor = System.Drawing.Color.White;
+            this.labelCountry.Location = new System.Drawing.Point(548, 41);
+            this.labelCountry.Name = "labelCountry";
+            this.labelCountry.Size = new System.Drawing.Size(71, 19);
+            this.labelCountry.TabIndex = 8;
+            this.labelCountry.Text = "Country : ";
+            // 
+            // labelCountryValue
+            // 
+            this.labelCountryValue.AutoSize = true;
+            this.labelCountryValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCountryValue.ForeColor = System.Drawing.Color.White;
+            this.labelCountryValue.Location = new System.Drawing.Point(625, 41);
+            this.labelCountryValue.Name = "labelCountryValue";
+            this.labelCountryValue.Size = new System.Drawing.Size(65, 19);
+            this.labelCountryValue.TabIndex = 9;
+            this.labelCountryValue.Text = "_______";
+            // 
+            // labelGender
+            // 
+            this.labelGender.AutoSize = true;
+            this.labelGender.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGender.ForeColor = System.Drawing.Color.White;
+            this.labelGender.Location = new System.Drawing.Point(122, 97);
+            this.labelGender.Name = "labelGender";
+            this.labelGender.Size = new System.Drawing.Size(68, 19);
+            this.labelGender.TabIndex = 6;
+            this.labelGender.Text = "Gender : ";
+            // 
+            // textBoxFirstname
+            // 
+            this.textBoxFirstname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFirstname.Location = new System.Drawing.Point(231, 38);
+            this.textBoxFirstname.Name = "textBoxFirstname";
+            this.textBoxFirstname.Size = new System.Drawing.Size(300, 27);
+            this.textBoxFirstname.TabIndex = 11;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Gray;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Image = global::Droid_Booking.Properties.Resources.shadow_man;
+            this.pictureBox1.Location = new System.Drawing.Point(13, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // labelNameValue
+            // 
+            this.labelNameValue.AutoSize = true;
+            this.labelNameValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNameValue.ForeColor = System.Drawing.Color.White;
+            this.labelNameValue.Location = new System.Drawing.Point(231, 38);
+            this.labelNameValue.Name = "labelNameValue";
+            this.labelNameValue.Size = new System.Drawing.Size(65, 19);
+            this.labelNameValue.TabIndex = 3;
+            this.labelNameValue.Text = "_______";
+            // 
+            // labelFamilyname
+            // 
+            this.labelFamilyname.AutoSize = true;
+            this.labelFamilyname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFamilyname.ForeColor = System.Drawing.Color.White;
+            this.labelFamilyname.Location = new System.Drawing.Point(122, 69);
+            this.labelFamilyname.Name = "labelFamilyname";
+            this.labelFamilyname.Size = new System.Drawing.Size(103, 19);
+            this.labelFamilyname.TabIndex = 4;
+            this.labelFamilyname.Text = "Family name : ";
+            // 
+            // labelFirstname
+            // 
+            this.labelFirstname.AutoSize = true;
+            this.labelFirstname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFirstname.ForeColor = System.Drawing.Color.White;
+            this.labelFirstname.Location = new System.Drawing.Point(122, 41);
+            this.labelFirstname.Name = "labelFirstname";
+            this.labelFirstname.Size = new System.Drawing.Size(85, 19);
+            this.labelFirstname.TabIndex = 2;
+            this.labelFirstname.Text = "Firstname : ";
+            // 
+            // labelNameTitle
+            // 
+            this.labelNameTitle.AutoSize = true;
+            this.labelNameTitle.BackColor = System.Drawing.Color.Maroon;
+            this.labelNameTitle.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNameTitle.ForeColor = System.Drawing.Color.White;
+            this.labelNameTitle.Location = new System.Drawing.Point(122, 12);
+            this.labelNameTitle.Name = "labelNameTitle";
+            this.labelNameTitle.Size = new System.Drawing.Size(57, 23);
+            this.labelNameTitle.TabIndex = 1;
+            this.labelNameTitle.Text = "Name";
+            // 
             // _dgvSearchUser
             // 
-            this._dgvSearchUser.BackgroundColor = System.Drawing.Color.DimGray;
+            this._dgvSearchUser.AllowUserToAddRows = false;
+            this._dgvSearchUser.AllowUserToDeleteRows = false;
+            this._dgvSearchUser.AllowUserToOrderColumns = true;
+            this._dgvSearchUser.AllowUserToResizeRows = false;
+            this._dgvSearchUser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._dgvSearchUser.BackgroundColor = System.Drawing.Color.Gray;
             this._dgvSearchUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._dgvSearchUser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._dgvSearchUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnName,
+            this.ColumnFamilyName,
+            this.ColumnGender,
+            this.ColumnCountry,
+            this.ColumnId,
+            this.ColumnComment});
             this._dgvSearchUser.Location = new System.Drawing.Point(0, 133);
             this._dgvSearchUser.Name = "_dgvSearchUser";
             this._dgvSearchUser.Size = new System.Drawing.Size(1434, 374);
-            this._dgvSearchUser.TabIndex = 21;
+            this._dgvSearchUser.TabIndex = 24;
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.HeaderText = "Firstname";
+            this.ColumnName.Name = "ColumnName";
+            // 
+            // ColumnFamilyName
+            // 
+            this.ColumnFamilyName.HeaderText = "Family name";
+            this.ColumnFamilyName.Name = "ColumnFamilyName";
+            // 
+            // ColumnGender
+            // 
+            this.ColumnGender.HeaderText = "Gender";
+            this.ColumnGender.Name = "ColumnGender";
+            // 
+            // ColumnCountry
+            // 
+            this.ColumnCountry.HeaderText = "Country";
+            this.ColumnCountry.Name = "ColumnCountry";
+            // 
+            // ColumnId
+            // 
+            this.ColumnId.HeaderText = "Id";
+            this.ColumnId.Name = "ColumnId";
+            // 
+            // ColumnComment
+            // 
+            this.ColumnComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnComment.HeaderText = "Comment";
+            this.ColumnComment.Name = "ColumnComment";
             // 
             // ViewUser
             // 
@@ -457,23 +520,45 @@ namespace Droid_Booking
             this.Controls.Add(this.panel1);
             this.Name = "ViewUser";
             this.Size = new System.Drawing.Size(1434, 507);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dgvCalendar)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._dgvCalendar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearchUser)).EndInit();
             this.ResumeLayout(false);
 
         }
+        private void LoadGender()
+        {
+            comboBoxGender.Items.Clear();
+            comboBoxGender.Items.Add("All");
+            foreach (var item in Enum.GetValues(typeof(User.GENDER)))
+            {
+                comboBoxGender.Items.Add(item.ToString());
+            }
+            comboBoxGender.Sorted = true;
+        }
+        private void LoadCountries()
+        {
+            comboBoxCountry.Items.Clear();
+            comboBoxCountry.Items.Add("All");
+            foreach (var item in _intBoo.Users)
+            {
+                if (!comboBoxCountry.Items.Contains(item.Country)) { comboBoxCountry.Items.Add(item.Country); }
+            }
+            comboBoxCountry.Sorted = true;
+        }
         private void DisplayUserSearchingView()
         {
+            if (!comboBoxGender.Items.Contains("All")) { comboBoxGender.Items.Add("All"); }
+
             this.Controls.Remove(this._dgvCalendar);
             this.Controls.Add(this._dgvSearchUser);
 
-            textBoxName.Visible = true;
+            textBoxFirstname.Visible = true;
             textBoxFamilyName.Visible = true;
-            textBoxGender.Visible = true;
-            textBoxCountry.Visible = true;
+            comboBoxCountry.Visible = true;
+            comboBoxGender.Visible = true;
             textBoxId.Visible = true;
 
             labelCountryValue.Visible = false;
@@ -483,16 +568,19 @@ namespace Droid_Booking
             labelGenderValue.Visible = false;
 
             buttonValidation.Text = "Search";
+            buttonValidation.Visible = true;
         }
         private void DisplayUserDetailView()
         {
+            if (comboBoxGender.Items.Contains("All")) { comboBoxGender.Items.Remove("All"); }
+
             this.Controls.Remove(this._dgvSearchUser);
             this.Controls.Add(this._dgvCalendar);
 
-            textBoxName.Visible = false;
+            textBoxFirstname.Visible = false;
             textBoxFamilyName.Visible = false;
-            textBoxGender.Visible = false;
-            textBoxCountry.Visible = false;
+            comboBoxCountry.Visible = false;
+            comboBoxGender.Visible = false;
             textBoxId.Visible = false;
 
             labelCountryValue.Visible = true;
@@ -500,18 +588,20 @@ namespace Droid_Booking
             labelIdValue.Visible = true;
             labelNameValue.Visible = true;
             labelGenderValue.Visible = true;
-
-            buttonValidation.Text = "Save";
+            
+            buttonValidation.Visible = false;
         }
         private void DisplayUserAddView()
         {
+            if (comboBoxGender.Items.Contains("All")) { comboBoxGender.Items.Remove("All"); }
+
             this.Controls.Remove(this._dgvSearchUser);
             this.Controls.Remove(this._dgvCalendar);
 
-            textBoxName.Visible = true;
+            textBoxFirstname.Visible = true;
             textBoxFamilyName.Visible = true;
-            textBoxGender.Visible = true;
-            textBoxCountry.Visible = true;
+            comboBoxCountry.Visible = true;
+            comboBoxGender.Visible = true;
             textBoxId.Visible = true;
 
             labelCountryValue.Visible = false;
@@ -521,6 +611,75 @@ namespace Droid_Booking
             labelGenderValue.Visible = false;
 
             buttonValidation.Text = "Add";
+            buttonValidation.Visible = true;
+        }
+        private void ApplyButtonClick()
+        {
+            switch (_mode)
+            {
+                case Mode.ADD:
+                    AddUser();
+                    break;
+                case Mode.DETAIL:
+                    DetailUser();
+                    break;
+                case Mode.SEARCH:
+                    SearchUser();
+                    break;
+            }
+        }
+        private void SearchUser()
+        {
+            _filteredUsers = _intBoo.Users;
+
+            if (!string.IsNullOrEmpty(textBoxFirstname.Text)) { _filteredUsers = _filteredUsers.Where(a => a.FirstName == textBoxFirstname.Text).ToList(); }
+            if (!string.IsNullOrEmpty(textBoxFamilyName.Text)) { _filteredUsers = _filteredUsers.Where(a => a.FamilyName == textBoxFamilyName.Text).ToList(); }
+            if (!string.IsNullOrEmpty(textBoxId.Text)) { _filteredUsers = _filteredUsers.Where(a => a.Id == textBoxId.Text).ToList(); }
+            if (comboBoxGender.SelectedItem != null && comboBoxCountry.SelectedItem.ToString() != "All") { _filteredUsers = _filteredUsers.Where(a => a.Gender == (User.GENDER)Enum.Parse(typeof(User.GENDER), comboBoxGender.SelectedItem.ToString())).ToList(); }
+            if (comboBoxCountry.SelectedItem != null) { _filteredUsers = _filteredUsers.Where(a => a.Country == comboBoxCountry.SelectedItem.ToString()).ToList(); }
+
+            LoadFilteredUsers();
+        }
+        private void AddUser()
+        {
+
+        }
+        private void DetailUser()
+        {
+
+        }
+        private void LoadFilteredUsers()
+        {
+            DataGridViewRow row;
+            _dgvSearchUser.Rows.Clear();
+            foreach (User user in _filteredUsers)
+            {
+                _dgvSearchUser.Rows.Add();
+                row = _dgvSearchUser.Rows[_dgvSearchUser.Rows.Count - 1];
+                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnName)].Value = user.FirstName;
+                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnFamilyName)].Value = user.FamilyName;
+                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnId)].Value = user.Id;
+                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnCountry)].Value = user.Country;
+                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnComment)].Value = user.Comment;
+                switch (user.Gender)
+                {
+                    case User.GENDER.MALE:
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.male;
+                        break;
+                    case User.GENDER.FEMAL:
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.female;
+                        break;
+                    case User.GENDER.OTHER:
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.rainbow;
+                        break;
+                    case User.GENDER.UNKNOW:
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.question;
+                        break;
+                    default:
+                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.question;
+                        break;
+                }
+            }
         }
         #endregion
 
@@ -533,9 +692,9 @@ namespace Droid_Booking
         {
             if (_mode == Mode.DETAIL) { Cursor = Cursors.Arrow; }
         }
-        private void buttonSearch_Click(object sender, EventArgs e)
+        private void buttonValidation_Click(object sender, EventArgs e)
         {
-
+            ApplyButtonClick();
         }
         #endregion
     }

@@ -18,9 +18,15 @@
         private string _id;
         private string _country;
         private GENDER _gender;
+        private string _comment;
         #endregion
 
         #region Properties
+        public string Comment
+        {
+            get { return _comment; }
+            set { _comment = value; }
+        }
         public string Country
         {
             get { return _country; }

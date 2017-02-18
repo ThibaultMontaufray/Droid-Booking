@@ -48,6 +48,12 @@
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.buttonValidation = new System.Windows.Forms.Button();
             this._dgvSearch = new System.Windows.Forms.DataGridView();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnColor = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ColumnFloor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCapacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFloor)).BeginInit();
@@ -104,7 +110,6 @@
             this.textBoxColor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxColor.Location = new System.Drawing.Point(621, 38);
             this.textBoxColor.Name = "textBoxColor";
-            this.textBoxColor.ReadOnly = true;
             this.textBoxColor.Size = new System.Drawing.Size(213, 27);
             this.textBoxColor.TabIndex = 13;
             // 
@@ -155,6 +160,11 @@
             0,
             0,
             0});
+            this.numericUpDownCapacity.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             this.numericUpDownCapacity.Name = "numericUpDownCapacity";
             this.numericUpDownCapacity.Size = new System.Drawing.Size(105, 27);
             this.numericUpDownCapacity.TabIndex = 16;
@@ -163,7 +173,7 @@
             1,
             0,
             0,
-            0});
+            -2147483648});
             // 
             // labelFloor
             // 
@@ -225,6 +235,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.DimGray;
             this.panel1.Controls.Add(this.comboBoxType);
             this.panel1.Controls.Add(this.buttonValidation);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -263,22 +274,65 @@
             this.buttonValidation.TabIndex = 23;
             this.buttonValidation.Text = "Search";
             this.buttonValidation.UseVisualStyleBackColor = true;
-            this.buttonValidation.Click += new System.EventHandler(this.buttonSearch_Click);
+            this.buttonValidation.Click += new System.EventHandler(this.buttonApply_Click);
             // 
             // _dgvSearch
             // 
+            this._dgvSearch.AllowUserToAddRows = false;
+            this._dgvSearch.AllowUserToDeleteRows = false;
+            this._dgvSearch.AllowUserToResizeRows = false;
             this._dgvSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._dgvSearch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnName,
+            this.ColumnColor,
+            this.ColumnFloor,
+            this.ColumnCapacity,
+            this.ColumnType,
+            this.ColumnComment});
             this._dgvSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this._dgvSearch.Location = new System.Drawing.Point(0, 128);
             this._dgvSearch.Name = "_dgvSearch";
+            this._dgvSearch.RowHeadersVisible = false;
             this._dgvSearch.Size = new System.Drawing.Size(1280, 328);
             this._dgvSearch.TabIndex = 25;
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.HeaderText = "Name";
+            this.ColumnName.Name = "ColumnName";
+            // 
+            // ColumnColor
+            // 
+            this.ColumnColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ColumnColor.HeaderText = "Color";
+            this.ColumnColor.Name = "ColumnColor";
+            // 
+            // ColumnFloor
+            // 
+            this.ColumnFloor.HeaderText = "Floor";
+            this.ColumnFloor.Name = "ColumnFloor";
+            // 
+            // ColumnCapacity
+            // 
+            this.ColumnCapacity.HeaderText = "Capacity";
+            this.ColumnCapacity.Name = "ColumnCapacity";
+            // 
+            // ColumnType
+            // 
+            this.ColumnType.HeaderText = "Type";
+            this.ColumnType.Name = "ColumnType";
+            // 
+            // ColumnComment
+            // 
+            this.ColumnComment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnComment.HeaderText = "Comment";
+            this.ColumnComment.Name = "ColumnComment";
             // 
             // ViewArea
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DimGray;
+            this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this._dgvSearch);
             this.Controls.Add(this.panel1);
             this.Name = "ViewArea";
@@ -314,5 +368,11 @@
         private System.Windows.Forms.DataGridView _dgvSearch;
         private System.Windows.Forms.Button buttonValidation;
         private System.Windows.Forms.ComboBox comboBoxType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
+        private System.Windows.Forms.DataGridViewButtonColumn ColumnColor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFloor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCapacity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnComment;
     }
 }
