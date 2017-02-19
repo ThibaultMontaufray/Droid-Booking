@@ -85,17 +85,14 @@
     <Compile Include="View\PanelUserResearch.Designer.cs">
       <DependentUpon>PanelUserResearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewArea.cs">
+    <Compile Include="View\ViewAreaEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\ViewArea.Designer.cs">
-      <DependentUpon>ViewArea.cs</DependentUpon>
+    <Compile Include="View\ViewAreaSearch.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ViewBookEdit.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="View\ViewBookEdit.Designer.cs">
-      <DependentUpon>ViewBookEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="View\ViewCalendar.cs">
       <SubType>UserControl</SubType>
@@ -121,6 +118,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="View\ViewUserDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\ViewUserEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ViewUserSearch.cs">
@@ -156,8 +156,11 @@
     <EmbeddedResource Include="View\PanelUserResearch.resx">
       <DependentUpon>PanelUserResearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\ViewArea.resx">
-      <DependentUpon>ViewArea.cs</DependentUpon>
+    <EmbeddedResource Include="View\ViewAreaEdit.resx">
+      <DependentUpon>ViewAreaEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewAreaSearch.resx">
+      <DependentUpon>ViewAreaSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewBookEdit.resx">
       <DependentUpon>ViewBookEdit.cs</DependentUpon>
@@ -170,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewUserDetail.resx">
       <DependentUpon>ViewUserDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewUserEdit.resx">
+      <DependentUpon>ViewUserEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewUserSearch.resx">
       <DependentUpon>ViewUserSearch.cs</DependentUpon>

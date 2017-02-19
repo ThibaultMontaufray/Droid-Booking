@@ -9,7 +9,8 @@ namespace Droid_Booking
         {
             ROOM,
             DORM,
-            PARKING
+            PARKING,
+            OTHER
         }
         #endregion
 

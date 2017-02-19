@@ -13,8 +13,11 @@ namespace Droid_Booking
         private ViewCalendar _viewCalendar;
         private ViewUserSearch _viewUserSearch;
         private ViewUserDetail _viewUserDetail;
-        private ViewArea _viewArea;
+        private ViewAreaSearch _viewAreaSearch;
+        private ViewAreaEdit _viewAreaEdit;
         private ViewWelcome _viewWelcome;
+        private ViewBookEdit _viewBookEdit;
+        private ViewUserEdit _viewUserEdit;
 
         private List<User> _users;
         private List<Area> _areas;
@@ -172,14 +175,19 @@ namespace Droid_Booking
                 case "bookadd":
                     LaunchViewNewBook();
                     break;
+                case "booksearch":
+                    break;
                 case "viewusersearch":
                     LaunchViewUserSearch();
                     break;
                 case "viewuseradd":
                     LaunchViewUserAdd();
                     break;
+                case "viewuseredit":
+                    LaunchViewUserEdit();
+                    break;
                 case "areaadd":
-                    LaunchViewAreaDetail();
+                    LaunchViewAreaEdit();
                     break;
                 case "areasearch":
                     LaunchViewAreaSearch();
@@ -206,11 +214,18 @@ namespace Droid_Booking
             _viewUserSearch = new ViewUserSearch(this);
             _viewUserSearch.Dock = DockStyle.Fill;
             _viewUserSearch.RequestUserDetail += _viewUserSearch_RequestUserDetail;
+            _viewUserSearch.RequestUserEdition += _viewUserSearch_RequestUserEdition;
+
+            _viewUserEdit = new ViewUserEdit(this);
 
             _viewUserDetail = new ViewUserDetail();
             
-            _viewArea = new ViewArea(this);
-            _viewArea.Dock = DockStyle.Fill;
+            _viewAreaSearch = new ViewAreaSearch(this);
+            _viewAreaSearch.Dock = DockStyle.Fill;
+
+            _viewAreaEdit = new ViewAreaEdit(this);
+
+            _viewBookEdit = new ViewBookEdit(this);
 
             _viewWelcome = new ViewWelcome(this);
             _viewWelcome.Dock = DockStyle.Fill;
@@ -282,7 +297,7 @@ namespace Droid_Booking
 
             if (_currentUser != null)
             { 
-                _viewUserDetail.Top = 20;
+                _viewUserDetail.Top = 76;
                 _viewUserDetail.Left =( _sheet.Width / 2) - (_viewUserDetail.Width / 2);
                 _viewUserDetail.LoadUser(_currentUser);
                 _sheet.Controls.Add(_viewUserDetail);
@@ -294,31 +309,61 @@ namespace Droid_Booking
         }
         private void LaunchViewNewBook()
         {
+            _sheet.Controls.Clear();
 
+            _viewBookEdit.Top = 76;
+            _viewBookEdit.RefreshData();
+            _viewBookEdit.Left = (_sheet.Width / 2) - (_viewBookEdit.Width / 2);
+            _sheet.Controls.Add(_viewBookEdit);
         }
         private void LaunchViewUserSearch()
         {
             _sheet.Controls.Clear();
             _sheet.Controls.Add(_viewUserSearch);
         }
+        private void LaunchViewUserEdit()
+        {
+            _sheet.Controls.Clear();
+
+            _viewUserEdit.Top = 76;
+            _viewUserEdit.RefreshData();
+            _viewUserEdit.Left = (_sheet.Width / 2) - (_viewUserEdit.Width / 2);
+            _sheet.Controls.Add(_viewUserEdit);
+        }
         private void LaunchViewUserAdd()
         {
             _sheet.Controls.Clear();
-            //_viewUserSearch.CurrentUser = new User();
-            //_viewUserSearch.ModeView = ViewUserSearch.Mode.EDIT;
-            //_sheet.Controls.Add(_viewUserSearch);
+
+            _viewUserEdit.Top = 76;
+            _currentUser = new User();
+            _viewUserEdit.RefreshData();
+            _viewUserEdit.Left = (_sheet.Width / 2) - (_viewUserEdit.Width / 2);
+            _sheet.Controls.Add(_viewUserEdit);
         }
         private void LaunchViewAreaSearch()
         {
             _sheet.Controls.Clear();
-            _viewArea.ModeView = ViewArea.Mode.SEARCH;
-            _sheet.Controls.Add(_viewArea);
+            _viewAreaSearch.RefreshData();
+            _sheet.Controls.Add(_viewAreaSearch);
         }
-        private void LaunchViewAreaDetail()
+        private void LaunchViewAreaEdit()
         {
             _sheet.Controls.Clear();
-            _viewArea.ModeView = ViewArea.Mode.ADD;
-            _sheet.Controls.Add(_viewArea);
+
+            _viewAreaEdit.Top = 76;
+            _viewAreaEdit.RefreshData();
+            _viewAreaEdit.Left = (_sheet.Width / 2) - (_viewAreaEdit.Width / 2);
+            _sheet.Controls.Add(_viewAreaEdit);
+        }
+        private void LaunchViewAreaAdd()
+        {
+            _sheet.Controls.Clear();
+
+            _viewAreaEdit.Top = 76;
+            _currentArea = new Area();
+            _viewAreaEdit.RefreshData();
+            _viewAreaEdit.Left = (_sheet.Width / 2) - (_viewAreaEdit.Width / 2);
+            _sheet.Controls.Add(_viewAreaEdit);
         }
         #endregion
 
@@ -331,6 +376,14 @@ namespace Droid_Booking
             {
                 _currentUser = o as User;
                 LaunchViewUserDetails();
+            }
+        }
+        private void _viewUserSearch_RequestUserEdition(object o)
+        {
+            if (o is User)
+            {
+                _currentUser = o as User;
+                LaunchViewUserEdit();
             }
         }
         #endregion

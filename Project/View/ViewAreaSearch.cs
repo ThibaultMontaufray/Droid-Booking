@@ -1,16 +1,81 @@
-﻿namespace Droid_Booking
-{
-    partial class ViewArea
-    {
-        /// <summary> 
-        /// Variable nécessaire au concepteur.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-        /// <summary> 
-        /// Nettoyage des ressources utilisées.
-        /// </summary>
-        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
+namespace Droid_Booking
+{
+    public partial class ViewAreaSearch : UserControl
+    {
+        #region Attribute
+        private Interface_booking _intBoo;
+        private List<Area> _filterdArea;
+        
+        private IContainer components = null;
+        private Label labelName;
+        private Label labelColor;
+        private TextBox textBoxName;
+        private TextBox textBoxColor;
+        private ColorDialog colorDialog1;
+        private RibbonColorChooser ribbonColorChooser1;
+        private RibbonColorChooser ribbonColorChooser2;
+        private Button buttonColorChoose;
+        private Label labelCapacity;
+        private NumericUpDown numericUpDownCapacity;
+        private Label labelFloor;
+        private Label labelType;
+        private NumericUpDown numericUpDownFloor;
+        private DataGridView _dgvSearch;
+        private Button buttonValidation;
+        private ComboBox comboBoxType;
+        private DataGridViewTextBoxColumn ColumnName;
+        private DataGridViewButtonColumn ColumnColor;
+        private DataGridViewTextBoxColumn ColumnFloor;
+        private DataGridViewTextBoxColumn ColumnCapacity;
+        private DataGridViewTextBoxColumn ColumnType;
+        private DataGridViewTextBoxColumn ColumnComment;
+        private PanelShield panelShield1;
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructor
+        public ViewAreaSearch()
+        {
+            InitializeComponent();
+            InitializeComponentSpecialized();
+            Init();
+        }
+        public ViewAreaSearch(Interface_booking intBoo)
+        {
+            _intBoo = intBoo;
+
+            InitializeComponent();
+            InitializeComponentSpecialized();
+            Init();
+        }
+        #endregion
+
+        #region Methods public
+        public void RefreshData()
+        {
+            comboBoxType.Items.Clear();
+            comboBoxType.Items.Add("All");
+            foreach (var item in Enum.GetValues(typeof(Area.TYPE)))
+            {
+                comboBoxType.Items.Add(item.ToString());
+            }
+            comboBoxType.Sorted = true;
+        }
+        #endregion
+
+        #region Methods protected
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -19,17 +84,22 @@
             }
             base.Dispose(disposing);
         }
+        #endregion
 
-        #region Code généré par le Concepteur de composants
+        #region Methods private
+        private void Init()
+        {
+            numericUpDownFloor.Value = 999;
+            textBoxColor.BackColor = Color.FromName("Control");
 
-        /// <summary> 
-        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas 
-        /// le contenu de cette méthode avec l'éditeur de code.
-        /// </summary>
+            RefreshData();
+
+            _dgvSearch.Visible = _dgvSearch.Rows.Count != 0;
+            _dgvSearch.Height = (_dgvSearch.Rows.Count * 22) + _dgvSearch.ColumnHeadersHeight;
+        }
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewArea));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewAreaSearch));
             this.labelName = new System.Windows.Forms.Label();
             this.labelColor = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
@@ -43,8 +113,6 @@
             this.labelFloor = new System.Windows.Forms.Label();
             this.labelType = new System.Windows.Forms.Label();
             this.numericUpDownFloor = new System.Windows.Forms.NumericUpDown();
-            this.labelNameTitle = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.buttonValidation = new System.Windows.Forms.Button();
             this._dgvSearch = new System.Windows.Forms.DataGridView();
@@ -54,31 +122,18 @@
             this.ColumnCapacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelShield1 = new Droid_Booking.PanelShield();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFloor)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearch)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Gray;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 13);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
-            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelName.ForeColor = System.Drawing.Color.White;
-            this.labelName.Location = new System.Drawing.Point(123, 41);
+            this.labelName.Location = new System.Drawing.Point(-4, 0);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(59, 19);
             this.labelName.TabIndex = 3;
@@ -91,7 +146,7 @@
             this.labelColor.AutoSize = true;
             this.labelColor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelColor.ForeColor = System.Drawing.Color.White;
-            this.labelColor.Location = new System.Drawing.Point(560, 41);
+            this.labelColor.Location = new System.Drawing.Point(433, 0);
             this.labelColor.Name = "labelColor";
             this.labelColor.Size = new System.Drawing.Size(55, 19);
             this.labelColor.TabIndex = 4;
@@ -100,7 +155,7 @@
             // textBoxName
             // 
             this.textBoxName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxName.Location = new System.Drawing.Point(188, 38);
+            this.textBoxName.Location = new System.Drawing.Point(61, -3);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(357, 27);
             this.textBoxName.TabIndex = 12;
@@ -108,7 +163,7 @@
             // textBoxColor
             // 
             this.textBoxColor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxColor.Location = new System.Drawing.Point(621, 38);
+            this.textBoxColor.Location = new System.Drawing.Point(494, -3);
             this.textBoxColor.Name = "textBoxColor";
             this.textBoxColor.Size = new System.Drawing.Size(213, 27);
             this.textBoxColor.TabIndex = 13;
@@ -132,7 +187,7 @@
             // buttonColorChoose
             // 
             this.buttonColorChoose.Font = new System.Drawing.Font("Calibri", 11F);
-            this.buttonColorChoose.Location = new System.Drawing.Point(835, 38);
+            this.buttonColorChoose.Location = new System.Drawing.Point(708, -3);
             this.buttonColorChoose.Name = "buttonColorChoose";
             this.buttonColorChoose.Size = new System.Drawing.Size(76, 27);
             this.buttonColorChoose.TabIndex = 14;
@@ -145,7 +200,7 @@
             this.labelCapacity.AutoSize = true;
             this.labelCapacity.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCapacity.ForeColor = System.Drawing.Color.White;
-            this.labelCapacity.Location = new System.Drawing.Point(123, 70);
+            this.labelCapacity.Location = new System.Drawing.Point(-4, 29);
             this.labelCapacity.Name = "labelCapacity";
             this.labelCapacity.Size = new System.Drawing.Size(77, 19);
             this.labelCapacity.TabIndex = 15;
@@ -154,7 +209,7 @@
             // numericUpDownCapacity
             // 
             this.numericUpDownCapacity.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownCapacity.Location = new System.Drawing.Point(222, 68);
+            this.numericUpDownCapacity.Location = new System.Drawing.Point(95, 27);
             this.numericUpDownCapacity.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -180,7 +235,7 @@
             this.labelFloor.AutoSize = true;
             this.labelFloor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelFloor.ForeColor = System.Drawing.Color.White;
-            this.labelFloor.Location = new System.Drawing.Point(355, 70);
+            this.labelFloor.Location = new System.Drawing.Point(228, 29);
             this.labelFloor.Name = "labelFloor";
             this.labelFloor.Size = new System.Drawing.Size(53, 19);
             this.labelFloor.TabIndex = 17;
@@ -191,7 +246,7 @@
             this.labelType.AutoSize = true;
             this.labelType.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelType.ForeColor = System.Drawing.Color.White;
-            this.labelType.Location = new System.Drawing.Point(560, 70);
+            this.labelType.Location = new System.Drawing.Point(433, 29);
             this.labelType.Name = "labelType";
             this.labelType.Size = new System.Drawing.Size(51, 19);
             this.labelType.TabIndex = 19;
@@ -200,7 +255,7 @@
             // numericUpDownFloor
             // 
             this.numericUpDownFloor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownFloor.Location = new System.Drawing.Point(440, 68);
+            this.numericUpDownFloor.Location = new System.Drawing.Point(313, 27);
             this.numericUpDownFloor.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -221,46 +276,11 @@
             0,
             0});
             // 
-            // labelNameTitle
-            // 
-            this.labelNameTitle.AutoSize = true;
-            this.labelNameTitle.BackColor = System.Drawing.Color.Maroon;
-            this.labelNameTitle.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNameTitle.ForeColor = System.Drawing.Color.White;
-            this.labelNameTitle.Location = new System.Drawing.Point(125, 7);
-            this.labelNameTitle.Name = "labelNameTitle";
-            this.labelNameTitle.Size = new System.Drawing.Size(57, 23);
-            this.labelNameTitle.TabIndex = 22;
-            this.labelNameTitle.Text = "Name";
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.DimGray;
-            this.panel1.Controls.Add(this.comboBoxType);
-            this.panel1.Controls.Add(this.buttonValidation);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.labelName);
-            this.panel1.Controls.Add(this.labelNameTitle);
-            this.panel1.Controls.Add(this.labelColor);
-            this.panel1.Controls.Add(this.numericUpDownFloor);
-            this.panel1.Controls.Add(this.textBoxName);
-            this.panel1.Controls.Add(this.textBoxColor);
-            this.panel1.Controls.Add(this.labelType);
-            this.panel1.Controls.Add(this.buttonColorChoose);
-            this.panel1.Controls.Add(this.labelFloor);
-            this.panel1.Controls.Add(this.labelCapacity);
-            this.panel1.Controls.Add(this.numericUpDownCapacity);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1280, 128);
-            this.panel1.TabIndex = 24;
-            // 
             // comboBoxType
             // 
             this.comboBoxType.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Location = new System.Drawing.Point(621, 66);
+            this.comboBoxType.Location = new System.Drawing.Point(494, 25);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(290, 27);
             this.comboBoxType.TabIndex = 24;
@@ -268,7 +288,7 @@
             // buttonValidation
             // 
             this.buttonValidation.Font = new System.Drawing.Font("Calibri", 11F);
-            this.buttonValidation.Location = new System.Drawing.Point(836, 94);
+            this.buttonValidation.Location = new System.Drawing.Point(709, 53);
             this.buttonValidation.Name = "buttonValidation";
             this.buttonValidation.Size = new System.Drawing.Size(75, 27);
             this.buttonValidation.TabIndex = 23;
@@ -281,6 +301,8 @@
             this._dgvSearch.AllowUserToAddRows = false;
             this._dgvSearch.AllowUserToDeleteRows = false;
             this._dgvSearch.AllowUserToResizeRows = false;
+            this._dgvSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._dgvSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._dgvSearch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnName,
@@ -289,11 +311,10 @@
             this.ColumnCapacity,
             this.ColumnType,
             this.ColumnComment});
-            this._dgvSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._dgvSearch.Location = new System.Drawing.Point(0, 128);
+            this._dgvSearch.Location = new System.Drawing.Point(42, 156);
             this._dgvSearch.Name = "_dgvSearch";
             this._dgvSearch.RowHeadersVisible = false;
-            this._dgvSearch.Size = new System.Drawing.Size(1280, 328);
+            this._dgvSearch.Size = new System.Drawing.Size(1198, 128);
             this._dgvSearch.TabIndex = 25;
             // 
             // ColumnName
@@ -328,51 +349,163 @@
             this.ColumnComment.HeaderText = "Comment";
             this.ColumnComment.Name = "ColumnComment";
             // 
+            // panelShield1
+            // 
+            this.panelShield1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelShield1.BackColor = System.Drawing.Color.Transparent;
+            this.panelShield1.Location = new System.Drawing.Point(10, 10);
+            this.panelShield1.Name = "panelShield1";
+            this.panelShield1.Size = new System.Drawing.Size(1260, 140);
+            this.panelShield1.TabIndex = 26;
+            // 
             // ViewArea
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.panelShield1);
             this.Controls.Add(this._dgvSearch);
-            this.Controls.Add(this.panel1);
             this.Name = "ViewArea";
             this.Size = new System.Drawing.Size(1280, 456);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFloor)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearch)).EndInit();
             this.ResumeLayout(false);
 
         }
+        private void InitializeComponentSpecialized()
+        {
+            panelShield1.panelMiddle.Controls.Add(this.comboBoxType);
+            panelShield1.panelMiddle.Controls.Add(this.buttonValidation);
+            panelShield1.panelMiddle.Controls.Add(this.labelName);
+            panelShield1.panelMiddle.Controls.Add(this.textBoxColor);
+            panelShield1.panelMiddle.Controls.Add(this.labelColor);
+            panelShield1.panelMiddle.Controls.Add(this.numericUpDownCapacity);
+            panelShield1.panelMiddle.Controls.Add(this.numericUpDownFloor);
+            panelShield1.panelMiddle.Controls.Add(this.labelCapacity);
+            panelShield1.panelMiddle.Controls.Add(this.textBoxName);
+            panelShield1.panelMiddle.Controls.Add(this.labelFloor);
+            panelShield1.panelMiddle.Controls.Add(this.buttonColorChoose);
+            panelShield1.panelMiddle.Controls.Add(this.labelType);
+        }
+        private void DisplayAreaAddView()
+        {
+            if (comboBoxType.Items.Contains("All")) { comboBoxType.Items.Remove("All"); }
+            _dgvSearch.Visible = false;
+            buttonValidation.Text = "Add";
+        }
+        private void SearchArea()
+        {
+            _filterdArea = _intBoo.Areas;
 
+            if (numericUpDownCapacity.Value != -1) { _filterdArea = _filterdArea.Where(a => a.Capacity == (int)numericUpDownCapacity.Value).ToList(); }
+            if (numericUpDownFloor.Value != 999) { _filterdArea = _filterdArea.Where(a => a.Floor == (int)numericUpDownFloor.Value).ToList(); }
+            if (!string.IsNullOrEmpty(textBoxName.Text)) { _filterdArea = _filterdArea.Where(a => a.Name == textBoxName.Text).ToList(); }
+            if (comboBoxType.SelectedItem != null && comboBoxType.SelectedItem.ToString() != "All") { _filterdArea = _filterdArea.Where(a => a.Type == (Area.TYPE)Enum.Parse(typeof(Area.TYPE), comboBoxType.SelectedItem.ToString())).ToList(); }
+            if (textBoxColor.BackColor != Color.FromName("Control")) { _filterdArea = _filterdArea.Where(a => a.Color == textBoxColor.BackColor).ToList(); }
+
+            LoadFilteredAreas();
+
+            _dgvSearch.Visible = _dgvSearch.Rows.Count != 0;
+            _dgvSearch.Height = (_dgvSearch.Rows.Count * 22) + _dgvSearch.ColumnHeadersHeight;
+        }
+        private void AddArea()
+        {
+            bool allDataCorrect = true;
+            if (string.IsNullOrEmpty(textBoxName.Text))
+            {
+                allDataCorrect = false;
+                textBoxName.BackColor = Color.LightYellow;
+            }
+            else
+            {
+                textBoxName.BackColor = Color.FromName("Control");
+            }
+            if (comboBoxType.SelectedItem != null)
+            {
+                allDataCorrect = false;
+                comboBoxType.BackColor = Color.LightYellow;
+            }
+            else
+            {
+                comboBoxType.BackColor = Color.FromName("Control");
+            }
+
+            if (allDataCorrect)
+            { 
+                Area a = new Area();
+                a.Capacity = (int) numericUpDownCapacity.Value;
+                a.Floor = (int)numericUpDownFloor.Value;
+                a.Name = textBoxName.Text;
+                a.Type = (Area.TYPE) Enum.Parse(typeof(Area.TYPE), comboBoxType.SelectedItem.ToString());
+                a.Color = textBoxColor.BackColor;
+
+                _intBoo.Areas.Add(a);
+            }
+        }
+        private void LoadFilteredAreas()
+        {
+            DataGridViewRow row;
+            _dgvSearch.Rows.Clear();
+            if (_filterdArea != null)
+            { 
+                foreach (Area area in _filterdArea)
+                {
+                    _dgvSearch.Rows.Add();
+                    row = _dgvSearch.Rows[_dgvSearch.Rows.Count - 1];
+                    row.Cells[_dgvSearch.Columns.IndexOf(ColumnName)].Value = area.Name;
+                    row.Cells[_dgvSearch.Columns.IndexOf(ColumnType)].Value = area.Type;
+                    row.Cells[_dgvSearch.Columns.IndexOf(ColumnFloor)].Value = area.Floor;
+                    row.Cells[_dgvSearch.Columns.IndexOf(ColumnCapacity)].Value = area.Capacity;
+                    row.Cells[_dgvSearch.Columns.IndexOf(ColumnComment)].Value = area.Comment;
+                    (row.Cells[_dgvSearch.Columns.IndexOf(ColumnColor)] as DataGridViewButtonCell).Style.BackColor = area.Color;
+                }
+            }
+        }
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label labelName;
-        private System.Windows.Forms.Label labelColor;
-        private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.TextBox textBoxColor;
-        private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.RibbonColorChooser ribbonColorChooser1;
-        private System.Windows.Forms.RibbonColorChooser ribbonColorChooser2;
-        private System.Windows.Forms.Button buttonColorChoose;
-        private System.Windows.Forms.Label labelCapacity;
-        private System.Windows.Forms.NumericUpDown numericUpDownCapacity;
-        private System.Windows.Forms.Label labelFloor;
-        private System.Windows.Forms.Label labelType;
-        private System.Windows.Forms.NumericUpDown numericUpDownFloor;
-        private System.Windows.Forms.Label labelNameTitle;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView _dgvSearch;
-        private System.Windows.Forms.Button buttonValidation;
-        private System.Windows.Forms.ComboBox comboBoxType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
-        private System.Windows.Forms.DataGridViewButtonColumn ColumnColor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFloor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCapacity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnComment;
+        #region Event
+        private void buttonColorChoose_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textBoxColor.BackColor = colorDialog1.Color;
+                textBoxColor.Text = colorDialog1.Color.Name;
+            }
+        }
+        private void pictureBox1_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
+        private void buttonApply_Click(object sender, EventArgs e)
+        {
+            SearchArea();
+        }
+        private void TextBoxColor_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(textBoxColor.Text))
+                {
+                    textBoxColor.BackColor = Color.FromName("Control");
+                }
+                else
+                { 
+                    Color col = Color.FromName(textBoxColor.Text);
+                    textBoxColor.BackColor = col;
+                }
+            }
+            catch (Exception)
+            {
+                textBoxColor.BackColor = Color.FromName("Control");
+                textBoxColor.Text = string.Empty;
+            }
+        }
+        #endregion
     }
 }
