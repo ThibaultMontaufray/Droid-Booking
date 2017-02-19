@@ -14,14 +14,16 @@ namespace Droid_Booking
         private RibbonButton _rbWelcome;
 
         private RibbonPanel _panelUser;
-        private RibbonButton _rbUserDetail;
         private RibbonButton _rbUserAdd;
         private RibbonButton _rbUserSearch;
 
         private RibbonPanel _panelArea;
-        private RibbonButton _rbCalendar;
         private RibbonButton _rbAreaAdd;
         private RibbonButton _rbAreaSearch;
+
+        private RibbonPanel _panelBook;
+        private RibbonButton _rbCalendar;
+        private RibbonButton _rbBookAdd;
         #endregion
 
         #region Properties
@@ -44,6 +46,7 @@ namespace Droid_Booking
             BuildPanelFiles();
             BuildPanelUsers();
             BuildPanelArea();
+            BuildPanelBook();
         }
         private void BuildPanelFiles()
         {
@@ -62,12 +65,7 @@ namespace Droid_Booking
             _rbUserAdd.Image = Tools4Libraries.Resources.ResourceIconSet32Default.user_add;
             _rbUserAdd.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.user_add;
             _rbUserAdd.Click += _rbUserAdd_Click;
-
-            _rbUserDetail = new RibbonButton("User details");
-            _rbUserDetail.Image = Tools4Libraries.Resources.ResourceIconSet32Default.report_user;
-            _rbUserDetail.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.report_user;
-            _rbUserDetail.Click += _rbUserDetail_Click;
-
+            
             _rbUserSearch = new RibbonButton("Search user");
             _rbUserSearch.Image = Tools4Libraries.Resources.ResourceIconSet32Default.drive_user;
             _rbUserSearch.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.drive_user;
@@ -75,17 +73,11 @@ namespace Droid_Booking
 
             _panelUser = new RibbonPanel("User");
             _panelUser.Items.Add(_rbUserAdd);
-            _panelUser.Items.Add(_rbUserDetail);
             _panelUser.Items.Add(_rbUserSearch);
             this.Panels.Add(_panelUser);
         }
         private void BuildPanelArea()
         {
-            _rbCalendar = new RibbonButton("Calendar view");
-            _rbCalendar.Image = Tools4Libraries.Resources.ResourceIconSet32Default.calendar;
-            _rbCalendar.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.calendar;
-            _rbCalendar.Click += _rbCalendar_Click;
-
             _rbAreaAdd = new RibbonButton("Add area");
             _rbAreaAdd.Image = Tools4Libraries.Resources.ResourceIconSet32Default.layer_add;
             _rbAreaAdd.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.layer_add;
@@ -97,10 +89,26 @@ namespace Droid_Booking
             _rbAreaSearch.Click += _rbAreaSearch_Click;
 
             _panelArea = new RibbonPanel("Area");
-            _panelArea.Items.Add(_rbCalendar);
             _panelArea.Items.Add(_rbAreaAdd);
             _panelArea.Items.Add(_rbAreaSearch);
             this.Panels.Add(_panelArea);
+        }
+        private void BuildPanelBook()
+        {
+            _rbCalendar = new RibbonButton("Calendar view");
+            _rbCalendar.Image = Tools4Libraries.Resources.ResourceIconSet32Default.calendar;
+            _rbCalendar.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.calendar;
+            _rbCalendar.Click += _rbCalendar_Click;
+
+            _rbBookAdd = new RibbonButton("New book");
+            _rbBookAdd.Image = Tools4Libraries.Resources.ResourceIconSet32Default.report_add;
+            _rbBookAdd.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.report_add;
+            _rbBookAdd.Click += _rbBookAdd_Click;
+
+            _panelBook = new RibbonPanel("Book");
+            _panelBook.Items.Add(_rbCalendar);
+            _panelBook.Items.Add(_rbBookAdd);
+            this.Panels.Add(_panelBook);
         }
         #endregion
 
@@ -124,11 +132,6 @@ namespace Droid_Booking
             ToolBarEventArgs action = new ToolBarEventArgs("viewuseradd");
             OnAction(action);
         }
-        private void _rbUserDetail_Click(object sender, System.EventArgs e)
-        {
-            ToolBarEventArgs action = new ToolBarEventArgs("viewuserdetail");
-            OnAction(action);
-        }
         private void _rbUserSearch_Click(object sender, System.EventArgs e)
         {
             ToolBarEventArgs action = new ToolBarEventArgs("viewusersearch");
@@ -142,6 +145,11 @@ namespace Droid_Booking
         private void _rbAreaSearch_Click(object sender, System.EventArgs e)
         {
             ToolBarEventArgs action = new ToolBarEventArgs("areasearch");
+            OnAction(action);
+        }
+        private void _rbBookAdd_Click(object sender, System.EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("bookadd");
             OnAction(action);
         }
         #endregion

@@ -1,4 +1,6 @@
-﻿namespace Droid_Booking
+﻿using System.Drawing;
+
+namespace Droid_Booking
 {
     public class User
     {
@@ -20,9 +22,15 @@
         private GENDER _gender;
         private string _comment;
         private string _mail;
+        private Image _picture;
         #endregion
 
         #region Properties
+        public Image Picture
+        {
+            get { return _picture; }
+            set { _picture = value; }
+        }
         public string Comment
         {
             get { return _comment; }
@@ -63,7 +71,8 @@
         #region Constructor
         public User()
         {
-            Gender = GENDER.UNKNOW;
+            _gender = GENDER.UNKNOW;
+            _picture = Properties.Resources.shadow_man;
         }
         #endregion
 

@@ -11,15 +11,41 @@ namespace Droid_Booking
         private Panel _sheet;
         private ToolStripMenuBooking _tsm;
         private ViewCalendar _viewCalendar;
-        private ViewUser _viewUser;
+        private ViewUserSearch _viewUserSearch;
+        private ViewUserDetail _viewUserDetail;
         private ViewArea _viewArea;
         private ViewWelcome _viewWelcome;
 
         private List<User> _users;
         private List<Area> _areas;
+        private List<Book> _books;
+        
+        private User _currentUser;
+        private Area _currentArea;
+        private Book _currentBook;
         #endregion
 
         #region Properties
+        public Book CurrentBook
+        {
+            get { return _currentBook; }
+            set { _currentBook = value; }
+        }
+        public List<Book> Books
+        {
+            get { return _books; }
+            set { _books = value; }
+        }
+        public Area CurrentArea
+        {
+            get { return _currentArea; }
+            set { _currentArea = value; }
+        }
+        public User CurrentUser
+        {
+            get { return _currentUser; }
+            set { _currentUser = value; }
+        }
         public List<Area> Areas
         {
             get { return _areas; }
@@ -143,8 +169,8 @@ namespace Droid_Booking
                 case "viewcalendar":
                     LaunchViewCalendar();
                     break;
-                case "viewuserdetail":
-                    LaunchViewUserDetails();
+                case "bookadd":
+                    LaunchViewNewBook();
                     break;
                 case "viewusersearch":
                     LaunchViewUserSearch();
@@ -168,6 +194,8 @@ namespace Droid_Booking
             _sheet = new Panel();
             _sheet.BackColor = System.Drawing.Color.DimGray;
             _sheet.Dock = DockStyle.Fill;
+            _sheet.BackgroundImage = Properties.Resources.ShieldTileBg;
+            _sheet.BackgroundImageLayout = ImageLayout.Tile;
 
             BuildToolBar();
             InitData();
@@ -175,9 +203,12 @@ namespace Droid_Booking
             _viewCalendar = new ViewCalendar(this);
             _viewCalendar.Dock = DockStyle.Fill;
 
-            _viewUser = new ViewUser(this);
-            _viewUser.Dock = DockStyle.Fill;
+            _viewUserSearch = new ViewUserSearch(this);
+            _viewUserSearch.Dock = DockStyle.Fill;
+            _viewUserSearch.RequestUserDetail += _viewUserSearch_RequestUserDetail;
 
+            _viewUserDetail = new ViewUserDetail();
+            
             _viewArea = new ViewArea(this);
             _viewArea.Dock = DockStyle.Fill;
 
@@ -189,13 +220,14 @@ namespace Droid_Booking
         {
             _users = new List<User>();
             _areas = new List<Area>();
+            _books = new List<Book>();
 
             LoadDataDemo();
         }
         private void LoadDataDemo()
         {
             _users.Add(new User() { Mail = "MIKOS.Adelaide@totoweb.com", Country = "New Zealand", FamilyName = "MIKOS", FirstName = "Adelaide", Gender = User.GENDER.FEMAL, Id = "0127856789" });
-            _users.Add(new User() { Mail = "thibault.montaufray@hotmail.fr", Country = "France", FamilyName = "MONTAUFRAY", FirstName = "Thibault", Gender = User.GENDER.MALE, Id = "0125666789" });
+            _users.Add(new User() { Mail = "thibault.montaufray@hotmail.fr", Country = "France", FamilyName = "MONTAUFRAY", FirstName = "Thibault", Gender = User.GENDER.MALE, Id = "0125666789", Comment="Best developer ever ! Trust him you'll be never disapointed, seriously, I never saw a man like that so dedicated to his job and be the best thinns always around him." });
             _users.Add(new User() { Mail = "", Country = "New Zealand", FamilyName = "HARRIS", FirstName = "Jeremy", Gender = User.GENDER.MALE, Id = "5823697410" });
             _users.Add(new User() { Mail = "", Country = "France", FamilyName = "DUPONT", FirstName = "Pierre", Gender = User.GENDER.OTHER, Id = "1111456789" });
             _users.Add(new User() { Mail = "", Country = "United States", FamilyName = "SMITH", FirstName = "John", Gender = User.GENDER.MALE, Id = "0121156789" });
@@ -219,6 +251,18 @@ namespace Droid_Booking
             _areas.Add(new Area() { Name = "P2", Floor = 0, Color = System.Drawing.Color.Gray, Capacity = 1, Type = Area.TYPE.PARKING });
             _areas.Add(new Area() { Name = "P3", Floor = 0, Color = System.Drawing.Color.Gray, Capacity = 1, Type = Area.TYPE.PARKING });
             _areas.Add(new Area() { Name = "P4", Floor = 0, Color = System.Drawing.Color.Gray, Capacity = 1, Type = Area.TYPE.PARKING });
+
+            _books.Add(new Book() { Area = _areas[4], Confirmed = true, StartDate = DateTime.Now.AddDays(-1), EndDate = DateTime.Now.AddDays(7), Paid = 20, Price = 120, User = _users[0] });
+            _books.Add(new Book() { Area = _areas[0], Confirmed = true, StartDate = DateTime.Now.AddDays(2), EndDate = DateTime.Now.AddDays(5), Paid = 20, Price = 120, User = _users[1] });
+            _books.Add(new Book() { Area = _areas[4], Confirmed = true, StartDate = DateTime.Now.AddDays(-3), EndDate = DateTime.Now.AddDays(5), Paid = 20, Price = 120, User = _users[2] });
+            _books.Add(new Book() { Area = _areas[7], Confirmed = true, StartDate = DateTime.Now.AddDays(5), EndDate = DateTime.Now.AddDays(6), Paid = 20, Price = 120, User = _users[4] });
+            _books.Add(new Book() { Area = _areas[5], Confirmed = true, StartDate = DateTime.Now.AddDays(1), EndDate = DateTime.Now.AddDays(7), Paid = 20, Price = 120, User = _users[3] });
+            _books.Add(new Book() { Area = _areas[5], Confirmed = true, StartDate = DateTime.Now.AddDays(-7), EndDate = DateTime.Now.AddDays(9), Paid = 20, Price = 120, User = _users[5] });
+            _books.Add(new Book() { Area = _areas[8], Confirmed = true, StartDate = DateTime.Now.AddDays(5), EndDate = DateTime.Now.AddDays(8), Paid = 20, Price = 120, User = _users[0] });
+            _books.Add(new Book() { Area = _areas[9], Confirmed = true, StartDate = DateTime.Now.AddDays(6), EndDate = DateTime.Now.AddDays(17), Paid = 20, Price = 120, User = _users[1] });
+            _books.Add(new Book() { Area = _areas[1], Confirmed = true, StartDate = DateTime.Now.AddDays(8), EndDate = DateTime.Now.AddDays(17), Paid = 20, Price = 120, User = _users[2] });
+            _books.Add(new Book() { Area = _areas[14], Confirmed = true, StartDate = DateTime.Now.AddDays(-9), EndDate = DateTime.Now.AddDays(17), Paid = 20, Price = 120, User = _users[3] });
+            _books.Add(new Book() { Area = _areas[4], Confirmed = true, StartDate = DateTime.Now.AddDays(2), EndDate = DateTime.Now.AddDays(3), Paid = 20, Price = 120, User = _users[2] });
         }
 
         #region Launcher
@@ -235,21 +279,34 @@ namespace Droid_Booking
         private void LaunchViewUserDetails()
         {
             _sheet.Controls.Clear();
-            _viewUser.ModeView = ViewUser.Mode.DETAIL;
-            _sheet.Controls.Add(_viewUser);
+
+            if (_currentUser != null)
+            { 
+                _viewUserDetail.Top = 20;
+                _viewUserDetail.Left =( _sheet.Width / 2) - (_viewUserDetail.Width / 2);
+                _viewUserDetail.LoadUser(_currentUser);
+                _sheet.Controls.Add(_viewUserDetail);
+            }
+            else
+            {
+
+            }
+        }
+        private void LaunchViewNewBook()
+        {
+
         }
         private void LaunchViewUserSearch()
         {
             _sheet.Controls.Clear();
-            _viewUser.ModeView = ViewUser.Mode.SEARCH;
-            _sheet.Controls.Add(_viewUser);
+            _sheet.Controls.Add(_viewUserSearch);
         }
         private void LaunchViewUserAdd()
         {
             _sheet.Controls.Clear();
-            _viewUser.CurrentUser = new User();
-            _viewUser.ModeView = ViewUser.Mode.EDIT;
-            _sheet.Controls.Add(_viewUser);
+            //_viewUserSearch.CurrentUser = new User();
+            //_viewUserSearch.ModeView = ViewUserSearch.Mode.EDIT;
+            //_sheet.Controls.Add(_viewUserSearch);
         }
         private void LaunchViewAreaSearch()
         {
@@ -265,6 +322,17 @@ namespace Droid_Booking
         }
         #endregion
 
+        #endregion
+
+        #region Event
+        private void _viewUserSearch_RequestUserDetail(object o)
+        {
+            if (o is User)
+            {
+                _currentUser = o as User;
+                LaunchViewUserDetails();
+            }
+        }
         #endregion
     }
 }

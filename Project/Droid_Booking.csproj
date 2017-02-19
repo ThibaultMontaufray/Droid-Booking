@@ -64,6 +64,7 @@
     <Compile Include="Controler\GetText.cs" />
     <Compile Include="Controler\Interface_booking.cs" />
     <Compile Include="Model\Area.cs" />
+    <Compile Include="Model\Book.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\ResourceEnglish.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -75,11 +76,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResourceFrench.resx</DependentUpon>
     </Compile>
+    <Compile Include="View\PanelShield.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\PanelUserResearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\PanelUserResearch.Designer.cs">
+      <DependentUpon>PanelUserResearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewArea.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ViewArea.Designer.cs">
       <DependentUpon>ViewArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewBookEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\ViewBookEdit.Designer.cs">
+      <DependentUpon>ViewBookEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="View\ViewCalendar.cs">
       <SubType>UserControl</SubType>
@@ -104,7 +120,10 @@
     <Compile Include="View\ToolStripMenuBooking.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="View\ViewUser.cs">
+    <Compile Include="View\ViewUserDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\ViewUserSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ViewWelcome.cs">
@@ -131,8 +150,17 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourceFrench.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\PanelShield.resx">
+      <DependentUpon>PanelShield.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\PanelUserResearch.resx">
+      <DependentUpon>PanelUserResearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ViewArea.resx">
       <DependentUpon>ViewArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewBookEdit.resx">
+      <DependentUpon>ViewBookEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewCalendar.resx">
       <DependentUpon>ViewCalendar.cs</DependentUpon>
@@ -140,8 +168,11 @@
     <EmbeddedResource Include="View\DroidBookingForm.resx">
       <DependentUpon>DroidBookingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\ViewUser.resx">
-      <DependentUpon>ViewUser.cs</DependentUpon>
+    <EmbeddedResource Include="View\ViewUserDetail.resx">
+      <DependentUpon>ViewUserDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewUserSearch.resx">
+      <DependentUpon>ViewUserSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewWelcome.resx">
       <DependentUpon>ViewWelcome.cs</DependentUpon>
@@ -162,6 +193,16 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\panelFullTopRight.png" />
+    <None Include="Resources\panelFullTopLeft.png" />
+    <None Include="Resources\panelFullTop.png" />
+    <None Include="Resources\panelFullRight.png" />
+    <None Include="Resources\panelFullLeft.png" />
+    <None Include="Resources\panelFullBottomRight.png" />
+    <None Include="Resources\panelFullBottomLeft.png" />
+    <None Include="Resources\panelFullBottom.png" />
+    <None Include="Resources\transparent2.png" />
+    <None Include="Resources\ShieldTileBg.png" />
     <None Include="Resources\shadow_man.png" />
     <None Include="Resources\shadow_woman.png" />
     <None Include="Resources\wallpapers-download-1024x1024-vector-city-skyline-1920x1200-wallpaper.jpg" />

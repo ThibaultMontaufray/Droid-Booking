@@ -5,49 +5,34 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewUser : UserControl
+    public delegate void ViewUserEventHandler(object o);
+    public partial class ViewUserSearch : UserControl
     {
-        #region Enum
-        public enum Mode
-        {
-            EDIT,
-            DETAIL,
-            SEARCH
-        }
-        #endregion
-
         #region Attribute
+        public event ViewUserEventHandler RequestUserDetail;
+
+        private readonly DataGridViewCellStyle cellStyle1 = new DataGridViewCellStyle() { BackColor = System.Drawing.Color.DarkGray };
+        private readonly DataGridViewCellStyle cellStyle2 = new DataGridViewCellStyle() { BackColor = System.Drawing.Color.LightGray };
         private Interface_booking _intBoo;
-        private Mode _mode;
         private List<User> _filteredUsers;
         
         private System.ComponentModel.IContainer components = null;
-        private DataGridView _dgvCalendar;
-        private DataGridViewTextBoxColumn Month1;
-        private DataGridViewTextBoxColumn Month2;
-        private DataGridViewTextBoxColumn Month3;
-        private DataGridViewTextBoxColumn Month4;
-        private DataGridViewTextBoxColumn Month5;
-        private Panel panel1;
+        private PanelShield panelUserSearch;
         private ComboBox comboBoxGender;
         private ComboBox comboBoxCountry;
         private Button buttonValidation;
         private TextBox textBoxFamilyName;
         private TextBox textBoxId;
-        private Label labelIdValue;
-        private Label labelGenderValue;
         private Label labelId;
-        private Label labelFamilynameValue;
         private Label labelCountry;
-        private Label labelCountryValue;
         private Label labelGender;
         private TextBox textBoxFirstname;
         private PictureBox pictureBox1;
-        private Label labelNameValue;
         private Label labelFamilyname;
         private Label labelFirstname;
         private Label labelNameTitle;
         private DataGridView _dgvSearchUser;
+        private FontDialog fontDialog1;
         private DataGridViewTextBoxColumn ColumnName;
         private DataGridViewTextBoxColumn ColumnFamilyName;
         private DataGridViewImageColumn ColumnGender;
@@ -57,20 +42,11 @@ namespace Droid_Booking
         private DataGridViewTextBoxColumn ColumnComment;
         private DataGridViewImageColumn ColumnEdit;
         private DataGridViewImageColumn ColumnDelete;
-        private FontDialog fontDialog1;
+        private DataGridViewImageColumn ColumnDetail;
         private User _currentUser;
         #endregion
 
         #region Properties
-        public Mode ModeView
-        {
-            get { return _mode; }
-            set
-            {
-                _mode = value;
-                RefreshDisplay();
-            }
-        }
         public User CurrentUser
         {
             get { return _currentUser; }
@@ -79,38 +55,23 @@ namespace Droid_Booking
         #endregion
 
         #region Constructor
-        public ViewUser()
+        public ViewUserSearch()
         {
             InitializeComponent();
+            InitializeComponentSpecial();
             Init();
         }
-        public ViewUser(Interface_booking intBoo)
+        public ViewUserSearch(Interface_booking intBoo)
         {
             _intBoo = intBoo;
 
             InitializeComponent();
+            InitializeComponentSpecial();
             Init();
         }
         #endregion
 
         #region Methods public
-        public void RefreshDisplay()
-        {
-            switch (_mode)
-            {
-                case Mode.DETAIL:
-                    DisplayUserDetailView();
-                    break;
-                case Mode.SEARCH:
-                    DisplayUserSearchingView();
-                    break;
-                case Mode.EDIT:
-                    DisplayUserEditView();
-                    break;
-                default:
-                    break;
-            }
-        }
         #endregion
 
         #region Methods protected
@@ -127,50 +88,41 @@ namespace Droid_Booking
         #region Methods private
         private void Init()
         {
-            _mode = Mode.SEARCH;
             DataGridViewRow row;
-            _dgvCalendar.Rows.Clear();
             for (int i = 1; i < 32; i++)
             {
                 row = new DataGridViewRow();
                 row.HeaderCell.Value = i.ToString();
-                _dgvCalendar.Rows.Add(row);
             }
-            this.Controls.Add(this._dgvCalendar);
-            RefreshDisplay();
             LoadGender();
             LoadCountries();
+
+            _dgvSearchUser.Visible = _dgvSearchUser.Rows.Count != 0;
+            _dgvSearchUser.Height = (_dgvSearchUser.Rows.Count * 22) + _dgvSearchUser.ColumnHeadersHeight;
         }
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewUserSearch));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this._dgvCalendar = new System.Windows.Forms.DataGridView();
-            this.Month1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Month2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Month3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Month4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Month5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this._dgvSearchUser = new System.Windows.Forms.DataGridView();
             this.comboBoxGender = new System.Windows.Forms.ComboBox();
             this.comboBoxCountry = new System.Windows.Forms.ComboBox();
             this.buttonValidation = new System.Windows.Forms.Button();
             this.textBoxFamilyName = new System.Windows.Forms.TextBox();
             this.textBoxId = new System.Windows.Forms.TextBox();
-            this.labelIdValue = new System.Windows.Forms.Label();
-            this.labelGenderValue = new System.Windows.Forms.Label();
             this.labelId = new System.Windows.Forms.Label();
-            this.labelFamilynameValue = new System.Windows.Forms.Label();
             this.labelCountry = new System.Windows.Forms.Label();
-            this.labelCountryValue = new System.Windows.Forms.Label();
             this.labelGender = new System.Windows.Forms.Label();
             this.textBoxFirstname = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelNameValue = new System.Windows.Forms.Label();
             this.labelFamilyname = new System.Windows.Forms.Label();
             this.labelFirstname = new System.Windows.Forms.Label();
             this.labelNameTitle = new System.Windows.Forms.Label();
-            this._dgvSearchUser = new System.Windows.Forms.DataGridView();
+            this.panelUserSearch = new Droid_Booking.PanelShield();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnFamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnGender = new System.Windows.Forms.DataGridViewImageColumn();
@@ -180,108 +132,50 @@ namespace Droid_Booking
             this.ColumnComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnEdit = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnDelete = new System.Windows.Forms.DataGridViewImageColumn();
-            ((System.ComponentModel.ISupportInitialize)(this._dgvCalendar)).BeginInit();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.ColumnDetail = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearchUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // _dgvCalendar
+            // _dgvSearchUser
             // 
-            this._dgvCalendar.AllowUserToAddRows = false;
-            this._dgvCalendar.AllowUserToDeleteRows = false;
-            this._dgvCalendar.AllowUserToResizeColumns = false;
-            this._dgvCalendar.AllowUserToResizeRows = false;
-            this._dgvCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this._dgvSearchUser.AllowUserToAddRows = false;
+            this._dgvSearchUser.AllowUserToDeleteRows = false;
+            this._dgvSearchUser.AllowUserToOrderColumns = true;
+            this._dgvSearchUser.AllowUserToResizeRows = false;
+            this._dgvSearchUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._dgvCalendar.BackgroundColor = System.Drawing.Color.DimGray;
-            this._dgvCalendar.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
-            this._dgvCalendar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._dgvCalendar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Month1,
-            this.Month2,
-            this.Month3,
-            this.Month4,
-            this.Month5});
-            this._dgvCalendar.Location = new System.Drawing.Point(0, 133);
-            this._dgvCalendar.MultiSelect = false;
-            this._dgvCalendar.Name = "_dgvCalendar";
-            this._dgvCalendar.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.DarkOrange;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Orange;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._dgvCalendar.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this._dgvCalendar.RowHeadersWidth = 76;
-            this._dgvCalendar.Size = new System.Drawing.Size(1434, 374);
-            this._dgvCalendar.TabIndex = 10;
-            // 
-            // Month1
-            // 
-            this.Month1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Month1.HeaderText = "ColumnMonth1";
-            this.Month1.Name = "Month1";
-            this.Month1.ReadOnly = true;
-            this.Month1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Month2
-            // 
-            this.Month2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Month2.HeaderText = "ColumnMonth2";
-            this.Month2.Name = "Month2";
-            this.Month2.ReadOnly = true;
-            // 
-            // Month3
-            // 
-            this.Month3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Month3.HeaderText = "ColumnMonth3";
-            this.Month3.Name = "Month3";
-            this.Month3.ReadOnly = true;
-            // 
-            // Month4
-            // 
-            this.Month4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Month4.HeaderText = "ColumnMonth4";
-            this.Month4.Name = "Month4";
-            this.Month4.ReadOnly = true;
-            // 
-            // Month5
-            // 
-            this.Month5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Month5.HeaderText = "ColumnMonth5";
-            this.Month5.Name = "Month5";
-            this.Month5.ReadOnly = true;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.DimGray;
-            this.panel1.Controls.Add(this.comboBoxGender);
-            this.panel1.Controls.Add(this.comboBoxCountry);
-            this.panel1.Controls.Add(this.buttonValidation);
-            this.panel1.Controls.Add(this.textBoxFamilyName);
-            this.panel1.Controls.Add(this.textBoxId);
-            this.panel1.Controls.Add(this.labelIdValue);
-            this.panel1.Controls.Add(this.labelGenderValue);
-            this.panel1.Controls.Add(this.labelId);
-            this.panel1.Controls.Add(this.labelFamilynameValue);
-            this.panel1.Controls.Add(this.labelCountry);
-            this.panel1.Controls.Add(this.labelCountryValue);
-            this.panel1.Controls.Add(this.labelGender);
-            this.panel1.Controls.Add(this.textBoxFirstname);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.labelNameValue);
-            this.panel1.Controls.Add(this.labelFamilyname);
-            this.panel1.Controls.Add(this.labelFirstname);
-            this.panel1.Controls.Add(this.labelNameTitle);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1434, 133);
-            this.panel1.TabIndex = 23;
+            this._dgvSearchUser.BackgroundColor = System.Drawing.Color.Gray;
+            this._dgvSearchUser.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkRed;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkRed;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._dgvSearchUser.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this._dgvSearchUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._dgvSearchUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnName,
+            this.ColumnFamilyName,
+            this.ColumnGender,
+            this.ColumnCountry,
+            this.ColumnId,
+            this.ColumnMail,
+            this.ColumnComment,
+            this.ColumnDetail,
+            this.ColumnEdit,
+            this.ColumnDelete});
+            this._dgvSearchUser.Location = new System.Drawing.Point(46, 198);
+            this._dgvSearchUser.MultiSelect = false;
+            this._dgvSearchUser.Name = "_dgvSearchUser";
+            this._dgvSearchUser.RowHeadersVisible = false;
+            this._dgvSearchUser.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this._dgvSearchUser.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this._dgvSearchUser.Size = new System.Drawing.Size(1397, 277);
+            this._dgvSearchUser.TabIndex = 24;
+            this._dgvSearchUser.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._dgvSearchUser_CellClick);
             // 
             // comboBoxGender
             // 
@@ -328,28 +222,6 @@ namespace Droid_Booking
             this.textBoxId.Size = new System.Drawing.Size(300, 27);
             this.textBoxId.TabIndex = 18;
             // 
-            // labelIdValue
-            // 
-            this.labelIdValue.AutoSize = true;
-            this.labelIdValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelIdValue.ForeColor = System.Drawing.Color.White;
-            this.labelIdValue.Location = new System.Drawing.Point(625, 69);
-            this.labelIdValue.Name = "labelIdValue";
-            this.labelIdValue.Size = new System.Drawing.Size(65, 19);
-            this.labelIdValue.TabIndex = 11;
-            this.labelIdValue.Text = "_______";
-            // 
-            // labelGenderValue
-            // 
-            this.labelGenderValue.AutoSize = true;
-            this.labelGenderValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGenderValue.ForeColor = System.Drawing.Color.White;
-            this.labelGenderValue.Location = new System.Drawing.Point(231, 102);
-            this.labelGenderValue.Name = "labelGenderValue";
-            this.labelGenderValue.Size = new System.Drawing.Size(65, 19);
-            this.labelGenderValue.TabIndex = 7;
-            this.labelGenderValue.Text = "_______";
-            // 
             // labelId
             // 
             this.labelId.AutoSize = true;
@@ -361,17 +233,6 @@ namespace Droid_Booking
             this.labelId.TabIndex = 15;
             this.labelId.Text = "ID : ";
             // 
-            // labelFamilynameValue
-            // 
-            this.labelFamilynameValue.AutoSize = true;
-            this.labelFamilynameValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFamilynameValue.ForeColor = System.Drawing.Color.White;
-            this.labelFamilynameValue.Location = new System.Drawing.Point(231, 69);
-            this.labelFamilynameValue.Name = "labelFamilynameValue";
-            this.labelFamilynameValue.Size = new System.Drawing.Size(65, 19);
-            this.labelFamilynameValue.TabIndex = 5;
-            this.labelFamilynameValue.Text = "_______";
-            // 
             // labelCountry
             // 
             this.labelCountry.AutoSize = true;
@@ -382,17 +243,6 @@ namespace Droid_Booking
             this.labelCountry.Size = new System.Drawing.Size(71, 19);
             this.labelCountry.TabIndex = 8;
             this.labelCountry.Text = "Country : ";
-            // 
-            // labelCountryValue
-            // 
-            this.labelCountryValue.AutoSize = true;
-            this.labelCountryValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCountryValue.ForeColor = System.Drawing.Color.White;
-            this.labelCountryValue.Location = new System.Drawing.Point(625, 41);
-            this.labelCountryValue.Name = "labelCountryValue";
-            this.labelCountryValue.Size = new System.Drawing.Size(65, 19);
-            this.labelCountryValue.TabIndex = 9;
-            this.labelCountryValue.Text = "_______";
             // 
             // labelGender
             // 
@@ -423,17 +273,6 @@ namespace Droid_Booking
             this.pictureBox1.Size = new System.Drawing.Size(100, 100);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // labelNameValue
-            // 
-            this.labelNameValue.AutoSize = true;
-            this.labelNameValue.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNameValue.ForeColor = System.Drawing.Color.White;
-            this.labelNameValue.Location = new System.Drawing.Point(231, 38);
-            this.labelNameValue.Name = "labelNameValue";
-            this.labelNameValue.Size = new System.Drawing.Size(65, 19);
-            this.labelNameValue.TabIndex = 3;
-            this.labelNameValue.Text = "_______";
             // 
             // labelFamilyname
             // 
@@ -469,63 +308,59 @@ namespace Droid_Booking
             this.labelNameTitle.TabIndex = 1;
             this.labelNameTitle.Text = "Name";
             // 
-            // _dgvSearchUser
+            // panelUserSearch
             // 
-            this._dgvSearchUser.AllowUserToAddRows = false;
-            this._dgvSearchUser.AllowUserToDeleteRows = false;
-            this._dgvSearchUser.AllowUserToOrderColumns = true;
-            this._dgvSearchUser.AllowUserToResizeRows = false;
-            this._dgvSearchUser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelUserSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._dgvSearchUser.BackgroundColor = System.Drawing.Color.Gray;
-            this._dgvSearchUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._dgvSearchUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnName,
-            this.ColumnFamilyName,
-            this.ColumnGender,
-            this.ColumnCountry,
-            this.ColumnId,
-            this.ColumnMail,
-            this.ColumnComment,
-            this.ColumnEdit,
-            this.ColumnDelete});
-            this._dgvSearchUser.Location = new System.Drawing.Point(0, 133);
-            this._dgvSearchUser.Name = "_dgvSearchUser";
-            this._dgvSearchUser.RowHeadersVisible = false;
-            this._dgvSearchUser.Size = new System.Drawing.Size(1434, 374);
-            this._dgvSearchUser.TabIndex = 24;
-            this._dgvSearchUser.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._dgvSearchUser_CellClick);
+            this.panelUserSearch.BackColor = System.Drawing.Color.Transparent;
+            this.panelUserSearch.Location = new System.Drawing.Point(10, 10);
+            this.panelUserSearch.Margin = new System.Windows.Forms.Padding(5);
+            this.panelUserSearch.Name = "panelUserSearch";
+            this.panelUserSearch.Size = new System.Drawing.Size(1480, 165);
+            this.panelUserSearch.TabIndex = 23;
             // 
             // ColumnName
             // 
+            this.ColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.ColumnName.HeaderText = "Firstname";
             this.ColumnName.Name = "ColumnName";
+            this.ColumnName.Width = 98;
             // 
             // ColumnFamilyName
             // 
-            this.ColumnFamilyName.HeaderText = "Family name";
+            this.ColumnFamilyName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColumnFamilyName.HeaderText = "Name";
             this.ColumnFamilyName.Name = "ColumnFamilyName";
+            this.ColumnFamilyName.Width = 72;
             // 
             // ColumnGender
             // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle2.NullValue")));
+            this.ColumnGender.DefaultCellStyle = dataGridViewCellStyle2;
             this.ColumnGender.HeaderText = "Gender";
             this.ColumnGender.Name = "ColumnGender";
             // 
             // ColumnCountry
             // 
+            this.ColumnCountry.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.ColumnCountry.HeaderText = "Country";
             this.ColumnCountry.Name = "ColumnCountry";
+            this.ColumnCountry.Width = 84;
             // 
             // ColumnId
             // 
+            this.ColumnId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.ColumnId.HeaderText = "Id";
             this.ColumnId.Name = "ColumnId";
+            this.ColumnId.Width = 46;
             // 
             // ColumnMail
             // 
+            this.ColumnMail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.ColumnMail.HeaderText = "Mail";
             this.ColumnMail.Name = "ColumnMail";
+            this.ColumnMail.Width = 63;
             // 
             // ColumnComment
             // 
@@ -536,35 +371,64 @@ namespace Droid_Booking
             // ColumnEdit
             // 
             this.ColumnEdit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColumnEdit.HeaderText = "Edit";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle3.NullValue")));
+            this.ColumnEdit.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ColumnEdit.HeaderText = "";
             this.ColumnEdit.Name = "ColumnEdit";
             this.ColumnEdit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColumnEdit.Width = 31;
+            this.ColumnEdit.Width = 5;
             // 
             // ColumnDelete
             // 
             this.ColumnDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColumnDelete.HeaderText = "Delete";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle4.NullValue")));
+            this.ColumnDelete.DefaultCellStyle = dataGridViewCellStyle4;
+            this.ColumnDelete.HeaderText = "";
             this.ColumnDelete.Name = "ColumnDelete";
             this.ColumnDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColumnDelete.Width = 44;
+            this.ColumnDelete.Width = 5;
             // 
-            // ViewUser
+            // ColumnDetail
+            // 
+            this.ColumnDetail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColumnDetail.HeaderText = "";
+            this.ColumnDetail.Name = "ColumnDetail";
+            this.ColumnDetail.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnDetail.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ColumnDetail.Width = 19;
+            // 
+            // ViewUserSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this._dgvSearchUser);
-            this.Controls.Add(this.panel1);
-            this.Name = "ViewUser";
-            this.Size = new System.Drawing.Size(1434, 507);
-            ((System.ComponentModel.ISupportInitialize)(this._dgvCalendar)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Controls.Add(this.panelUserSearch);
+            this.Name = "ViewUserSearch";
+            this.Size = new System.Drawing.Size(1500, 500);
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearchUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
+        }
+        private void InitializeComponentSpecial()
+        {
+            this.panelUserSearch.panelMiddle.Controls.Add(pictureBox1);
+            this.panelUserSearch.panelMiddle.Controls.Add(labelFirstname);
+            this.panelUserSearch.panelMiddle.Controls.Add(labelFamilyname);
+            this.panelUserSearch.panelMiddle.Controls.Add(labelGender);
+            this.panelUserSearch.panelMiddle.Controls.Add(labelId);
+            this.panelUserSearch.panelMiddle.Controls.Add(labelCountry);
+            this.panelUserSearch.panelMiddle.Controls.Add(labelNameTitle);
+            this.panelUserSearch.panelMiddle.Controls.Add(comboBoxCountry);
+            this.panelUserSearch.panelMiddle.Controls.Add(comboBoxGender);
+            this.panelUserSearch.panelMiddle.Controls.Add(textBoxFamilyName);
+            this.panelUserSearch.panelMiddle.Controls.Add(textBoxFirstname);
+            this.panelUserSearch.panelMiddle.Controls.Add(textBoxId);
+            this.panelUserSearch.panelMiddle.Controls.Add(buttonValidation);
+            this.panelUserSearch.Size = new System.Drawing.Size(1480, 174);
         }
         private void LoadGender()
         {
@@ -586,89 +450,6 @@ namespace Droid_Booking
             }
             comboBoxCountry.Sorted = true;
         }
-        private void DisplayUserSearchingView()
-        {
-            if (!comboBoxGender.Items.Contains("All")) { comboBoxGender.Items.Add("All"); }
-            comboBoxGender.SelectedItem = "All";
-
-            this.Controls.Remove(this._dgvCalendar);
-            this.Controls.Add(this._dgvSearchUser);
-
-            textBoxFirstname.Visible = true;
-            textBoxFamilyName.Visible = true;
-            comboBoxCountry.Visible = true;
-            comboBoxGender.Visible = true;
-            textBoxId.Visible = true;
-
-            labelCountryValue.Visible = false;
-            labelFamilynameValue.Visible = false;
-            labelIdValue.Visible = false;
-            labelNameValue.Visible = false;
-            labelGenderValue.Visible = false;
-
-            buttonValidation.Text = "Search";
-            buttonValidation.Visible = true;
-        }
-        private void DisplayUserDetailView()
-        {
-            if (comboBoxGender.Items.Contains("All")) { comboBoxGender.Items.Remove("All"); }
-
-            this.Controls.Remove(this._dgvSearchUser);
-            this.Controls.Add(this._dgvCalendar);
-
-            textBoxFirstname.Visible = false;
-            textBoxFamilyName.Visible = false;
-            comboBoxCountry.Visible = false;
-            comboBoxGender.Visible = false;
-            textBoxId.Visible = false;
-
-            labelCountryValue.Visible = true;
-            labelFamilynameValue.Visible = true;
-            labelIdValue.Visible = true;
-            labelNameValue.Visible = true;
-            labelGenderValue.Visible = true;
-            
-            buttonValidation.Visible = false;
-        }
-        private void DisplayUserEditView()
-        {
-            if (comboBoxGender.Items.Contains("All")) { comboBoxGender.Items.Remove("All"); }
-
-            this.Controls.Remove(this._dgvSearchUser);
-            this.Controls.Remove(this._dgvCalendar);
-
-            textBoxFirstname.Visible = true;
-            textBoxFamilyName.Visible = true;
-            comboBoxCountry.Visible = true;
-            comboBoxGender.Visible = true;
-            textBoxId.Visible = true;
-
-            labelCountryValue.Visible = false;
-            labelFamilynameValue.Visible = false;
-            labelIdValue.Visible = false;
-            labelNameValue.Visible = false;
-            labelGenderValue.Visible = false;
-
-            buttonValidation.Text = "Save";
-            buttonValidation.Visible = true;
-
-            LoadUser();
-        }
-        private void ApplyButtonClick()
-        {
-            switch (_mode)
-            {
-                case Mode.EDIT:
-                    AddUser();
-                    break;
-                case Mode.DETAIL:
-                    DetailUser();
-                    break;
-                case Mode.SEARCH:
-                    SearchUser();
-                    break;
-            }
-        }
         private void SearchUser()
         {
             _filteredUsers = _intBoo.Users;
@@ -680,23 +461,24 @@ namespace Droid_Booking
             if (comboBoxCountry.SelectedItem != null && comboBoxCountry.SelectedItem.ToString() != "All") { _filteredUsers = _filteredUsers.Where(a => a.Country == comboBoxCountry.SelectedItem.ToString()).ToList(); }
 
             LoadFilteredUsers();
-        }
-        private void AddUser()
-        {
-
-        }
-        private void DetailUser()
-        {
-
+            _dgvSearchUser.Visible = _dgvSearchUser.Rows.Count != 0;
+            _dgvSearchUser.Height = (_dgvSearchUser.Rows.Count * 22) + _dgvSearchUser.ColumnHeadersHeight;
         }
         private void LoadFilteredUsers()
         {
+            bool altenate = true;
             DataGridViewRow row;
             _dgvSearchUser.Rows.Clear();
             foreach (User user in _filteredUsers)
             {
+                altenate = !altenate;
                 _dgvSearchUser.Rows.Add();
                 row = _dgvSearchUser.Rows[_dgvSearchUser.Rows.Count - 1];
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    cell.Style = altenate ? cellStyle1 : cellStyle2;
+                    cell.Style.SelectionBackColor = System.Drawing.Color.DimGray;
+                }
                 row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnName)].Value = user.FirstName;
                 row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnFamilyName)].Value = user.FamilyName;
                 row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnId)].Value = user.Id;
@@ -726,6 +508,7 @@ namespace Droid_Booking
                         row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "UNKNOW";
                         break;
                 }
+                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnDetail)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.report_user;
                 row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnDelete)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.cross;
                 row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnEdit)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.user_edit;
             }
@@ -743,9 +526,12 @@ namespace Droid_Booking
         private void EditUser(int rowIndex)
         {
             DetectUser(rowIndex);
-
-            _mode = Mode.EDIT;
-            RefreshDisplay();
+            // TODO go to user file
+        }
+        private void DetailUser(int rowIndex)
+        {
+            DetectUser(rowIndex);
+            RequestUserDetail(_currentUser);
         }
         private bool DetectUser(int rowIndex)
         {
@@ -782,17 +568,9 @@ namespace Droid_Booking
         #endregion
 
         #region Event
-        private void pictureBox1_MouseHover(object sender, EventArgs e)
-        {
-            if (_mode == Mode.DETAIL) { Cursor = Cursors.Hand; }
-        }
-        private void pictureBox1_MouseLeave(object sender, EventArgs e)
-        {
-            if (_mode == Mode.DETAIL) { Cursor = Cursors.Arrow; }
-        }
         private void buttonValidation_Click(object sender, EventArgs e)
         {
-            ApplyButtonClick();
+            SearchUser();
         }
         private void _dgvSearchUser_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -803,6 +581,10 @@ namespace Droid_Booking
             else if (e.ColumnIndex == ColumnEdit.Index)
             {
                 EditUser(e.RowIndex);
+            }
+            else if (e.ColumnIndex == ColumnDetail.Index)
+            {
+                DetailUser(e.RowIndex);
             }
         }
         #endregion
