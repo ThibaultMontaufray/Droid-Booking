@@ -79,13 +79,10 @@
     <Compile Include="View\PanelShield.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\PanelUserResearch.cs">
+    <Compile Include="View\ViewAreaEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\PanelUserResearch.Designer.cs">
-      <DependentUpon>PanelUserResearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\ViewAreaEdit.cs">
+    <Compile Include="View\ViewBookSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ViewAreaSearch.cs">
@@ -153,11 +150,11 @@
     <EmbeddedResource Include="View\PanelShield.resx">
       <DependentUpon>PanelShield.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\PanelUserResearch.resx">
-      <DependentUpon>PanelUserResearch.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\ViewAreaEdit.resx">
       <DependentUpon>ViewAreaEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewBookSearch.resx">
+      <DependentUpon>ViewBookSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewAreaSearch.resx">
       <DependentUpon>ViewAreaSearch.cs</DependentUpon>

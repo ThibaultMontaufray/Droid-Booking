@@ -17,6 +17,7 @@ namespace Droid_Booking
         private ViewAreaEdit _viewAreaEdit;
         private ViewWelcome _viewWelcome;
         private ViewBookEdit _viewBookEdit;
+        private ViewBookSearch _viewBookSearch;
         private ViewUserEdit _viewUserEdit;
 
         private List<User> _users;
@@ -176,6 +177,7 @@ namespace Droid_Booking
                     LaunchViewNewBook();
                     break;
                 case "booksearch":
+                    LaunchViewSearchBook();
                     break;
                 case "viewusersearch":
                     LaunchViewUserSearch();
@@ -207,6 +209,8 @@ namespace Droid_Booking
 
             BuildToolBar();
             InitData();
+
+            _viewBookSearch = new ViewBookSearch(this);
 
             _viewCalendar = new ViewCalendar(this);
             _viewCalendar.Dock = DockStyle.Fill;
@@ -315,6 +319,15 @@ namespace Droid_Booking
             _viewBookEdit.RefreshData();
             _viewBookEdit.Left = (_sheet.Width / 2) - (_viewBookEdit.Width / 2);
             _sheet.Controls.Add(_viewBookEdit);
+        }
+        private void LaunchViewSearchBook()
+        {
+            _sheet.Controls.Clear();
+
+            _viewBookSearch.Top = 76;
+            _viewBookSearch.RefreshData();
+            _viewBookSearch.Left = (_sheet.Width / 2) - (_viewBookSearch.Width / 2);
+            _sheet.Controls.Add(_viewBookSearch);
         }
         private void LaunchViewUserSearch()
         {
