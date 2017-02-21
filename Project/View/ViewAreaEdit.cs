@@ -344,7 +344,15 @@ namespace Droid_Booking
         }
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            if (_intBoo.CurrentArea == null) _intBoo.CurrentArea = new Area();
 
+            _intBoo.CurrentArea.Capacity = (int)numericUpDownCapacity.Value;
+            _intBoo.CurrentArea.Floor = (int)numericUpDownFloor.Value;
+            _intBoo.CurrentArea.Name = textBoxName.Text;
+            _intBoo.CurrentArea.Color = textBoxColor.BackColor;
+            _intBoo.CurrentArea.Comment = textBoxDescription.Text;
+            _intBoo.CurrentArea.Type = (Area.TYPE)Enum.Parse(typeof(Area.TYPE), comboBoxType.SelectedItem.ToString());
+            _intBoo.CurrentArea.Save();
         }
         private void buttonCancel_Click(object sender, EventArgs e)
         {

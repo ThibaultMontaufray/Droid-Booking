@@ -73,7 +73,7 @@ namespace Droid_Booking
             {
                 row = new DataGridViewRow();
                 row.HeaderCell.Value = string.Format("{0} - {1}", area.Type.ToString(), area.Name);
-                row.Tag = area;
+                row.Tag = area.Id;
                 headerWidth = area.Type.ToString().Length * 15 + area.Name.Length * 15;
                 if (_dataGridViewPreview.RowHeadersWidth < headerWidth) { _dataGridViewPreview.RowHeadersWidth = headerWidth; }
                 _dataGridViewPreview.Rows.Add(row);
@@ -86,14 +86,14 @@ namespace Droid_Booking
             string val;
             foreach (Book book in _intBoo.Books)
             {
-                indexRow = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (r.Tag as Area).Equals(book.Area) select r.Index).First();
-                indexColumns = (from c in _dataGridViewPreview.Columns.Cast<DataGridViewColumn>() where ((DateTime)c.Tag) >= book.StartDate && ((DateTime)c.Tag) <= book.EndDate select c.Index).ToArray();
+                indexRow = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (r.Tag).Equals(book.AreaId) select r.Index).First();
+                indexColumns = (from c in _dataGridViewPreview.Columns.Cast<DataGridViewColumn>() where ((DateTime)c.Tag) >= book.CheckIn && ((DateTime)c.Tag) <= book.CheckOut select c.Index).ToArray();
 
                 foreach (int indexColumn in indexColumns)
                 {
-                    _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Style.BackColor = book.Area.Color;
+                    _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Style.BackColor = Area.GetAreaFromId(book.AreaId, _intBoo.Areas).Color;
                     val = _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Value == null ? string.Empty : _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Value.ToString();
-                    UpdateCellValue(ref val, book.Area.Capacity);
+                    UpdateCellValue(ref val, Area.GetAreaFromId(book.AreaId, _intBoo.Areas).Capacity);
                     _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Value = val;
                 }
             }

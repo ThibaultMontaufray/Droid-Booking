@@ -24,6 +24,8 @@ namespace Droid_Booking
         #region Constructor
         public DroidBookingForm()
         {
+            Tools4Libraries.Log.ApplicationAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking";
+
             InitializeComponent();
             Init();
         }

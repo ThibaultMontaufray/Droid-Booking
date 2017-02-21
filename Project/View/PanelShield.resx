@@ -204,9 +204,6 @@
         6wT0gqOrXp+BS+CCJ/ABmpPtwxXTgiISXoFb8AK2YF5JdwzjB4hMDByiXw+RAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="panelRight.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="panelRight.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABkAAAABCAYAAAArbAWVAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO

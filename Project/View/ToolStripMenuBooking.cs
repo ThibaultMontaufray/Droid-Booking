@@ -12,6 +12,8 @@ namespace Droid_Booking
         private GUI _gui;
         private RibbonPanel _panelView;
         private RibbonButton _rbWelcome;
+        private RibbonButton _rbCalendar;
+        private RibbonButton _rbParameters;
 
         private RibbonPanel _panelUser;
         private RibbonButton _rbUserAdd;
@@ -24,7 +26,6 @@ namespace Droid_Booking
         private RibbonPanel _panelBook;
         private RibbonButton _rbBookAdd;
         private RibbonButton _rbBookSearch;
-        private RibbonButton _rbCalendar;
         #endregion
 
         #region Properties
@@ -61,9 +62,15 @@ namespace Droid_Booking
             _rbCalendar.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.calendar;
             _rbCalendar.Click += _rbCalendar_Click;
 
+            _rbParameters = new RibbonButton("Settings");
+            _rbParameters.Image = Tools4Libraries.Resources.ResourceIconSet32Default.google_webmaster_tools;
+            _rbParameters.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.google_webmaster_tools;
+            _rbParameters.Click += _rbParameter_Click;
+
             _panelView = new RibbonPanel("View");
             _panelView.Items.Add(_rbWelcome);
             _panelView.Items.Add(_rbCalendar);
+            _panelView.Items.Add(_rbParameters);
             this.Panels.Add(_panelView);
         }
         private void BuildPanelUsers()
@@ -162,6 +169,11 @@ namespace Droid_Booking
         private void _rbBookSearch_Click(object sender, System.EventArgs e)
         {
             ToolBarEventArgs action = new ToolBarEventArgs("booksearch");
+            OnAction(action);
+        }
+        private void _rbParameter_Click(object sender, System.EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("settings");
             OnAction(action);
         }
         #endregion

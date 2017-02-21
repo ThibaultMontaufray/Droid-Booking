@@ -63,6 +63,16 @@ namespace Droid_Booking.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap passeport {
+            get {
+                object obj = ResourceManager.GetObject("passeport", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap shadow_man {
             get {
                 object obj = ResourceManager.GetObject("shadow_man", resourceCulture);

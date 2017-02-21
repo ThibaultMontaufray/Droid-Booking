@@ -27,6 +27,8 @@ namespace Droid_Booking
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button buttonApply;
         private PanelShield panelShield1;
+        private PanelShield panelShield2;
+        private PictureBox pictureBoxPasport;
         private System.Windows.Forms.Button buttonCancel;
         #endregion
 
@@ -60,6 +62,7 @@ namespace Droid_Booking
                 textBoxId.Text = _intBoo.CurrentUser.Id;
                 textBoxMail.Text = _intBoo.CurrentUser.Mail;
                 pictureBox.BackgroundImage = _intBoo.CurrentUser.Picture;
+                pictureBoxPasport.BackgroundImage = _intBoo.CurrentUser.Passport;
 
                 foreach (var item in comboBoxGender.Items)
                 {
@@ -116,7 +119,6 @@ namespace Droid_Booking
         }
         private void InitializeComponent()
         {
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.labelName = new System.Windows.Forms.Label();
             this.textBoxFirstname = new System.Windows.Forms.TextBox();
             this.textBoxFamilyName = new System.Windows.Forms.TextBox();
@@ -133,22 +135,13 @@ namespace Droid_Booking
             this.label6 = new System.Windows.Forms.Label();
             this.buttonApply = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.pictureBoxPasport = new System.Windows.Forms.PictureBox();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.panelShield2 = new Droid_Booking.PanelShield();
             this.panelShield1 = new Droid_Booking.PanelShield();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPasport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.BackColor = System.Drawing.Color.DimGray;
-            this.pictureBox.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(150, 200);
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
-            this.pictureBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDoubleClick);
-            this.pictureBox.MouseLeave += new System.EventHandler(this.pictureBox_MouseLeave);
-            this.pictureBox.MouseHover += new System.EventHandler(this.pictureBox_MouseHover);
-            this.pictureBox.BackgroundImageLayout = ImageLayout.Zoom;
             // 
             // labelName
             // 
@@ -315,11 +308,44 @@ namespace Droid_Booking
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // pictureBoxPasesport
+            // 
+            this.pictureBoxPasport.BackColor = System.Drawing.Color.DimGray;
+            this.pictureBoxPasport.BackgroundImage = global::Droid_Booking.Properties.Resources.passeport;
+            this.pictureBoxPasport.Location = new System.Drawing.Point(651, 20);
+            this.pictureBoxPasport.Name = "pictureBoxPasesport";
+            this.pictureBoxPasport.Size = new System.Drawing.Size(320, 430);
+            this.pictureBoxPasport.TabIndex = 31;
+            this.pictureBoxPasport.TabStop = false;
+            this.pictureBoxPasport.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDoubleClick);
+            this.pictureBoxPasport.MouseLeave += new System.EventHandler(this.pictureBoxPasesport_MouseLeave);
+            this.pictureBoxPasport.MouseHover += new System.EventHandler(this.pictureBoxPasesport_MouseHover);
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.BackColor = System.Drawing.Color.DimGray;
+            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(150, 200);
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
+            this.pictureBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDoubleClick);
+            this.pictureBox.MouseLeave += new System.EventHandler(this.pictureBox_MouseLeave);
+            this.pictureBox.MouseHover += new System.EventHandler(this.pictureBox_MouseHover);
+            // 
+            // panelShield2
+            // 
+            this.panelShield2.BackColor = System.Drawing.Color.Transparent;
+            this.panelShield2.Location = new System.Drawing.Point(631, 0);
+            this.panelShield2.Name = "panelShield2";
+            this.panelShield2.Size = new System.Drawing.Size(360, 470);
+            this.panelShield2.TabIndex = 30;
+            // 
             // panelShield1
             // 
             this.panelShield1.BackColor = System.Drawing.Color.Transparent;
-            this.panelShield1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelShield1.Location = new System.Drawing.Point(0, 0);
+            this.panelShield1.Location = new System.Drawing.Point(0, 20);
             this.panelShield1.Name = "panelShield1";
             this.panelShield1.Size = new System.Drawing.Size(625, 400);
             this.panelShield1.TabIndex = 29;
@@ -329,13 +355,29 @@ namespace Droid_Booking
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.pictureBoxPasport);
+            this.Controls.Add(this.panelShield2);
             this.Controls.Add(this.panelShield1);
             this.Name = "ViewUserEdit";
-            this.Size = new System.Drawing.Size(625, 400);
+            this.Size = new System.Drawing.Size(993, 546);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPasport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
+        }
+        private void SaveUser()
+        {
+            if (_intBoo.CurrentUser == null) _intBoo.CurrentUser = new User();
+
+            _intBoo.CurrentUser.Passport = pictureBoxPasport.BackgroundImage;
+            _intBoo.CurrentUser.Picture = pictureBox.BackgroundImage;
+            _intBoo.CurrentUser.Mail = textBoxMail.Text;
+            _intBoo.CurrentUser.Id = textBoxId.Text;
+            _intBoo.CurrentUser.FirstName = textBoxFirstname.Text;
+            _intBoo.CurrentUser.FamilyName = textBoxFamilyName.Text;
+            _intBoo.CurrentUser.Country = textBoxCountry.Text;
+            _intBoo.CurrentUser.Comment = textBoxComment.Text;
+            _intBoo.CurrentUser.Save();
         }
         #endregion
 
@@ -363,7 +405,24 @@ namespace Droid_Booking
         }
         private void buttonApply_Click(object sender, EventArgs e)
         {
-
+            SaveUser();
+        }
+        private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                pictureBoxPasport.BackgroundImage = Image.FromFile(ofd.FileName);
+                pictureBoxPasport.BackgroundImageLayout = ImageLayout.Zoom;
+            }
+        }
+        private void pictureBoxPasesport_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+        private void pictureBoxPasesport_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Arrow;
         }
         #endregion
     }

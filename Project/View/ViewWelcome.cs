@@ -76,7 +76,7 @@ namespace Droid_Booking
             {
                 Label labelArea;
                 int posY = 65;
-                List<Book> currentBooks = _intBoo.Books.Where(b => b.StartDate < DateTime.Now && b.EndDate > DateTime.Now).ToList();
+                List<Book> currentBooks = _intBoo.Books.Where(b => b.CheckIn < DateTime.Now && b.CheckOut > DateTime.Now).ToList();
                 int totalCapacity = 0;
                 foreach (Area area in _intBoo.Areas)
                 {
@@ -90,7 +90,7 @@ namespace Droid_Booking
                 }
                 foreach (Book book in currentBooks)
                 {
-                    _areas[book.Area.Type.ToString()] += 1;
+                    _areas[Area.GetAreaFromId(book.AreaId, _intBoo.Areas).Type.ToString()] += 1;
                 }
                 labelOccupancy.Text = string.Format("{0} / {1} ( rate {2} % )", currentBooks.Count, totalCapacity, currentBooks.Count * 100 / totalCapacity);
                 

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Droid_Booking</RootNamespace>
     <AssemblyName>Droid_Booking</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,26 @@
     <ApplicationIcon>ServoIconBooking.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Atlassian.Jira, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Droid_deployer.1.0.9\lib\4.5.1\Atlassian.Jira.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Droid_deployer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Droid_deployer.1.0.9\lib\4.5.1\Droid_deployer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Droid_deployer.1.0.9\lib\4.5.1\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Octokit, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Droid_deployer.1.0.9\lib\4.5.1\Octokit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Droid_deployer.1.0.9\lib\4.5.1\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.Ribbon, Version=3.5.8.4, Culture=neutral, processorArchitecture=MSIL">
@@ -82,13 +103,13 @@
     <Compile Include="View\ViewAreaEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\ViewBookSearch.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="View\ViewAreaSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ViewBookEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\ViewBookSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ViewCalendar.cs">
@@ -113,6 +134,9 @@
     </Compile>
     <Compile Include="View\ToolStripMenuBooking.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\ViewSettings.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ViewUserDetail.cs">
       <SubType>UserControl</SubType>
@@ -153,20 +177,23 @@
     <EmbeddedResource Include="View\ViewAreaEdit.resx">
       <DependentUpon>ViewAreaEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\ViewBookSearch.resx">
-      <DependentUpon>ViewBookSearch.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\ViewAreaSearch.resx">
       <DependentUpon>ViewAreaSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewBookEdit.resx">
       <DependentUpon>ViewBookEdit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewBookSearch.resx">
+      <DependentUpon>ViewBookSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ViewCalendar.resx">
       <DependentUpon>ViewCalendar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\DroidBookingForm.resx">
       <DependentUpon>DroidBookingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewSettings.resx">
+      <DependentUpon>ViewSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewUserDetail.resx">
       <DependentUpon>ViewUserDetail.cs</DependentUpon>
@@ -209,6 +236,7 @@
     <None Include="Resources\shadow_man.png" />
     <None Include="Resources\shadow_woman.png" />
     <None Include="Resources\wallpapers-download-1024x1024-vector-city-skyline-1920x1200-wallpaper.jpg" />
+    <None Include="Resources\passeport.png" />
     <Content Include="ServoIconBooking.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
