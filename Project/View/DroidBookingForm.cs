@@ -6,7 +6,7 @@ namespace Droid_Booking
     public partial class DroidBookingForm : Form
     {
         #region Attribute
-        private Interface_booking _intRes;
+        private Interface_booking _intBoo;
 
         private Ribbon _ribbon;
         private RibbonButton _btn_open;
@@ -16,8 +16,8 @@ namespace Droid_Booking
         #region Properties
         public Interface_booking IntBooking
         {
-            get { return _intRes; }
-            set { _intRes = value; }
+            get { return _intBoo; }
+            set { _intBoo = value; }
         }
         #endregion
 
@@ -32,13 +32,20 @@ namespace Droid_Booking
         #endregion
 
         #region Methods public
+        public void ChangeLanguage()
+        {
+            _ribbon.OrbText = GetText.Text("File");
+            _btn_open = new RibbonButton(GetText.Text("Open"));
+            _btn_exit = new RibbonButton(GetText.Text("Exit"));
+        }
         #endregion
 
         #region Methods private
         private void Init()
         {
-            _intRes = new Interface_booking();
-            this.Controls.Add(_intRes.Sheet);
+            _intBoo = new Interface_booking();
+            _intBoo.LanguageModified += _intBoo_LanguageModified;
+            this.Controls.Add(_intBoo.Sheet);
 
             BuildRibbon();
         }
@@ -53,7 +60,7 @@ namespace Droid_Booking
             _ribbon.QuickAccessToolbar.MenuButtonVisible = false;
             _ribbon.QuickAccessToolbar.Visible = false;
             _ribbon.QuickAccessToolbar.MinSizeMode = RibbonElementSizeMode.Compact;
-            _ribbon.Tabs.Add(_intRes.Tsm);
+            _ribbon.Tabs.Add(_intBoo.Tsm);
 
             _btn_open = new RibbonButton(GetText.Text("Open"));
             _btn_open.Image = Tools4Libraries.Resources.ResourceIconSet32Default.open_folder;
@@ -73,13 +80,17 @@ namespace Droid_Booking
         #endregion
 
         #region Event
+        private void _intBoo_LanguageModified()
+        {
+            ChangeLanguage();
+        }
         private void B_exit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
         private void B_open_Click(object sender, EventArgs e)
         {
-            _intRes.Open(null);
+            _intBoo.Open(null);
         }
         #endregion
     }

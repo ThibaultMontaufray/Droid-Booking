@@ -61,6 +61,42 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajouter zone.
+        /// </summary>
+        public static string Addarea {
+            get {
+                return ResourceManager.GetString("Addarea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Zone.
+        /// </summary>
+        public static string Area {
+            get {
+                return ResourceManager.GetString("Area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Réservation.
+        /// </summary>
+        public static string Book {
+            get {
+                return ResourceManager.GetString("Book", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Calendrier vue.
+        /// </summary>
+        public static string CalendarView {
+            get {
+                return ResourceManager.GetString("CalendarView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Quitter.
         /// </summary>
         public static string Exit {
@@ -79,11 +115,101 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Langue.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Menu.
+        /// </summary>
+        public static string Menu {
+            get {
+                return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Créer réservation.
+        /// </summary>
+        public static string Newbook {
+            get {
+                return ResourceManager.GetString("Newbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Ouvrir.
         /// </summary>
         public static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Chercher zone.
+        /// </summary>
+        public static string Searcharea {
+            get {
+                return ResourceManager.GetString("Searcharea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Chercher réservation.
+        /// </summary>
+        public static string Searchbook {
+            get {
+                return ResourceManager.GetString("Searchbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Chercher utilisateur.
+        /// </summary>
+        public static string Searchuser {
+            get {
+                return ResourceManager.GetString("Searchuser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Paramètres.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Utilisateur.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajouter utilisateur.
+        /// </summary>
+        public static string Useradd {
+            get {
+                return ResourceManager.GetString("Useradd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vue.
+        /// </summary>
+        public static string View {
+            get {
+                return ResourceManager.GetString("View", resourceCulture);
             }
         }
     }

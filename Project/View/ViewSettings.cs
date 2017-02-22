@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewSettings : UserControl
+    public partial class ViewSettings : ViewApplication
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -41,6 +41,10 @@ namespace Droid_Booking
             cloudView1.InterficeSyncany = _intBoo.Cloud;
             comboBoxLanguage.Text = "English";
         }
+        public new void ChangeLanguage()
+        {
+            this.labelLanguage.Text = string.Format("{0} : ", GetText.Text("Language"));
+        }
         #endregion
 
         #region Methods protected
@@ -61,7 +65,7 @@ namespace Droid_Booking
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewSettings));
-            Droid_deployer.Interface_syncany interface_syncany2 = new Droid_deployer.Interface_syncany();
+            Droid_deployer.Interface_syncany interface_syncany1 = new Droid_deployer.Interface_syncany();
             this.pictureBoxFlag = new System.Windows.Forms.PictureBox();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguage = new System.Windows.Forms.Label();
@@ -94,6 +98,7 @@ namespace Droid_Booking
             this.comboBoxLanguage.Name = "comboBoxLanguage";
             this.comboBoxLanguage.Size = new System.Drawing.Size(255, 27);
             this.comboBoxLanguage.TabIndex = 12;
+            this.comboBoxLanguage.SelectedIndexChanged += new System.EventHandler(this.comboBoxLanguage_SelectedIndexChanged);
             // 
             // labelLanguage
             // 
@@ -110,15 +115,15 @@ namespace Droid_Booking
             // cloudView1
             // 
             this.cloudView1.BackColor = System.Drawing.Color.Transparent;
-            interface_syncany2.CloudConfigPath = null;
-            interface_syncany2.CloudConnectionType = null;
-            interface_syncany2.CloudRepositories = ((System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, string>>)(resources.GetObject("interface_syncany2.CloudRepositories")));
-            interface_syncany2.DirectoryOriginal = null;
-            interface_syncany2.DirectoryToAssociate = null;
-            interface_syncany2.Login = null;
-            interface_syncany2.Password = null;
-            interface_syncany2.WorkingDirectory = null;
-            this.cloudView1.InterficeSyncany = interface_syncany2;
+            interface_syncany1.CloudConfigPath = null;
+            interface_syncany1.CloudConnectionType = null;
+            interface_syncany1.CloudRepositories = ((System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, string>>)(resources.GetObject("interface_syncany1.CloudRepositories")));
+            interface_syncany1.DirectoryOriginal = null;
+            interface_syncany1.DirectoryToAssociate = null;
+            interface_syncany1.Login = null;
+            interface_syncany1.Password = null;
+            interface_syncany1.WorkingDirectory = null;
+            this.cloudView1.InterficeSyncany = interface_syncany1;
             this.cloudView1.Location = new System.Drawing.Point(0, 31);
             this.cloudView1.Name = "cloudView1";
             this.cloudView1.Size = new System.Drawing.Size(719, 336);
@@ -151,9 +156,31 @@ namespace Droid_Booking
             panelShield1.panelMiddle.Controls.Add(this.labelLanguage);
             panelShield1.panelMiddle.Controls.Add(this.cloudView1);
         }
+        private void ChangeLanguageApplication()
+        {
+            Properties.Settings.Default.Language = comboBoxLanguage.SelectedItem.ToString();
+            Properties.Settings.Default.Save();
+
+            switch (comboBoxLanguage.SelectedItem.ToString())
+            {
+                case "English":
+                    pictureBoxFlag.BackgroundImage = Tools4Libraries.Resources.ResourceIconSet32Default.flag_great_britain;
+                    break;
+                case "French":
+                    pictureBoxFlag.BackgroundImage = Tools4Libraries.Resources.ResourceIconSet32Default.flag_france;
+                    break;
+                default:
+                    break;
+            }
+            _intBoo.ChangeLanguage();
+        }
         #endregion
 
         #region Event
+        private void comboBoxLanguage_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            ChangeLanguageApplication();
+        }
         #endregion
     }
 }

@@ -117,13 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Addarea" xml:space="preserve">
+    <value>Ajouter zone</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Zone</value>
+  </data>
+  <data name="Book" xml:space="preserve">
+    <value>Réservation</value>
+  </data>
+  <data name="CalendarView" xml:space="preserve">
+    <value>Calendrier vue</value>
+  </data>
   <data name="Exit" xml:space="preserve">
     <value>Quitter</value>
   </data>
   <data name="File" xml:space="preserve">
     <value>Fichier</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Newbook" xml:space="preserve">
+    <value>Créer réservation</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Ouvrir</value>
+  </data>
+  <data name="Searcharea" xml:space="preserve">
+    <value>Chercher zone</value>
+  </data>
+  <data name="Searchbook" xml:space="preserve">
+    <value>Chercher réservation</value>
+  </data>
+  <data name="Searchuser" xml:space="preserve">
+    <value>Chercher utilisateur</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Utilisateur</value>
+  </data>
+  <data name="Useradd" xml:space="preserve">
+    <value>Ajouter utilisateur</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Vue</value>
   </data>
 </root>

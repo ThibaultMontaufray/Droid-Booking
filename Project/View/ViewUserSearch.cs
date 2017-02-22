@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace Droid_Booking
 {
     public delegate void ViewUserEventHandler(object o);
-    public partial class ViewUserSearch : UserControl
+    public partial class ViewUserSearch : ViewApplication
     {
         #region Attribute
         public event ViewUserEventHandler RequestUserDetail;

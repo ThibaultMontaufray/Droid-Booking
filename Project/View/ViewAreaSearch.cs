@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewAreaSearch : UserControl
+    public partial class ViewAreaSearch : ViewApplication
     {
         #region Attribute
         private Interface_booking _intBoo;

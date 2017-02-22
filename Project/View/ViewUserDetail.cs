@@ -2,7 +2,7 @@
 
 namespace Droid_Booking
 {
-    public partial class ViewUserDetail : UserControl
+    public partial class ViewUserDetail : ViewApplication
     {
         #region Attributes
         private System.ComponentModel.IContainer components = null;

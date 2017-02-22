@@ -1,13 +1,29 @@
-﻿namespace Droid_Booking
+﻿using System;
+
+namespace Droid_Booking
 {
     public static class GetText
     {
+        #region Enum
         public enum Language
         {
             FRENCH,
             ENGLISH
         }
+        #endregion
+
+        #region Attribute
         public static Language CurrentLanguage = Language.ENGLISH;
+        #endregion
+
+        #region Constructor
+        static GetText()
+        {
+            CurrentLanguage = (Language)Enum.Parse(typeof(Language), Properties.Settings.Default.Language.ToUpper());
+        }
+        #endregion
+
+        #region Methods publice
         public static string Text(string text)
         {
             switch (CurrentLanguage)
@@ -20,5 +36,6 @@
                     return text;
             }
         }
+        #endregion
     }
 }

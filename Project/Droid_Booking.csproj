@@ -109,6 +109,9 @@
     <Compile Include="View\ViewBookEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="View\ViewApplication.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="View\ViewBookSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -7,10 +7,13 @@ using Tools4Libraries;
 
 namespace Droid_Booking
 {
+    public delegate void InterfaceBookingEventHandler();
     public class Interface_booking : GPInterface
     {
         #region Attribtue
         private readonly string CLOUD_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\";
+
+        public event InterfaceBookingEventHandler LanguageModified;
 
         private Interface_syncany _cloud;
         private Panel _sheet;
@@ -180,6 +183,19 @@ namespace Droid_Booking
             return _tsm;
         }
         #endregion
+        public void ChangeLanguage()
+        {
+            _tsm.ChangeLanguage();
+            foreach (var ctrl in _sheet.Controls)
+            {
+                if (ctrl is ViewApplication)
+                {
+                    (ctrl as ViewApplication).ChangeLanguage();
+                    break;
+                }
+            }
+            if (LanguageModified != null) LanguageModified();
+        }
         public void GoAction(string act)
         {
             switch (act.ToLower())

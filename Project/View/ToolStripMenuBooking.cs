@@ -39,6 +39,22 @@ namespace Droid_Booking
         #endregion
 
         #region Methods public
+        public void ChangeLanguage()
+        {
+            _rbWelcome.Text = GetText.Text("Menu");
+            _rbCalendar.Text = GetText.Text("CalendarView");
+            _rbParameters.Text = GetText.Text("Settings");
+            _panelView.Text = GetText.Text("View");
+            _rbUserAdd.Text = GetText.Text("Useradd");
+            _rbUserSearch.Text = GetText.Text("Searchuser");
+            _panelUser.Text = GetText.Text("User");
+            _rbAreaAdd.Text = GetText.Text("Addarea");
+            _rbAreaSearch.Text = GetText.Text("Searcharea");
+            _panelArea.Text = GetText.Text("Area");
+            _rbBookAdd.Text = GetText.Text("Newbook");
+            _rbBookSearch.Text = GetText.Text("Searchbook");
+            _panelBook.Text = GetText.Text("Book");
+        }
         #endregion
 
         #region Methods private

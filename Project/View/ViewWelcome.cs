@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewWelcome : UserControl
+    public partial class ViewWelcome : ViewApplication
     {
         #region Attribute
         private Interface_booking _intBoo;
