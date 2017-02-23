@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewWelcome : ViewApplication
+    public partial class ViewWelcome : UserControl, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -32,6 +32,15 @@ namespace Droid_Booking
         #endregion
 
         #region Methods public
+        public void ChangeLanguage()
+        {
+            LoadNationalities();
+            LoadGlobalStat();
+
+            label1.Text = GetText.Text("Occupancy") + " : ";
+            labelAreas.Text = GetText.Text("Area capacity details") + " : ";
+            labelName.Text = GetText.Text("User nationalities");
+        }
         #endregion
 
         #region Methods private
@@ -43,6 +52,7 @@ namespace Droid_Booking
 
             LoadNationalities();
             LoadGlobalStat();
+            ChangeLanguage();
         }
         private void LoadNationalities()
         {
@@ -92,7 +102,7 @@ namespace Droid_Booking
                 {
                     _areas[Area.GetAreaFromId(book.AreaId, _intBoo.Areas).Type.ToString()] += 1;
                 }
-                labelOccupancy.Text = string.Format("{0} / {1} ( rate {2} % )", currentBooks.Count, totalCapacity, currentBooks.Count * 100 / totalCapacity);
+                labelOccupancy.Text = string.Format("{0} / {1} ( {2} {3} % )", currentBooks.Count, totalCapacity, GetText.Text("Rate"), currentBooks.Count * 100 / totalCapacity);
                 
                 foreach (var area in _areasCapacity.OrderByDescending(n => n.Value))
                 {

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace Droid_Booking
 {
     public delegate void ViewBookEventHandler(object o);
-    public partial class ViewBookSearch : ViewApplication
+    public partial class ViewBookSearch : UserControl, IView
     {
         #region Attribute
         public event ViewUserEventHandler RequestBookDetail;
@@ -87,6 +87,28 @@ namespace Droid_Booking
                 comboBoxArea.Items.Add(string.Format("{0} - {1}", area.Type, area.Name));
             }
         }
+        public void ChangeLanguage()
+        {
+            checkBoxNonCompletedPaiement.Text = GetText.Text("FilterOnNonCompletedPaiements");
+            checkBoxCompletedPaiements.Text = GetText.Text("FilterOnCompletedPaiements");
+            label3.Text = GetText.Text("MinPrice") + " : ";
+            label4.Text = GetText.Text("MaxPrice") + " : ";
+            checkBoxNonConfirmedBook.Text = GetText.Text("FilterOnNonConfirmedBookings");
+            checkBoxConfirmedBook.Text = GetText.Text("FilterOnConfirmedBookings");
+            label2.Text = GetText.Text("CheckOut") + " : ";
+            label1.Text = GetText.Text("CheckIn") + " : ";
+            labelArea.Text = GetText.Text("Area") + " : ";
+            labelUsers.Text = GetText.Text("Users") + " : ";
+            buttonClearFilter.Text = GetText.Text("ClearFilter");
+            
+            ColumnArea.HeaderText = GetText.Text("Area");
+            ColumnUser.HeaderText = GetText.Text("User");
+            ColumnPrice.HeaderText = GetText.Text("Price");
+            ColumnPaid.HeaderText = GetText.Text("Paid");
+            ColumnConfirmed.HeaderText = GetText.Text("Confirmed");
+            ColumnCheckIn.HeaderText = GetText.Text("CheckIn");
+            ColumnCheckOut.HeaderText = GetText.Text("CheckOut");
+        }
         #endregion
 
         #region Methods protected
@@ -111,27 +133,7 @@ namespace Droid_Booking
 
             _dgvSearch.Visible = _dgvSearch.Rows.Count != 0;
             _dgvSearch.Height = (_dgvSearch.Rows.Count * 22) + _dgvSearch.ColumnHeadersHeight;
-        }
-        private void InitializeComponentSpecialized()
-        {
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxNonCompletedPaiement);
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxCompletedPaiements);
-            panelShield1.panelMiddle.Controls.Add(this.numericUpDownMaxPrice);
-            panelShield1.panelMiddle.Controls.Add(this.numericUpDownMinPrice);
-            panelShield1.panelMiddle.Controls.Add(this.label4);
-            panelShield1.panelMiddle.Controls.Add(this.label3);
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxNonConfirmedBook);
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxConfirmedBook);
-            panelShield1.panelMiddle.Controls.Add(this.dateTimePickerEnd);
-            panelShield1.panelMiddle.Controls.Add(this.label2);
-            panelShield1.panelMiddle.Controls.Add(this.label1);
-            panelShield1.panelMiddle.Controls.Add(this.dateTimePickerStart);
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxArea);
-            panelShield1.panelMiddle.Controls.Add(this.labelArea);
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxUsers);
-            panelShield1.panelMiddle.Controls.Add(this.labelUsers);
-            panelShield1.panelMiddle.Controls.Add(this.buttonClearFilter);
-            panelShield1.panelMiddle.Controls.Add(this.buttonFilter);
+            ChangeLanguage();
         }
         private void InitializeComponent()
         {
@@ -201,7 +203,7 @@ namespace Droid_Booking
             // numericUpDownMaxPrice
             // 
             this.numericUpDownMaxPrice.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownMaxPrice.Location = new System.Drawing.Point(771, 27);
+            this.numericUpDownMaxPrice.Location = new System.Drawing.Point(791, 27);
             this.numericUpDownMaxPrice.Maximum = new decimal(new int[] {
             999,
             0,
@@ -219,7 +221,7 @@ namespace Droid_Booking
             // numericUpDownMinPrice
             // 
             this.numericUpDownMinPrice.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownMinPrice.Location = new System.Drawing.Point(771, -2);
+            this.numericUpDownMinPrice.Location = new System.Drawing.Point(791, -2);
             this.numericUpDownMinPrice.Name = "numericUpDownMinPrice";
             this.numericUpDownMinPrice.Size = new System.Drawing.Size(77, 27);
             this.numericUpDownMinPrice.TabIndex = 29;
@@ -229,7 +231,7 @@ namespace Droid_Booking
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(679, 29);
+            this.label4.Location = new System.Drawing.Point(700, 29);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 19);
@@ -241,7 +243,7 @@ namespace Droid_Booking
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(679, 0);
+            this.label3.Location = new System.Drawing.Point(700, 0);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 19);
@@ -359,7 +361,7 @@ namespace Droid_Booking
             // buttonFilter
             // 
             this.buttonFilter.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonFilter.Location = new System.Drawing.Point(773, 82);
+            this.buttonFilter.Location = new System.Drawing.Point(793, 82);
             this.buttonFilter.Name = "buttonFilter";
             this.buttonFilter.Size = new System.Drawing.Size(75, 28);
             this.buttonFilter.TabIndex = 33;
@@ -370,7 +372,7 @@ namespace Droid_Booking
             // buttonClearFilter
             // 
             this.buttonClearFilter.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClearFilter.Location = new System.Drawing.Point(659, 82);
+            this.buttonClearFilter.Location = new System.Drawing.Point(679, 82);
             this.buttonClearFilter.Name = "buttonClearFilter";
             this.buttonClearFilter.Size = new System.Drawing.Size(108, 28);
             this.buttonClearFilter.TabIndex = 34;
@@ -445,6 +447,25 @@ namespace Droid_Booking
             this.ColumnPrice.HeaderText = "Price";
             this.ColumnPrice.Name = "ColumnPrice";
             this.ColumnPrice.ReadOnly = true;
+
+            Controls.Add(this.checkBoxNonCompletedPaiement);
+            Controls.Add(this.checkBoxCompletedPaiements);
+            Controls.Add(this.numericUpDownMaxPrice);
+            Controls.Add(this.numericUpDownMinPrice);
+            Controls.Add(this.label4);
+            Controls.Add(this.label3);
+            Controls.Add(this.checkBoxNonConfirmedBook);
+            Controls.Add(this.checkBoxConfirmedBook);
+            Controls.Add(this.dateTimePickerEnd);
+            Controls.Add(this.label2);
+            Controls.Add(this.label1);
+            Controls.Add(this.dateTimePickerStart);
+            Controls.Add(this.comboBoxArea);
+            Controls.Add(this.labelArea);
+            Controls.Add(this.comboBoxUsers);
+            Controls.Add(this.labelUsers);
+            Controls.Add(this.buttonClearFilter);
+            Controls.Add(this.buttonFilter);
             // 
             // ColumnPaid
             // 
@@ -513,7 +534,7 @@ namespace Droid_Booking
             this.panelShield1.BackColor = System.Drawing.Color.Transparent;
             this.panelShield1.Location = new System.Drawing.Point(110, 10);
             this.panelShield1.Name = "panelShield1";
-            this.panelShield1.Size = new System.Drawing.Size(910, 156);
+            this.panelShield1.Size = new System.Drawing.Size(920, 156);
             this.panelShield1.TabIndex = 0;
             // 
             // ViewBookSearch
@@ -530,6 +551,27 @@ namespace Droid_Booking
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearch)).EndInit();
             this.ResumeLayout(false);
 
+        }
+        private void InitializeComponentSpecialized()
+        {
+            panelShield1.panelMiddle.Controls.Add(this.checkBoxNonCompletedPaiement);
+            panelShield1.panelMiddle.Controls.Add(this.checkBoxCompletedPaiements);
+            panelShield1.panelMiddle.Controls.Add(this.numericUpDownMaxPrice);
+            panelShield1.panelMiddle.Controls.Add(this.numericUpDownMinPrice);
+            panelShield1.panelMiddle.Controls.Add(this.label4);
+            panelShield1.panelMiddle.Controls.Add(this.label3);
+            panelShield1.panelMiddle.Controls.Add(this.checkBoxNonConfirmedBook);
+            panelShield1.panelMiddle.Controls.Add(this.checkBoxConfirmedBook);
+            panelShield1.panelMiddle.Controls.Add(this.dateTimePickerEnd);
+            panelShield1.panelMiddle.Controls.Add(this.label2);
+            panelShield1.panelMiddle.Controls.Add(this.label1);
+            panelShield1.panelMiddle.Controls.Add(this.dateTimePickerStart);
+            panelShield1.panelMiddle.Controls.Add(this.comboBoxArea);
+            panelShield1.panelMiddle.Controls.Add(this.labelArea);
+            panelShield1.panelMiddle.Controls.Add(this.comboBoxUsers);
+            panelShield1.panelMiddle.Controls.Add(this.labelUsers);
+            panelShield1.panelMiddle.Controls.Add(this.buttonClearFilter);
+            panelShield1.panelMiddle.Controls.Add(this.buttonFilter);
         }
         private void ClearFilter()
         {

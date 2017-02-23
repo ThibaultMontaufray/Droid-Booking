@@ -2,7 +2,7 @@
 
 namespace Droid_Booking
 {
-    public partial class ViewUserDetail : ViewApplication
+    public partial class ViewUserDetail : UserControl, IView
     {
         #region Attributes
         private System.ComponentModel.IContainer components = null;
@@ -16,6 +16,8 @@ namespace Droid_Booking
         private Label labelId;
         private Label labelMail;
         private Label labelGender;
+
+        private User _currentUser;
         #endregion
 
         #region Properties
@@ -26,6 +28,7 @@ namespace Droid_Booking
         {
             InitializeComponent();
             InitializeComponentSpecialized();
+            Init();
         }
         #endregion
 
@@ -34,15 +37,27 @@ namespace Droid_Booking
         {
             if (user != null)
             {
+                _currentUser = user;
                 labelCountry.Text = user.Country;
                 labelFamilyName.Text = user.FamilyName;
                 labelFirstname.Text = user.FirstName;
-                labelGender.Text = "gender : " + user.Gender;
-                labelId.Text = "Id : " + user.Id;
+                labelGender.Text = GetText.Text("Gender") + " : " + user.Gender;
+                labelId.Text = GetText.Text("Id") + " : " + user.Id;
                 labelMail.Text = user.Mail;
                 textBoxComment.Text = user.Comment;
                 pictureBox.Image = user.Picture;
            }
+        }
+        public void ChangeLanguage()
+        {
+            this.labelFamilyName.Text = GetText.Text("FamilyName");
+            this.labelFirstname.Text = GetText.Text("FirstName");
+            this.labelCountry.Text = GetText.Text("Nationality");
+            this.labelId.Text = GetText.Text("Id") + " : ";
+            this.labelMail.Text = GetText.Text("Mail") + " : ";
+            this.labelGender.Text = GetText.Text("Gender") + " : "; 
+
+            LoadUser(_currentUser);
         }
         #endregion
 
@@ -58,6 +73,10 @@ namespace Droid_Booking
         #endregion
 
         #region Methods private
+        private void Init()
+        {
+            ChangeLanguage();
+        }
         private void InitializeComponent()
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
@@ -136,7 +155,7 @@ namespace Droid_Booking
             this.labelId.Name = "labelId";
             this.labelId.Size = new System.Drawing.Size(220, 18);
             this.labelId.TabIndex = 20;
-            this.labelId.Text = "Id : 123456789";
+            this.labelId.Text = "Id : ";
             this.labelId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelId.AutoSize = false;
             // 
@@ -149,7 +168,7 @@ namespace Droid_Booking
             this.labelMail.Name = "labelMail";
             this.labelMail.Size = new System.Drawing.Size(220, 18);
             this.labelMail.TabIndex = 21;
-            this.labelMail.Text = "mail@mail.com";
+            this.labelMail.Text = "Mail : ";
             this.labelMail.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelMail.AutoSize = false;
             // 
@@ -162,7 +181,7 @@ namespace Droid_Booking
             this.labelGender.Name = "labelGender";
             this.labelGender.Size = new System.Drawing.Size(220, 18);
             this.labelGender.TabIndex = 22;
-            this.labelGender.Text = "genre unknow";
+            this.labelGender.Text = "Gender : ";
             this.labelGender.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelGender.AutoSize = false;
             // 

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace Droid_Booking
 {
     public delegate void ViewUserEventHandler(object o);
-    public partial class ViewUserSearch : ViewApplication
+    public class ViewUserSearch : UserControl, IView
     {
         #region Attribute
         public event ViewUserEventHandler RequestUserDetail;
@@ -72,6 +72,22 @@ namespace Droid_Booking
         #endregion
 
         #region Methods public
+        public  void ChangeLanguage()
+        {
+            ColumnName.HeaderText = GetText.Text("Firstname");
+            ColumnFamilyName.HeaderText = GetText.Text("Name");
+            ColumnGender.HeaderText = GetText.Text("Gender");
+            ColumnId.HeaderText = GetText.Text("Id");
+            ColumnCountry.HeaderText = GetText.Text("Country");
+            ColumnMail.HeaderText = GetText.Text("Mail");
+            ColumnComment.HeaderText = GetText.Text("Comment");
+
+            labelId.Text = GetText.Text("Id") + " : ";
+            labelCountry.Text = GetText.Text("Country") + " : ";
+            labelGender.Text = GetText.Text("Gender") + " : ";
+            labelFamilyname.Text = GetText.Text("FamilyName") + " : ";
+            labelFirstname.Text = GetText.Text("FirstName") + " : ";
+        }
         #endregion
 
         #region Methods protected
@@ -99,6 +115,7 @@ namespace Droid_Booking
 
             _dgvSearchUser.Visible = _dgvSearchUser.Rows.Count != 0;
             _dgvSearchUser.Height = (_dgvSearchUser.Rows.Count * 22) + _dgvSearchUser.ColumnHeadersHeight;
+            ChangeLanguage();
         }
         private void InitializeComponent()
         {
@@ -260,9 +277,9 @@ namespace Droid_Booking
             // 
             this.comboBoxGender.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxGender.FormattingEnabled = true;
-            this.comboBoxGender.Location = new System.Drawing.Point(238, 77);
+            this.comboBoxGender.Location = new System.Drawing.Point(258, 77);
             this.comboBoxGender.Name = "comboBoxGender";
-            this.comboBoxGender.Size = new System.Drawing.Size(300, 27);
+            this.comboBoxGender.Size = new System.Drawing.Size(280, 27);
             this.comboBoxGender.TabIndex = 26;
             // 
             // comboBoxCountry
@@ -288,9 +305,9 @@ namespace Droid_Booking
             // textBoxFamilyName
             // 
             this.textBoxFamilyName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFamilyName.Location = new System.Drawing.Point(238, 49);
+            this.textBoxFamilyName.Location = new System.Drawing.Point(258, 49);
             this.textBoxFamilyName.Name = "textBoxFamilyName";
-            this.textBoxFamilyName.Size = new System.Drawing.Size(300, 27);
+            this.textBoxFamilyName.Size = new System.Drawing.Size(280, 27);
             this.textBoxFamilyName.TabIndex = 19;
             // 
             // textBoxId
@@ -310,7 +327,7 @@ namespace Droid_Booking
             this.labelId.Name = "labelId";
             this.labelId.Size = new System.Drawing.Size(35, 19);
             this.labelId.TabIndex = 15;
-            this.labelId.Text = "ID : ";
+            this.labelId.Text = "Id : ";
             // 
             // labelCountry
             // 
@@ -337,9 +354,9 @@ namespace Droid_Booking
             // textBoxFirstname
             // 
             this.textBoxFirstname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFirstname.Location = new System.Drawing.Point(238, 21);
+            this.textBoxFirstname.Location = new System.Drawing.Point(258, 21);
             this.textBoxFirstname.Name = "textBoxFirstname";
-            this.textBoxFirstname.Size = new System.Drawing.Size(300, 27);
+            this.textBoxFirstname.Size = new System.Drawing.Size(280, 27);
             this.textBoxFirstname.TabIndex = 11;
             // 
             // pictureBox1
@@ -383,7 +400,7 @@ namespace Droid_Booking
             this.panelUserSearch.Location = new System.Drawing.Point(10, 10);
             this.panelUserSearch.Margin = new System.Windows.Forms.Padding(5);
             this.panelUserSearch.Name = "panelUserSearch";
-            this.panelUserSearch.Size = new System.Drawing.Size(1480, 165);
+            this.panelUserSearch.Size = new System.Drawing.Size(1500, 165);
             this.panelUserSearch.TabIndex = 27;
             // 
             // ViewUserSearch
@@ -394,7 +411,7 @@ namespace Droid_Booking
             this.Controls.Add(this.panelUserSearch);
             this.Controls.Add(this._dgvSearchUser);
             this.Name = "ViewUserSearch";
-            this.Size = new System.Drawing.Size(1500, 500);
+            this.Size = new System.Drawing.Size(1520, 500);
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearchUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

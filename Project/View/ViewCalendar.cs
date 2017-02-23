@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewCalendar : ViewApplication
+    public partial class ViewCalendar : UserControl, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -25,6 +25,7 @@ namespace Droid_Booking
         {
             _startDate = DateTime.MinValue;
             InitializeComponent();
+            Init();
         }
         public ViewCalendar(Interface_booking intBoo)
         {
@@ -33,13 +34,22 @@ namespace Droid_Booking
 
             InitializeComponent();
             BuildCalendar();
+            Init();
         }
         #endregion
 
         #region Methods public
+        public void ChangeLanguage()
+        {
+
+        }
         #endregion
 
         #region Methods private
+        private void Init()
+        {
+            ChangeLanguage();
+        }
         private void BuildCalendar()
         {
             if (_startDate == DateTime.MinValue) { _startDate = DateTime.Now.AddDays(-7); }

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewSettings : ViewApplication
+    public partial class ViewSettings : UserControl, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -29,9 +30,9 @@ namespace Droid_Booking
         {
             _intBoo = intBoo;
 
-            Init();
             InitializeComponent();
             InitializeComponentSpecialized();
+            Init();
         }
         #endregion
 
@@ -39,9 +40,9 @@ namespace Droid_Booking
         public void RefreshData()
         {
             cloudView1.InterficeSyncany = _intBoo.Cloud;
-            comboBoxLanguage.Text = "English";
+            comboBoxLanguage.Text = Properties.Settings.Default.Language;
         }
-        public new void ChangeLanguage()
+        public void ChangeLanguage()
         {
             this.labelLanguage.Text = string.Format("{0} : ", GetText.Text("Language"));
         }
@@ -61,6 +62,8 @@ namespace Droid_Booking
         #region Methods private
         private void Init()
         {
+            RefreshData();
+            ChangeLanguage();
         }
         private void InitializeComponent()
         {
@@ -158,7 +161,8 @@ namespace Droid_Booking
         }
         private void ChangeLanguageApplication()
         {
-            Properties.Settings.Default.Language = comboBoxLanguage.SelectedItem.ToString();
+            GetText.CurrentLanguage = (GetText.Language)Enum.Parse(typeof(GetText.Language), comboBoxLanguage.SelectedItem.ToString().ToUpper());
+            Properties.Settings.Default.Language = comboBoxLanguage.SelectedItem.ToString().ToUpper();
             Properties.Settings.Default.Save();
 
             switch (comboBoxLanguage.SelectedItem.ToString())
@@ -170,6 +174,7 @@ namespace Droid_Booking
                     pictureBoxFlag.BackgroundImage = Tools4Libraries.Resources.ResourceIconSet32Default.flag_france;
                     break;
                 default:
+                    pictureBoxFlag.BackgroundImage = Tools4Libraries.Resources.ResourceIconSet32Default.flag_france;
                     break;
             }
             _intBoo.ChangeLanguage();

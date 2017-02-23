@@ -35,8 +35,8 @@ namespace Droid_Booking
         public void ChangeLanguage()
         {
             _ribbon.OrbText = GetText.Text("File");
-            _btn_open = new RibbonButton(GetText.Text("Open"));
-            _btn_exit = new RibbonButton(GetText.Text("Exit"));
+            _btn_open.Text = GetText.Text("Open");
+            _btn_exit.Text   = GetText.Text("Exit");
         }
         #endregion
 

@@ -109,9 +109,7 @@
     <Compile Include="View\ViewBookEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\ViewApplication.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Model\IVIew.cs" />
     <Compile Include="View\ViewBookSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -169,6 +167,7 @@
     <EmbeddedResource Include="Properties\ResourceEnglish.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourceEnglish.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\ResourceFrench.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

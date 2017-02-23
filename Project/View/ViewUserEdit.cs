@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewUserEdit : ViewApplication
+    public partial class ViewUserEdit : UserControl, IView
     {
         #region Atrtibute
         private Interface_booking _intBoo;
@@ -74,6 +74,18 @@ namespace Droid_Booking
                 }
             }
         }
+        public void ChangeLanguage()
+        {
+            labelName.Text = GetText.Text("FirstName");
+            label1.Text = GetText.Text("FamilyName") + " : ";
+            label2.Text = GetText.Text("Country") + " : ";
+            label3.Text = GetText.Text("Id") + " : ";
+            label4.Text = GetText.Text("Gender") + " : ";
+            label5.Text = GetText.Text("Mail") + " : ";
+            label6.Text = GetText.Text("Comment") + " : ";
+            buttonApply.Text = GetText.Text("Save");
+            buttonCancel.Text = GetText.Text("Cancel");
+        }
         #endregion
 
         #region Methods protected
@@ -96,6 +108,7 @@ namespace Droid_Booking
                 comboBoxGender.Items.Add(gender.ToString());
             }
             RefreshData();
+            ChangeLanguage();
         }
         private void InitializeComponentSpecialized()
         {

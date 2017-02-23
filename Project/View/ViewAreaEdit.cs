@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewAreaEdit : ViewApplication
+    public partial class ViewAreaEdit : UserControl, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -76,6 +76,18 @@ namespace Droid_Booking
                 }
             }
         }
+        public void ChangeLanguage()
+        {
+            labelName.Text = GetText.Text("Name") + " : ";
+            label1.Text = GetText.Text("Type") + " : ";
+            label2.Text = GetText.Text("Floor") + " : ";
+            label3.Text = GetText.Text("Capacity") + " : ";
+            label4.Text = GetText.Text("Color") + " : ";
+            buttonColor.Text = GetText.Text("Choose");
+            label5.Text = GetText.Text("Comment") + " : ";
+            buttonSave.Text = GetText.Text("Save");
+            buttonCancel.Text = GetText.Text("Cancel");
+        }
         #endregion
 
         #region Methods protected
@@ -145,7 +157,7 @@ namespace Droid_Booking
             // textBoxName
             // 
             this.textBoxName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxName.Location = new System.Drawing.Point(95, 3);
+            this.textBoxName.Location = new System.Drawing.Point(115, 3);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(237, 27);
             this.textBoxName.TabIndex = 1;
@@ -165,7 +177,7 @@ namespace Droid_Booking
             // 
             this.comboBoxType.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Location = new System.Drawing.Point(95, 31);
+            this.comboBoxType.Location = new System.Drawing.Point(115, 31);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(237, 27);
             this.comboBoxType.TabIndex = 3;
@@ -173,7 +185,7 @@ namespace Droid_Booking
             // numericUpDownFloor
             // 
             this.numericUpDownFloor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownFloor.Location = new System.Drawing.Point(95, 60);
+            this.numericUpDownFloor.Location = new System.Drawing.Point(115, 60);
             this.numericUpDownFloor.Maximum = new decimal(new int[] {
             999,
             0,
@@ -205,7 +217,7 @@ namespace Droid_Booking
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(175, 62);
+            this.label3.Location = new System.Drawing.Point(195, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 19);
             this.label3.TabIndex = 6;
@@ -214,7 +226,7 @@ namespace Droid_Booking
             // numericUpDownCapacity
             // 
             this.numericUpDownCapacity.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownCapacity.Location = new System.Drawing.Point(272, 60);
+            this.numericUpDownCapacity.Location = new System.Drawing.Point(292, 60);
             this.numericUpDownCapacity.Maximum = new decimal(new int[] {
             999,
             0,
@@ -245,7 +257,7 @@ namespace Droid_Booking
             // 
             this.textBoxColor.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxColor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxColor.Location = new System.Drawing.Point(95, 89);
+            this.textBoxColor.Location = new System.Drawing.Point(115, 89);
             this.textBoxColor.Name = "textBoxColor";
             this.textBoxColor.Size = new System.Drawing.Size(146, 27);
             this.textBoxColor.TabIndex = 9;
@@ -254,7 +266,7 @@ namespace Droid_Booking
             // buttonColor
             // 
             this.buttonColor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonColor.Location = new System.Drawing.Point(247, 89);
+            this.buttonColor.Location = new System.Drawing.Point(267, 89);
             this.buttonColor.Name = "buttonColor";
             this.buttonColor.Size = new System.Drawing.Size(85, 27);
             this.buttonColor.TabIndex = 10;
@@ -265,7 +277,7 @@ namespace Droid_Booking
             // textBoxDescription
             // 
             this.textBoxDescription.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxDescription.Location = new System.Drawing.Point(95, 117);
+            this.textBoxDescription.Location = new System.Drawing.Point(115, 117);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(237, 110);
@@ -285,7 +297,7 @@ namespace Droid_Booking
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.Location = new System.Drawing.Point(247, 233);
+            this.buttonSave.Location = new System.Drawing.Point(267, 233);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(85, 27);
             this.buttonSave.TabIndex = 13;
@@ -296,7 +308,7 @@ namespace Droid_Booking
             // buttonCancel
             // 
             this.buttonCancel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(156, 233);
+            this.buttonCancel.Location = new System.Drawing.Point(176, 233);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(85, 27);
             this.buttonCancel.TabIndex = 14;
@@ -310,7 +322,7 @@ namespace Droid_Booking
             this.panelShield1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelShield1.Location = new System.Drawing.Point(0, 0);
             this.panelShield1.Name = "panelShield1";
-            this.panelShield1.Size = new System.Drawing.Size(380, 310);
+            this.panelShield1.Size = new System.Drawing.Size(530, 310);
             this.panelShield1.TabIndex = 15;
             // 
             // ViewAreaEdit
@@ -320,7 +332,7 @@ namespace Droid_Booking
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.panelShield1);
             this.Name = "ViewAreaEdit";
-            this.Size = new System.Drawing.Size(380, 310);
+            this.Size = new System.Drawing.Size(400, 310);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFloor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacity)).EndInit();
             this.ResumeLayout(false);
@@ -330,6 +342,7 @@ namespace Droid_Booking
         private void Init()
         {
             RefreshData();
+            ChangeLanguage();
         }
         #endregion
 

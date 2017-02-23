@@ -188,9 +188,9 @@ namespace Droid_Booking
             _tsm.ChangeLanguage();
             foreach (var ctrl in _sheet.Controls)
             {
-                if (ctrl is ViewApplication)
+                if (ctrl is IView)
                 {
-                    (ctrl as ViewApplication).ChangeLanguage();
+                    (ctrl as IView).ChangeLanguage();
                     break;
                 }
             }
@@ -357,16 +357,19 @@ namespace Droid_Booking
             _viewSetting.Top = 76;
             _viewSetting.RefreshData();
             _viewSetting.Left = (_sheet.Width / 2) - (_viewSetting.Width / 2);
+            _viewSetting.ChangeLanguage();
             _sheet.Controls.Add(_viewSetting);
         }
         private void LaunchViewWelcome()
         {
             _sheet.Controls.Clear();
+            _viewWelcome.ChangeLanguage();
             _sheet.Controls.Add(_viewWelcome);
         }
         private void LaunchViewCalendar()
         {
             _sheet.Controls.Clear();
+            _viewCalendar.ChangeLanguage();
             _sheet.Controls.Add(_viewCalendar);
         }
 
@@ -381,6 +384,7 @@ namespace Droid_Booking
             _viewBookEdit.Top = 76;
             _viewBookEdit.RefreshData();
             _viewBookEdit.Left = (_sheet.Width / 2) - (_viewBookEdit.Width / 2);
+            _viewBookEdit.ChangeLanguage();
             _sheet.Controls.Add(_viewBookEdit);
         }
         private void LaunchViewBookSearch()
@@ -390,12 +394,14 @@ namespace Droid_Booking
             _viewBookSearch.Top = 20;
             _viewBookSearch.RefreshData();
             _viewBookSearch.Left = (_sheet.Width / 2) - (_viewBookSearch.Width / 2);
+            _viewBookSearch.ChangeLanguage();
             _sheet.Controls.Add(_viewBookSearch);
         }
 
         private void LaunchViewUserSearch()
         {
             _sheet.Controls.Clear();
+            _viewUserSearch.ChangeLanguage();
             _sheet.Controls.Add(_viewUserSearch);
         }
         private void LaunchViewUserEdit()
@@ -405,6 +411,7 @@ namespace Droid_Booking
             _viewUserEdit.Top = 76;
             _viewUserEdit.RefreshData();
             _viewUserEdit.Left = (_sheet.Width / 2) - (_viewUserEdit.Width / 2);
+            _viewUserEdit.ChangeLanguage();
             _sheet.Controls.Add(_viewUserEdit);
         }
         private void LaunchViewUserAdd()
@@ -415,6 +422,7 @@ namespace Droid_Booking
             _currentUser = new User();
             _viewUserEdit.RefreshData();
             _viewUserEdit.Left = (_sheet.Width / 2) - (_viewUserEdit.Width / 2);
+            _viewUserEdit.ChangeLanguage();
             _sheet.Controls.Add(_viewUserEdit);
         }
         private void LaunchViewUserDetails()
@@ -426,6 +434,7 @@ namespace Droid_Booking
                 _viewUserDetail.Top = 76;
                 _viewUserDetail.Left = (_sheet.Width / 2) - (_viewUserDetail.Width / 2);
                 _viewUserDetail.LoadUser(_currentUser);
+                _viewUserDetail.ChangeLanguage();
                 _sheet.Controls.Add(_viewUserDetail);
             }
             else
@@ -438,6 +447,7 @@ namespace Droid_Booking
         {
             _sheet.Controls.Clear();
             _viewAreaSearch.RefreshData();
+            _viewAreaSearch.ChangeLanguage();
             _sheet.Controls.Add(_viewAreaSearch);
         }
         private void LaunchViewAreaEdit()
@@ -447,6 +457,7 @@ namespace Droid_Booking
             _viewAreaEdit.Top = 76;
             _viewAreaEdit.RefreshData();
             _viewAreaEdit.Left = (_sheet.Width / 2) - (_viewAreaEdit.Width / 2);
+            _viewAreaEdit.ChangeLanguage();
             _sheet.Controls.Add(_viewAreaEdit);
         }
         private void LaunchViewAreaAdd()
@@ -457,6 +468,7 @@ namespace Droid_Booking
             _currentArea = new Area();
             _viewAreaEdit.RefreshData();
             _viewAreaEdit.Left = (_sheet.Width / 2) - (_viewAreaEdit.Width / 2);
+            _viewAreaEdit.ChangeLanguage();
             _sheet.Controls.Add(_viewAreaEdit);
         }
         #endregion

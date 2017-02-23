@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewAreaSearch : ViewApplication
+    public partial class ViewAreaSearch : UserControl, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -73,6 +73,16 @@ namespace Droid_Booking
             }
             comboBoxType.Sorted = true;
         }
+        public void ChangeLanguage()
+        {
+            labelName.Text = GetText.Text("Name") + " : ";
+            labelColor.Text = GetText.Text("Color") + " : ";
+            buttonColorChoose.Text = GetText.Text("Choose") + " : ";
+            labelCapacity.Text = GetText.Text("Capacity") + " : ";
+            labelFloor.Text = GetText.Text("Floor") + " : ";
+            labelType.Text = GetText.Text("Type") + " : ";
+            buttonValidation.Text = GetText.Text("Search");
+        }
         #endregion
 
         #region Methods protected
@@ -96,6 +106,7 @@ namespace Droid_Booking
 
             _dgvSearch.Visible = _dgvSearch.Rows.Count != 0;
             _dgvSearch.Height = (_dgvSearch.Rows.Count * 22) + _dgvSearch.ColumnHeadersHeight;
+            ChangeLanguage();
         }
         private void InitializeComponent()
         {
@@ -163,9 +174,9 @@ namespace Droid_Booking
             // textBoxColor
             // 
             this.textBoxColor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxColor.Location = new System.Drawing.Point(494, -3);
+            this.textBoxColor.Location = new System.Drawing.Point(514, -3);
             this.textBoxColor.Name = "textBoxColor";
-            this.textBoxColor.Size = new System.Drawing.Size(213, 27);
+            this.textBoxColor.Size = new System.Drawing.Size(193, 27);
             this.textBoxColor.TabIndex = 13;
             // 
             // ribbonColorChooser1
@@ -191,7 +202,7 @@ namespace Droid_Booking
             this.buttonColorChoose.Name = "buttonColorChoose";
             this.buttonColorChoose.Size = new System.Drawing.Size(76, 27);
             this.buttonColorChoose.TabIndex = 14;
-            this.buttonColorChoose.Text = "choose";
+            this.buttonColorChoose.Text = "Choose";
             this.buttonColorChoose.UseVisualStyleBackColor = true;
             this.buttonColorChoose.Click += new System.EventHandler(this.buttonColorChoose_Click);
             // 
@@ -280,9 +291,9 @@ namespace Droid_Booking
             // 
             this.comboBoxType.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Location = new System.Drawing.Point(494, 25);
+            this.comboBoxType.Location = new System.Drawing.Point(514, 25);
             this.comboBoxType.Name = "comboBoxType";
-            this.comboBoxType.Size = new System.Drawing.Size(290, 27);
+            this.comboBoxType.Size = new System.Drawing.Size(270, 27);
             this.comboBoxType.TabIndex = 24;
             // 
             // buttonValidation

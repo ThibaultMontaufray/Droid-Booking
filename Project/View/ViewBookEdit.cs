@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Droid_Booking
 {
-    public partial class ViewBookEdit : ViewApplication
+    public partial class ViewBookEdit : UserControl, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -96,6 +96,37 @@ namespace Droid_Booking
                 }
             }
         }
+        public void ChangeLanguage()
+        {
+            labelStart.Text = GetText.Text("Start") + " : ";
+            labelEnd.Text = GetText.Text("End") + " : ";
+            checkBoxConfirmed.Text = GetText.Text("ConfirmationDone");
+            labelPrice.Text = GetText.Text("PriceOfTheBook") + " : ";
+            labelPaid.Text = GetText.Text("AmountPaid") + " : ";
+            labelType.Text = GetText.Text("Area") + " : ";
+            buttonApply.Text = GetText.Text("Save");
+            buttonCancel.Text = GetText.Text("Cancel");
+            labelUser.Text = GetText.Text("User") + " : ";
+        }
+        #endregion
+        
+        #region Methods protected
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        #endregion
+
+        #region Methods private
+        private void Init()
+        {
+            RefreshData();
+            ChangeLanguage();
+        }
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewBookEdit));
@@ -122,7 +153,7 @@ namespace Droid_Booking
             // 
             this.dateTimePickerCheckIn.CalendarFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePickerCheckIn.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerCheckIn.Location = new System.Drawing.Point(72, 59);
+            this.dateTimePickerCheckIn.Location = new System.Drawing.Point(92, 59);
             this.dateTimePickerCheckIn.Name = "dateTimePickerCheckIn";
             this.dateTimePickerCheckIn.Size = new System.Drawing.Size(200, 23);
             this.dateTimePickerCheckIn.TabIndex = 0;
@@ -153,7 +184,7 @@ namespace Droid_Booking
             // 
             this.dateTimePickerCheckOut.CalendarFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePickerCheckOut.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerCheckOut.Location = new System.Drawing.Point(72, 88);
+            this.dateTimePickerCheckOut.Location = new System.Drawing.Point(92, 88);
             this.dateTimePickerCheckOut.Name = "dateTimePickerCheckOut";
             this.dateTimePickerCheckOut.Size = new System.Drawing.Size(200, 23);
             this.dateTimePickerCheckOut.TabIndex = 5;
@@ -173,7 +204,7 @@ namespace Droid_Booking
             // textBoxPrice
             // 
             this.textBoxPrice.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPrice.Location = new System.Drawing.Point(172, 117);
+            this.textBoxPrice.Location = new System.Drawing.Point(192, 117);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(100, 23);
             this.textBoxPrice.TabIndex = 8;
@@ -203,7 +234,7 @@ namespace Droid_Booking
             // textBoxPaid
             // 
             this.textBoxPaid.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPaid.Location = new System.Drawing.Point(172, 146);
+            this.textBoxPaid.Location = new System.Drawing.Point(192, 146);
             this.textBoxPaid.Name = "textBoxPaid";
             this.textBoxPaid.Size = new System.Drawing.Size(100, 23);
             this.textBoxPaid.TabIndex = 10;
@@ -223,7 +254,7 @@ namespace Droid_Booking
             // 
             this.comboBoxArea.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxArea.FormattingEnabled = true;
-            this.comboBoxArea.Location = new System.Drawing.Point(72, -3);
+            this.comboBoxArea.Location = new System.Drawing.Point(92, -3);
             this.comboBoxArea.Name = "comboBoxArea";
             this.comboBoxArea.Size = new System.Drawing.Size(200, 27);
             this.comboBoxArea.TabIndex = 13;
@@ -233,7 +264,7 @@ namespace Droid_Booking
             this.buttonApply.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonApply.Location = new System.Drawing.Point(197, 213);
             this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(75, 23);
+            this.buttonApply.Size = new System.Drawing.Size(95, 23);
             this.buttonApply.TabIndex = 14;
             this.buttonApply.Text = "Save";
             this.buttonApply.UseVisualStyleBackColor = true;
@@ -253,7 +284,7 @@ namespace Droid_Booking
             // 
             this.comboBoxUser.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxUser.FormattingEnabled = true;
-            this.comboBoxUser.Location = new System.Drawing.Point(72, 28);
+            this.comboBoxUser.Location = new System.Drawing.Point(92, 28);
             this.comboBoxUser.Name = "comboBoxUser";
             this.comboBoxUser.Size = new System.Drawing.Size(175, 27);
             this.comboBoxUser.TabIndex = 17;
@@ -277,7 +308,7 @@ namespace Droid_Booking
             this.buttonAddUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.buttonAddUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddUser.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddUser.Location = new System.Drawing.Point(256, 34);
+            this.buttonAddUser.Location = new System.Drawing.Point(276, 34);
             this.buttonAddUser.Name = "buttonAddUser";
             this.buttonAddUser.Size = new System.Drawing.Size(16, 16);
             this.buttonAddUser.TabIndex = 18;
@@ -289,7 +320,7 @@ namespace Droid_Booking
             this.panelShield1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelShield1.Location = new System.Drawing.Point(0, 0);
             this.panelShield1.Name = "panelShield1";
-            this.panelShield1.Size = new System.Drawing.Size(330, 300);
+            this.panelShield1.Size = new System.Drawing.Size(350, 300);
             this.panelShield1.TabIndex = 19;
             // 
             // ViewBookEdit
@@ -321,24 +352,6 @@ namespace Droid_Booking
             panelShield1.panelMiddle.Controls.Add(this.dateTimePickerCheckOut);
             panelShield1.panelMiddle.Controls.Add(this.labelStart);
             panelShield1.panelMiddle.Controls.Add(this.dateTimePickerCheckIn);
-        }
-        #endregion
-
-        #region Methods protected
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-        #endregion
-
-        #region Methods private
-        private void Init()
-        {
-            RefreshData();
         }
         private void SaveBook()
         {
