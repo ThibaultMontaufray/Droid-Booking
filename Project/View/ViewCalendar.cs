@@ -94,16 +94,16 @@ namespace Droid_Booking
             int indexRow;
             int[] indexColumns;
             string val;
-            foreach (Book book in _intBoo.Books)
+            foreach (Booking booking in _intBoo.Bookings)
             {
-                indexRow = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (r.Tag).Equals(book.AreaId) select r.Index).First();
-                indexColumns = (from c in _dataGridViewPreview.Columns.Cast<DataGridViewColumn>() where ((DateTime)c.Tag) >= book.CheckIn && ((DateTime)c.Tag) <= book.CheckOut select c.Index).ToArray();
+                indexRow = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (r.Tag).Equals(booking.AreaId) select r.Index).First();
+                indexColumns = (from c in _dataGridViewPreview.Columns.Cast<DataGridViewColumn>() where ((DateTime)c.Tag) >= booking.CheckIn && ((DateTime)c.Tag) <= booking.CheckOut select c.Index).ToArray();
 
                 foreach (int indexColumn in indexColumns)
                 {
-                    _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Style.BackColor = Area.GetAreaFromId(book.AreaId, _intBoo.Areas).Color;
+                    _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Style.BackColor = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Color;
                     val = _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Value == null ? string.Empty : _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Value.ToString();
-                    UpdateCellValue(ref val, Area.GetAreaFromId(book.AreaId, _intBoo.Areas).Capacity);
+                    UpdateCellValue(ref val, Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Capacity);
                     _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Value = val;
                 }
             }

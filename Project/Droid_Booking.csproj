@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Controler\GetText.cs" />
     <Compile Include="Controler\Interface_booking.cs" />
+    <Compile Include="Controler\Print.cs" />
     <Compile Include="Model\Area.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\User.cs" />
@@ -96,6 +97,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ResourceFrench.resx</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewPrice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\ViewCheckOut.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\ViewCheckIn.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\PanelShield.cs">
       <SubType>UserControl</SubType>
@@ -194,6 +204,15 @@
     <EmbeddedResource Include="View\DroidBookingForm.resx">
       <DependentUpon>DroidBookingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewCheckIn.resx">
+      <DependentUpon>ViewCheckIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewCheckOut.resx">
+      <DependentUpon>ViewCheckOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewPrice.resx">
+      <DependentUpon>ViewPrice.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ViewSettings.resx">
       <DependentUpon>ViewSettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,6 +258,7 @@
     <None Include="Resources\shadow_woman.png" />
     <None Include="Resources\wallpapers-download-1024x1024-vector-city-skyline-1920x1200-wallpaper.jpg" />
     <None Include="Resources\passeport.png" />
+    <None Include="Resources\ServoIconReservation.ico" />
     <Content Include="ServoIconBooking.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

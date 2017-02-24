@@ -88,9 +88,27 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Book.
+        ///   Recherche une chaîne localisée semblable à arrival.
         /// </summary>
-        public static string Book {
+        public static string arrival {
+            get {
+                return ResourceManager.GetString("arrival", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à arrivals.
+        /// </summary>
+        public static string arrivals {
+            get {
+                return ResourceManager.GetString("arrivals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à booking.
+        /// </summary>
+        public static string booking {
             get {
                 return ResourceManager.GetString("Book", resourceCulture);
             }
@@ -201,6 +219,42 @@ namespace Droid_Booking.Properties {
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Daily check in.
+        /// </summary>
+        public static string DailyCheckIn {
+            get {
+                return ResourceManager.GetString("DailyCheckIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Daily check out.
+        /// </summary>
+        public static string DailyCheckOut {
+            get {
+                return ResourceManager.GetString("DailyCheckOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à departure.
+        /// </summary>
+        public static string departure {
+            get {
+                return ResourceManager.GetString("departure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à departures.
+        /// </summary>
+        public static string departures {
+            get {
+                return ResourceManager.GetString("departures", resourceCulture);
             }
         }
         
@@ -376,9 +430,9 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à New book.
+        ///   Recherche une chaîne localisée semblable à New booking.
         /// </summary>
-        public static string Newbook {
+        public static string Newbooking {
             get {
                 return ResourceManager.GetString("Newbook", resourceCulture);
             }
@@ -412,11 +466,20 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Price of the book.
+        ///   Recherche une chaîne localisée semblable à Price of the booking.
         /// </summary>
-        public static string PriceOfTheBook {
+        public static string PriceOfThebooking {
             get {
                 return ResourceManager.GetString("PriceOfTheBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Prices.
+        /// </summary>
+        public static string Prices {
+            get {
+                return ResourceManager.GetString("Prices", resourceCulture);
             }
         }
         
@@ -457,9 +520,9 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Search book.
+        ///   Recherche une chaîne localisée semblable à Search booking.
         /// </summary>
-        public static string Searchbook {
+        public static string Searchbooking {
             get {
                 return ResourceManager.GetString("Searchbook", resourceCulture);
             }

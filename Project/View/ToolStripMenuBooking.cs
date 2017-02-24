@@ -14,6 +14,9 @@ namespace Droid_Booking
         private RibbonButton _rbWelcome;
         private RibbonButton _rbCalendar;
         private RibbonButton _rbParameters;
+        private RibbonButton _rbCheckIn;
+        private RibbonButton _rbCheckOut;
+        private RibbonButton _rbPrices;
 
         private RibbonPanel _panelUser;
         private RibbonButton _rbUserAdd;
@@ -23,7 +26,7 @@ namespace Droid_Booking
         private RibbonButton _rbAreaAdd;
         private RibbonButton _rbAreaSearch;
 
-        private RibbonPanel _panelBook;
+        private RibbonPanel _panelbooking;
         private RibbonButton _rbBookAdd;
         private RibbonButton _rbBookSearch;
         #endregion
@@ -53,7 +56,10 @@ namespace Droid_Booking
             _panelArea.Text = GetText.Text("Area");
             _rbBookAdd.Text = GetText.Text("Newbook");
             _rbBookSearch.Text = GetText.Text("Searchbook");
-            _panelBook.Text = GetText.Text("Book");
+            _panelbooking.Text = GetText.Text("Book");
+            _rbCheckIn.Text = GetText.Text("CheckIn");
+            _rbCheckOut.Text = GetText.Text("CheckOut");
+            _rbPrices.Text = GetText.Text("Prices");
         }
         #endregion
 
@@ -78,6 +84,21 @@ namespace Droid_Booking
             _rbCalendar.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.calendar;
             _rbCalendar.Click += _rbCalendar_Click;
 
+            _rbCheckIn = new RibbonButton("Today's check in");
+            _rbCheckIn.Image = Tools4Libraries.Resources.ResourceIconSet32Default.door_in;
+            _rbCheckIn.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.door_in;
+            _rbCheckIn.Click += _rbCheckIn_Click;
+
+            _rbCheckOut = new RibbonButton("Today's check out");
+            _rbCheckOut.Image = Tools4Libraries.Resources.ResourceIconSet32Default.door_out;
+            _rbCheckOut.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.door_out;
+            _rbCheckOut.Click += _rbCheckOut_Click;
+            
+            _rbPrices = new RibbonButton("Calendar's prices");
+            _rbPrices.Image = Tools4Libraries.Resources.ResourceIconSet32Default.table_money;
+            _rbPrices.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.table_money;
+            _rbPrices.Click += _rbPrices_Click;
+
             _rbParameters = new RibbonButton("Settings");
             _rbParameters.Image = Tools4Libraries.Resources.ResourceIconSet32Default.google_webmaster_tools;
             _rbParameters.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.google_webmaster_tools;
@@ -86,6 +107,9 @@ namespace Droid_Booking
             _panelView = new RibbonPanel("View");
             _panelView.Items.Add(_rbWelcome);
             _panelView.Items.Add(_rbCalendar);
+            _panelView.Items.Add(_rbCheckIn);
+            _panelView.Items.Add(_rbCheckOut);
+            _panelView.Items.Add(_rbPrices);
             _panelView.Items.Add(_rbParameters);
             this.Panels.Add(_panelView);
         }
@@ -135,10 +159,10 @@ namespace Droid_Booking
             _rbBookSearch.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.report_magnify;
             _rbBookSearch.Click += _rbBookSearch_Click;
 
-            _panelBook = new RibbonPanel("Book");
-            _panelBook.Items.Add(_rbBookAdd);
-            _panelBook.Items.Add(_rbBookSearch);
-            this.Panels.Add(_panelBook);
+            _panelbooking = new RibbonPanel("Book");
+            _panelbooking.Items.Add(_rbBookAdd);
+            _panelbooking.Items.Add(_rbBookSearch);
+            this.Panels.Add(_panelbooking);
         }
         #endregion
 
@@ -190,6 +214,21 @@ namespace Droid_Booking
         private void _rbParameter_Click(object sender, System.EventArgs e)
         {
             ToolBarEventArgs action = new ToolBarEventArgs("settings");
+            OnAction(action);
+        }
+        private void _rbCheckIn_Click(object sender, System.EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("checkin");
+            OnAction(action);
+        }
+        private void _rbCheckOut_Click(object sender, System.EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("checkout");
+            OnAction(action);
+        }
+        private void _rbPrices_Click(object sender, System.EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("prices");
             OnAction(action);
         }
         #endregion

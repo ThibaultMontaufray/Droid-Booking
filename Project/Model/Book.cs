@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Droid_Booking
 {
-    public class Book
+    public class Booking
     {
         #region Attribute
         private readonly string BOOK_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\Book\";
@@ -64,10 +64,10 @@ namespace Droid_Booking
         #endregion
 
         #region Constructor
-        public Book()
+        public Booking()
         {
             Random rand = new Random((int)DateTime.Now.Ticks);
-            _id = string.Format("book.{0}-{1}-{2}", rand.Next(), (int)DateTime.Now.Ticks, rand.Next());
+            _id = string.Format("booking.{0}-{1}-{2}", rand.Next(), (int)DateTime.Now.Ticks, rand.Next());
             _confirmed = false;
             System.Threading.Thread.Sleep(1);
         }
@@ -85,7 +85,7 @@ namespace Droid_Booking
         {
             string serializedObject = string.Empty;
 
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(Book));
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(Booking));
             using (var sww = new StringWriter())
             {
                 using (XmlWriter writer = XmlWriter.Create(sww))

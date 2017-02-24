@@ -18,7 +18,7 @@ namespace Droid_Booking
         public event ViewUserEventHandler RequestBookEdition;
 
         private Interface_booking _intBoo;
-        private List<Book> _filteredList;
+        private List<Booking> _filteredList;
 
         private IContainer components = null;
         private PanelShield panelShield1;
@@ -28,8 +28,8 @@ namespace Droid_Booking
         private NumericUpDown numericUpDownMinPrice;
         private Label label4;
         private Label label3;
-        private CheckBox checkBoxNonConfirmedBook;
-        private CheckBox checkBoxConfirmedBook;
+        private CheckBox checkBoxNonConfirmedbooking;
+        private CheckBox checkBoxConfirmedbooking;
         private DateTimePicker dateTimePickerEnd;
         private Label label2;
         private Label label1;
@@ -93,8 +93,8 @@ namespace Droid_Booking
             checkBoxCompletedPaiements.Text = GetText.Text("FilterOnCompletedPaiements");
             label3.Text = GetText.Text("MinPrice") + " : ";
             label4.Text = GetText.Text("MaxPrice") + " : ";
-            checkBoxNonConfirmedBook.Text = GetText.Text("FilterOnNonConfirmedBookings");
-            checkBoxConfirmedBook.Text = GetText.Text("FilterOnConfirmedBookings");
+            checkBoxNonConfirmedbooking.Text = GetText.Text("FilterOnNonConfirmedBookings");
+            checkBoxConfirmedbooking.Text = GetText.Text("FilterOnConfirmedBookings");
             label2.Text = GetText.Text("CheckOut") + " : ";
             label1.Text = GetText.Text("CheckIn") + " : ";
             labelArea.Text = GetText.Text("Area") + " : ";
@@ -147,8 +147,8 @@ namespace Droid_Booking
             this.numericUpDownMinPrice = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBoxNonConfirmedBook = new System.Windows.Forms.CheckBox();
-            this.checkBoxConfirmedBook = new System.Windows.Forms.CheckBox();
+            this.checkBoxNonConfirmedbooking = new System.Windows.Forms.CheckBox();
+            this.checkBoxConfirmedbooking = new System.Windows.Forms.CheckBox();
             this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -252,27 +252,27 @@ namespace Droid_Booking
             // 
             // checkBoxNonConfirmedBook
             // 
-            this.checkBoxNonConfirmedBook.AutoSize = true;
-            this.checkBoxNonConfirmedBook.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxNonConfirmedBook.ForeColor = System.Drawing.Color.White;
-            this.checkBoxNonConfirmedBook.Location = new System.Drawing.Point(400, 28);
-            this.checkBoxNonConfirmedBook.Name = "checkBoxNonConfirmedBook";
-            this.checkBoxNonConfirmedBook.Size = new System.Drawing.Size(239, 23);
-            this.checkBoxNonConfirmedBook.TabIndex = 26;
-            this.checkBoxNonConfirmedBook.Text = "Filter on non confirmed bookings";
-            this.checkBoxNonConfirmedBook.UseVisualStyleBackColor = true;
+            this.checkBoxNonConfirmedbooking.AutoSize = true;
+            this.checkBoxNonConfirmedbooking.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxNonConfirmedbooking.ForeColor = System.Drawing.Color.White;
+            this.checkBoxNonConfirmedbooking.Location = new System.Drawing.Point(400, 28);
+            this.checkBoxNonConfirmedbooking.Name = "checkBoxNonConfirmedBook";
+            this.checkBoxNonConfirmedbooking.Size = new System.Drawing.Size(239, 23);
+            this.checkBoxNonConfirmedbooking.TabIndex = 26;
+            this.checkBoxNonConfirmedbooking.Text = "Filter on non confirmed bookings";
+            this.checkBoxNonConfirmedbooking.UseVisualStyleBackColor = true;
             // 
             // checkBoxConfirmedBook
             // 
-            this.checkBoxConfirmedBook.AutoSize = true;
-            this.checkBoxConfirmedBook.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxConfirmedBook.ForeColor = System.Drawing.Color.White;
-            this.checkBoxConfirmedBook.Location = new System.Drawing.Point(400, -1);
-            this.checkBoxConfirmedBook.Name = "checkBoxConfirmedBook";
-            this.checkBoxConfirmedBook.Size = new System.Drawing.Size(211, 23);
-            this.checkBoxConfirmedBook.TabIndex = 25;
-            this.checkBoxConfirmedBook.Text = "Filter on confirmed bookings";
-            this.checkBoxConfirmedBook.UseVisualStyleBackColor = true;
+            this.checkBoxConfirmedbooking.AutoSize = true;
+            this.checkBoxConfirmedbooking.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxConfirmedbooking.ForeColor = System.Drawing.Color.White;
+            this.checkBoxConfirmedbooking.Location = new System.Drawing.Point(400, -1);
+            this.checkBoxConfirmedbooking.Name = "checkBoxConfirmedBook";
+            this.checkBoxConfirmedbooking.Size = new System.Drawing.Size(211, 23);
+            this.checkBoxConfirmedbooking.TabIndex = 25;
+            this.checkBoxConfirmedbooking.Text = "Filter on confirmed bookings";
+            this.checkBoxConfirmedbooking.UseVisualStyleBackColor = true;
             // 
             // dateTimePickerEnd
             // 
@@ -454,8 +454,8 @@ namespace Droid_Booking
             Controls.Add(this.numericUpDownMinPrice);
             Controls.Add(this.label4);
             Controls.Add(this.label3);
-            Controls.Add(this.checkBoxNonConfirmedBook);
-            Controls.Add(this.checkBoxConfirmedBook);
+            Controls.Add(this.checkBoxNonConfirmedbooking);
+            Controls.Add(this.checkBoxConfirmedbooking);
             Controls.Add(this.dateTimePickerEnd);
             Controls.Add(this.label2);
             Controls.Add(this.label1);
@@ -560,8 +560,8 @@ namespace Droid_Booking
             panelShield1.panelMiddle.Controls.Add(this.numericUpDownMinPrice);
             panelShield1.panelMiddle.Controls.Add(this.label4);
             panelShield1.panelMiddle.Controls.Add(this.label3);
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxNonConfirmedBook);
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxConfirmedBook);
+            panelShield1.panelMiddle.Controls.Add(this.checkBoxNonConfirmedbooking);
+            panelShield1.panelMiddle.Controls.Add(this.checkBoxConfirmedbooking);
             panelShield1.panelMiddle.Controls.Add(this.dateTimePickerEnd);
             panelShield1.panelMiddle.Controls.Add(this.label2);
             panelShield1.panelMiddle.Controls.Add(this.label1);
@@ -580,10 +580,10 @@ namespace Droid_Booking
             dateTimePickerStart.Value = DateTime.Now.AddMonths(-1);
             dateTimePickerEnd.Value = DateTime.Now.AddMonths(1);
 
-            checkBoxConfirmedBook.Checked = true;
+            checkBoxConfirmedbooking.Checked = true;
             checkBoxCompletedPaiements.Checked = true;
             checkBoxNonCompletedPaiement.Checked = true;
-            checkBoxNonConfirmedBook.Checked = true;
+            checkBoxNonConfirmedbooking.Checked = true;
 
             numericUpDownMaxPrice.Value = numericUpDownMaxPrice.Maximum;
             numericUpDownMinPrice.Value = numericUpDownMinPrice.Minimum;
@@ -592,7 +592,7 @@ namespace Droid_Booking
         {
             Area filterArea = Area.GetArea(comboBoxArea.SelectedItem, _intBoo.Areas);
             User filterUser = User.GetUser(comboBoxUsers.SelectedItem, _intBoo.Users);
-            _filteredList = _intBoo.Books;
+            _filteredList = _intBoo.Bookings;
 
             if (filterArea != null) _filteredList = _filteredList.Where(f => f.AreaId.Equals(filterArea.Id)).ToList();
             if (filterUser != null) _filteredList = _filteredList.Where(f => f.UserId.Equals(filterUser.Id)).ToList();
@@ -601,8 +601,8 @@ namespace Droid_Booking
 
             if (checkBoxCompletedPaiements.Checked && !checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => f.Paid >= f.Price).ToList();
             if (!checkBoxCompletedPaiements.Checked && checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => f.Paid < f.Price).ToList();
-            if (checkBoxConfirmedBook.Checked && !checkBoxNonConfirmedBook.Checked) _filteredList = _filteredList.Where(f => f.Confirmed == true).ToList();
-            if (!checkBoxConfirmedBook.Checked && checkBoxNonConfirmedBook.Checked) _filteredList = _filteredList.Where(f => f.Confirmed == false).ToList();
+            if (checkBoxConfirmedbooking.Checked && !checkBoxNonConfirmedbooking.Checked) _filteredList = _filteredList.Where(f => f.Confirmed == true).ToList();
+            if (!checkBoxConfirmedbooking.Checked && checkBoxNonConfirmedbooking.Checked) _filteredList = _filteredList.Where(f => f.Confirmed == false).ToList();
 
             if (numericUpDownMaxPrice.Value != numericUpDownMaxPrice.Maximum) _filteredList = _filteredList.Where(f => f.Price <= numericUpDownMaxPrice.Value).ToList();
             if (numericUpDownMinPrice.Value != numericUpDownMinPrice.Minimum) _filteredList = _filteredList.Where(f => f.Price >= numericUpDownMinPrice.Value).ToList();
@@ -615,21 +615,21 @@ namespace Droid_Booking
             User user;
             DataGridViewRow row;
             _dgvSearch.Rows.Clear();
-            foreach (Book book in _filteredList.OrderBy(f => f.CheckIn))
+            foreach (Booking booking in _filteredList.OrderBy(f => f.CheckIn))
             {
-                area = Area.GetAreaFromId(book.AreaId, _intBoo.Areas);
-                user = User.GetUserFromId(book.UserId, _intBoo.Users);
+                area = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas);
+                user = User.GetUserFromId(booking.UserId, _intBoo.Users);
 
                 _dgvSearch.Rows.Add();
                 row = _dgvSearch.Rows[_dgvSearch.Rows.Count - 1];
-                row.Tag = book.Id;
+                row.Tag = booking.Id;
                 row.Cells[ColumnArea.Index].Value = area.Type + " - " + area.Name;
                 row.Cells[ColumnUser.Index].Value = user.FirstName + " - " + user.FamilyName;
-                row.Cells[ColumnConfirmed.Index].Value = book.Confirmed;
-                row.Cells[ColumnPrice.Index].Value = book.Price;
-                row.Cells[ColumnPaid.Index].Value = book.Paid;
-                row.Cells[ColumnCheckIn.Index].Value = book.CheckIn.ToShortDateString();
-                row.Cells[ColumnCheckOut.Index].Value = book.CheckOut.ToShortDateString();
+                row.Cells[ColumnConfirmed.Index].Value = booking.Confirmed;
+                row.Cells[ColumnPrice.Index].Value = booking.Price;
+                row.Cells[ColumnPaid.Index].Value = booking.Paid;
+                row.Cells[ColumnCheckIn.Index].Value = booking.CheckIn.ToShortDateString();
+                row.Cells[ColumnCheckOut.Index].Value = booking.CheckOut.ToShortDateString();
                 row.Cells[ColumnEdit.Index].Value = Tools4Libraries.Resources.ResourceIconSet16Default.vcard_edit;
                 row.Cells[ColumnDelete.Index].Value = Tools4Libraries.Resources.ResourceIconSet16Default.vcard_delete;
                 row.Cells[ColumnDetails.Index].Value = Tools4Libraries.Resources.ResourceIconSet16Default.vcard;
@@ -640,11 +640,11 @@ namespace Droid_Booking
         }
         private void DeleteBook(int rowIndex)
         {
-            if (MessageBox.Show("Are you sure you want to delete this book ?", "Delete book", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+            if (MessageBox.Show("Are you sure you want to delete this booking ?", "Delete book", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
                 if (DetectBook(rowIndex))
                 {
-                    _intBoo.Books.Remove(_intBoo.CurrentBook);
+                    _intBoo.Bookings.Remove(_intBoo.CurrentBooking);
                     Filter();
                 }
             }
@@ -652,21 +652,21 @@ namespace Droid_Booking
         private void EditBook(int rowIndex)
         {
             DetectBook(rowIndex);
-            RequestBookEdition(_intBoo.CurrentBook);
+            RequestBookEdition(_intBoo.CurrentBooking);
         }
         private void DetailBook(int rowIndex)
         {
             DetectBook(rowIndex);
-            RequestBookDetail(_intBoo.CurrentBook);
+            RequestBookDetail(_intBoo.CurrentBooking);
         }
         private bool DetectBook(int rowIndex)
         {
             string bookId = _dgvSearch.Rows[rowIndex].Tag.ToString();
-            List<Book> books = _intBoo.Books.Where(b => b.Id.ToString().Equals(bookId)).ToList();
+            List<Booking> books = _intBoo.Bookings.Where(b => b.Id.ToString().Equals(bookId)).ToList();
 
             if (books.Count == 0)
             {
-                MessageBox.Show("This book has not be found", "Book not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This booking has not be found", "booking not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if (books.Count > 1)
@@ -676,7 +676,7 @@ namespace Droid_Booking
             }
             else
             {
-                _intBoo.CurrentBook = books[0];
+                _intBoo.CurrentBooking = books[0];
                 return true;
             }
         }

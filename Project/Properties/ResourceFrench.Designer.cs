@@ -88,9 +88,27 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à arrivée.
+        /// </summary>
+        public static string arrival {
+            get {
+                return ResourceManager.GetString("arrival", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à arrivées.
+        /// </summary>
+        public static string arrivals {
+            get {
+                return ResourceManager.GetString("arrivals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Réservation.
         /// </summary>
-        public static string Book {
+        public static string booking {
             get {
                 return ResourceManager.GetString("Book", resourceCulture);
             }
@@ -201,6 +219,42 @@ namespace Droid_Booking.Properties {
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Arrivée quotidienne.
+        /// </summary>
+        public static string DailyCheckIn {
+            get {
+                return ResourceManager.GetString("DailyCheckIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Départ quotidient.
+        /// </summary>
+        public static string DailyCheckOut {
+            get {
+                return ResourceManager.GetString("DailyCheckOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à départ.
+        /// </summary>
+        public static string departure {
+            get {
+                return ResourceManager.GetString("departure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à départs.
+        /// </summary>
+        public static string departures {
+            get {
+                return ResourceManager.GetString("departures", resourceCulture);
             }
         }
         
@@ -378,7 +432,7 @@ namespace Droid_Booking.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Créer réservation.
         /// </summary>
-        public static string Newbook {
+        public static string Newbooking {
             get {
                 return ResourceManager.GetString("Newbook", resourceCulture);
             }
@@ -414,9 +468,18 @@ namespace Droid_Booking.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Prix de la réservation.
         /// </summary>
-        public static string PriceOfTheBook {
+        public static string PriceOfThebooking {
             get {
                 return ResourceManager.GetString("PriceOfTheBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tarifs.
+        /// </summary>
+        public static string Prices {
+            get {
+                return ResourceManager.GetString("Prices", resourceCulture);
             }
         }
         
@@ -450,7 +513,7 @@ namespace Droid_Booking.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Chercher réservation.
         /// </summary>
-        public static string Searchbook {
+        public static string Searchbooking {
             get {
                 return ResourceManager.GetString("Searchbook", resourceCulture);
             }

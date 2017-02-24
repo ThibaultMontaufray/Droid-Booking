@@ -126,6 +126,12 @@
   <data name="Area" xml:space="preserve">
     <value>Zone</value>
   </data>
+  <data name="arrival" xml:space="preserve">
+    <value>arrivée</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>arrivées</value>
+  </data>
   <data name="Book" xml:space="preserve">
     <value>Réservation</value>
   </data>
@@ -164,6 +170,18 @@
   </data>
   <data name="Country" xml:space="preserve">
     <value>Pays</value>
+  </data>
+  <data name="DailyCheckIn" xml:space="preserve">
+    <value>Arrivée quotidienne</value>
+  </data>
+  <data name="DailyCheckOut" xml:space="preserve">
+    <value>Départ quotidient</value>
+  </data>
+  <data name="departure" xml:space="preserve">
+    <value>départ</value>
+  </data>
+  <data name="departures" xml:space="preserve">
+    <value>départs</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>Fin</value>
@@ -236,6 +254,9 @@
   </data>
   <data name="PriceOfTheBook" xml:space="preserve">
     <value>Prix de la réservation</value>
+  </data>
+  <data name="Prices" xml:space="preserve">
+    <value>Tarifs</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Enregistrer</value>

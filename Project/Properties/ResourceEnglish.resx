@@ -126,6 +126,12 @@
   <data name="Area" xml:space="preserve">
     <value>Area</value>
   </data>
+  <data name="arrival" xml:space="preserve">
+    <value>arrival</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>arrivals</value>
+  </data>
   <data name="Book" xml:space="preserve">
     <value>Book</value>
   </data>
@@ -164,6 +170,18 @@
   </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
+  </data>
+  <data name="DailyCheckIn" xml:space="preserve">
+    <value>Daily check in</value>
+  </data>
+  <data name="DailyCheckOut" xml:space="preserve">
+    <value>Daily check out</value>
+  </data>
+  <data name="departure" xml:space="preserve">
+    <value>departure</value>
+  </data>
+  <data name="departures" xml:space="preserve">
+    <value>departures</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>End</value>
@@ -236,6 +254,9 @@
   </data>
   <data name="PriceOfTheBook" xml:space="preserve">
     <value>Price of the book</value>
+  </data>
+  <data name="Prices" xml:space="preserve">
+    <value>Prices</value>
   </data>
   <data name="Rate" xml:space="preserve">
     <value>Rate</value>

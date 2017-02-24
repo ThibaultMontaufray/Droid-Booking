@@ -71,12 +71,12 @@ namespace Droid_Booking
                 {
                     comboBoxUser.Items.Add(item.FirstName + " " + item.FamilyName);
                 }
-                if (_intBoo.CurrentBook != null)
+                if (_intBoo.CurrentBooking != null)
                 {
                     foreach (var item in comboBoxArea.Items)
                     {
-                        area = Area.GetAreaFromId(_intBoo.CurrentBook.AreaId, _intBoo.Areas);
-                        user = User.GetUserFromId(_intBoo.CurrentBook.UserId, _intBoo.Users);
+                        area = Area.GetAreaFromId(_intBoo.CurrentBooking.AreaId, _intBoo.Areas);
+                        user = User.GetUserFromId(_intBoo.CurrentBooking.UserId, _intBoo.Users);
                         if (item.Equals(area.Type + " - " + area.Name))
                         {
                             comboBoxArea.SelectedItem = item;
@@ -87,11 +87,11 @@ namespace Droid_Booking
                             comboBoxUser.SelectedItem = item;
                             break;
                         }
-                        dateTimePickerCheckOut.Value = _intBoo.CurrentBook.CheckOut;
-                        dateTimePickerCheckIn.Value = _intBoo.CurrentBook.CheckIn;
-                        textBoxPrice.Text = _intBoo.CurrentBook.Price.ToString();
-                        textBoxPaid.Text = _intBoo.CurrentBook.Paid.ToString();
-                        checkBoxConfirmed.Checked = _intBoo.CurrentBook.Confirmed;
+                        dateTimePickerCheckOut.Value = _intBoo.CurrentBooking.CheckOut;
+                        dateTimePickerCheckIn.Value = _intBoo.CurrentBooking.CheckIn;
+                        textBoxPrice.Text = _intBoo.CurrentBooking.Price.ToString();
+                        textBoxPaid.Text = _intBoo.CurrentBooking.Paid.ToString();
+                        checkBoxConfirmed.Checked = _intBoo.CurrentBooking.Confirmed;
                     }
                 }
             }
@@ -218,7 +218,7 @@ namespace Droid_Booking
             this.labelPrice.Name = "labelPrice";
             this.labelPrice.Size = new System.Drawing.Size(130, 19);
             this.labelPrice.TabIndex = 9;
-            this.labelPrice.Text = "Price of the book : ";
+            this.labelPrice.Text = "Price of the booking : ";
             // 
             // labelPaid
             // 
@@ -355,19 +355,19 @@ namespace Droid_Booking
         }
         private void SaveBook()
         {
-            if (_intBoo.CurrentBook == null) _intBoo.CurrentBook = new Book();
+            if (_intBoo.CurrentBooking == null) _intBoo.CurrentBooking = new Booking();
 
             Area filterArea = Area.GetArea(comboBoxArea.SelectedItem, _intBoo.Areas);
             User filterUser = User.GetUser(comboBoxUser.SelectedItem, _intBoo.Users);
 
-            if (filterArea != null) _intBoo.CurrentBook.AreaId = filterArea.Id;
-            if (filterUser != null) _intBoo.CurrentBook.UserId = filterUser.Id;
-            _intBoo.CurrentBook.CheckIn = dateTimePickerCheckIn.Value;
-            _intBoo.CurrentBook.CheckOut = dateTimePickerCheckOut.Value;
-            _intBoo.CurrentBook.Confirmed = checkBoxConfirmed.Checked;
-            _intBoo.CurrentBook.Paid = decimal.Parse(textBoxPaid.Text);
-            _intBoo.CurrentBook.Price = decimal.Parse(textBoxPrice.Text);
-            _intBoo.CurrentBook.Save();
+            if (filterArea != null) _intBoo.CurrentBooking.AreaId = filterArea.Id;
+            if (filterUser != null) _intBoo.CurrentBooking.UserId = filterUser.Id;
+            _intBoo.CurrentBooking.CheckIn = dateTimePickerCheckIn.Value;
+            _intBoo.CurrentBooking.CheckOut = dateTimePickerCheckOut.Value;
+            _intBoo.CurrentBooking.Confirmed = checkBoxConfirmed.Checked;
+            _intBoo.CurrentBooking.Paid = decimal.Parse(textBoxPaid.Text);
+            _intBoo.CurrentBooking.Price = decimal.Parse(textBoxPrice.Text);
+            _intBoo.CurrentBooking.Save();
         }
         #endregion
 

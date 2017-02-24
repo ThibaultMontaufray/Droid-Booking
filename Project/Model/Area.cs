@@ -84,6 +84,8 @@ namespace Droid_Booking
 
             _color = Color.DarkOrange;
             _type = TYPE.ROOM;
+
+            System.Threading.Thread.Sleep(1);
         }
         #endregion
 

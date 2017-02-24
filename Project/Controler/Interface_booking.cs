@@ -28,14 +28,17 @@ namespace Droid_Booking
         private ViewBookSearch _viewBookSearch;
         private ViewUserEdit _viewUserEdit;
         private ViewSettings _viewSetting;
+        private ViewCheckIn _viewCheckIn;
+        private ViewCheckOut _viewCheckOut;
+        private ViewPrice _viewPrice;
 
         private List<User> _users;
         private List<Area> _areas;
-        private List<Book> _books;
+        private List<Booking> _books;
         
         private User _currentUser;
         private Area _currentArea;
-        private Book _currentBook;
+        private Booking _currentbooking;
         #endregion
 
         #region Properties
@@ -44,12 +47,12 @@ namespace Droid_Booking
             get { return _cloud; }
             set { _cloud = value; }
         }
-        public Book CurrentBook
+        public Booking CurrentBooking
         {
-            get { return _currentBook; }
-            set { _currentBook = value; }
+            get { return _currentbooking; }
+            set { _currentbooking = value; }
         }
-        public List<Book> Books
+        public List<Booking> Bookings
         {
             get { return _books; }
             set { _books = value; }
@@ -230,6 +233,15 @@ namespace Droid_Booking
                 case "settings":
                     LaunchSettings();
                     break;
+                case "checkin":
+                    LaunchCheckIn();
+                    break;
+                case "checkout":
+                    LaunchCheckOut();
+                    break;
+                case "prices":
+                    LaunchPrices();
+                    break;
             }
         }
         #endregion
@@ -283,6 +295,15 @@ namespace Droid_Booking
             _viewSetting = new ViewSettings(this);
             _viewSetting.Name = "CurrentView";
 
+            _viewCheckIn = new ViewCheckIn(this);
+            _viewCheckIn.Name = "CurrentView";
+
+            _viewCheckOut = new ViewCheckOut(this);
+            _viewCheckOut.Name = "CurrentView";
+
+            _viewPrice = new ViewPrice(this);
+            _viewPrice.Name = "CurrentView";
+
             _viewWelcome = new ViewWelcome(this);
             _viewWelcome.Dock = DockStyle.Fill;
             _viewWelcome.Name = "CurrentView";
@@ -304,7 +325,7 @@ namespace Droid_Booking
         {
             _users = new List<User>();
             _areas = new List<Area>();
-            _books = new List<Book>();
+            _books = new List<Booking>();
 
             LoadDataDemo();
         }
@@ -336,17 +357,18 @@ namespace Droid_Booking
             _areas.Add(new Area() { Name = "P3", Floor = 0, Color = System.Drawing.Color.Gray, Capacity = 1, Type = Area.TYPE.PARKING });
             _areas.Add(new Area() { Name = "P4", Floor = 0, Color = System.Drawing.Color.Gray, Capacity = 1, Type = Area.TYPE.PARKING });
 
-            _books.Add(new Book() { AreaId = _areas[4].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(-1), CheckOut = DateTime.Now.AddDays(7), Paid = 20, Price = 120, UserId = _users[0].Id });
-            _books.Add(new Book() { AreaId = _areas[0].Id, Confirmed = false, CheckIn = DateTime.Now.AddDays(2), CheckOut = DateTime.Now.AddDays(5), Paid = 20, Price = 120, UserId = _users[1].Id });
-            _books.Add(new Book() { AreaId = _areas[4].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(-3), CheckOut = DateTime.Now.AddDays(5), Paid = 0, Price = 150, UserId = _users[2].Id });
-            _books.Add(new Book() { AreaId = _areas[7].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(5), CheckOut = DateTime.Now.AddDays(6), Paid = 20, Price = 120, UserId = _users[4].Id });
-            _books.Add(new Book() { AreaId = _areas[5].Id, Confirmed = false, CheckIn = DateTime.Now.AddDays(1), CheckOut = DateTime.Now.AddDays(7), Paid = 20, Price = 120, UserId = _users[3].Id });
-            _books.Add(new Book() { AreaId = _areas[5].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(-7), CheckOut = DateTime.Now.AddDays(9), Paid = 20, Price = 120, UserId = _users[5].Id });
-            _books.Add(new Book() { AreaId = _areas[8].Id, Confirmed = false, CheckIn = DateTime.Now.AddDays(5), CheckOut = DateTime.Now.AddDays(8), Paid = 120, Price = 120, UserId = _users[0].Id });
-            _books.Add(new Book() { AreaId = _areas[9].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(6), CheckOut = DateTime.Now.AddDays(17), Paid = 120, Price = 120, UserId = _users[1].Id });
-            _books.Add(new Book() { AreaId = _areas[1].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(8), CheckOut = DateTime.Now.AddDays(17), Paid = 20, Price = 120, UserId = _users[2].Id });
-            _books.Add(new Book() { AreaId = _areas[14].Id, Confirmed = false, CheckIn = DateTime.Now.AddDays(-9), CheckOut = DateTime.Now.AddDays(17), Paid = 20, Price = 10, UserId = _users[3].Id });
-            _books.Add(new Book() { AreaId = _areas[4].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(2), CheckOut = DateTime.Now.AddDays(3), Paid = 20, Price = 20, UserId = _users[2].Id });
+            _books.Add(new Booking() { AreaId = _areas[4].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(0), CheckOut = DateTime.Now.AddDays(7), Paid = 20, Price = 120, UserId = _users[0].Id });
+            _books.Add(new Booking() { AreaId = _areas[0].Id, Confirmed = false, CheckIn = DateTime.Now.AddDays(0), CheckOut = DateTime.Now.AddDays(5), Paid = 20, Price = 120, UserId = _users[1].Id });
+            _books.Add(new Booking() { AreaId = _areas[10].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(-3), CheckOut = DateTime.Now.AddDays(5), Paid = 0, Price = 150, UserId = _users[2].Id });
+            _books.Add(new Booking() { AreaId = _areas[7].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(0), CheckOut = DateTime.Now.AddDays(6), Paid = 20, Price = 120, UserId = _users[4].Id });
+            _books.Add(new Booking() { AreaId = _areas[5].Id, Confirmed = false, CheckIn = DateTime.Now.AddDays(1), CheckOut = DateTime.Now.AddDays(7), Paid = 20, Price = 120, UserId = _users[3].Id });
+            _books.Add(new Booking() { AreaId = _areas[11].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(-7), CheckOut = DateTime.Now.AddDays(0), Paid = 20, Price = 120, UserId = _users[5].Id });
+            _books.Add(new Booking() { AreaId = _areas[8].Id, Confirmed = false, CheckIn = DateTime.Now.AddDays(5), CheckOut = DateTime.Now.AddDays(8), Paid = 120, Price = 120, UserId = _users[0].Id });
+            _books.Add(new Booking() { AreaId = _areas[9].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(6), CheckOut = DateTime.Now.AddDays(17), Paid = 120, Price = 120, UserId = _users[1].Id });
+            _books.Add(new Booking() { AreaId = _areas[1].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(0), CheckOut = DateTime.Now.AddDays(17), Paid = 20, Price = 120, UserId = _users[2].Id });
+            _books.Add(new Booking() { AreaId = _areas[14].Id, Confirmed = false, CheckIn = DateTime.Now.AddDays(-9), CheckOut = DateTime.Now.AddDays(0), Paid = 20, Price = 10, UserId = _users[3].Id });
+            _books.Add(new Booking() { AreaId = _areas[13].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(2), CheckOut = DateTime.Now.AddDays(3), Paid = 20, Price = 20, UserId = _users[2].Id });
+            _books.Add(new Booking() { AreaId = _areas[12].Id, Confirmed = true, CheckIn = DateTime.Now.AddDays(0), CheckOut = DateTime.Now.AddDays(2), Paid = 20, Price = 20, UserId = _users[0].Id });
         }
 
         #region Launcher
@@ -372,7 +394,6 @@ namespace Droid_Booking
             _viewCalendar.ChangeLanguage();
             _sheet.Controls.Add(_viewCalendar);
         }
-
         private void LaunchViewBookDetail()
         {
             _sheet.Controls.Clear();
@@ -397,7 +418,6 @@ namespace Droid_Booking
             _viewBookSearch.ChangeLanguage();
             _sheet.Controls.Add(_viewBookSearch);
         }
-
         private void LaunchViewUserSearch()
         {
             _sheet.Controls.Clear();
@@ -442,7 +462,6 @@ namespace Droid_Booking
 
             }
         }
-
         private void LaunchViewAreaSearch()
         {
             _sheet.Controls.Clear();
@@ -471,6 +490,37 @@ namespace Droid_Booking
             _viewAreaEdit.ChangeLanguage();
             _sheet.Controls.Add(_viewAreaEdit);
         }
+        private void LaunchCheckIn()
+        {
+            _sheet.Controls.Clear();
+
+            _viewCheckIn.Top = 76;
+            _viewCheckIn.RefreshData();
+            _viewCheckIn.Left = (_sheet.Width / 2) - (_viewCheckIn.Width / 2);
+            _viewCheckIn.ChangeLanguage();
+            _sheet.Controls.Add(_viewCheckIn);
+        }
+        private void LaunchCheckOut()
+        {
+            _sheet.Controls.Clear();
+
+            _viewCheckOut.Top = 76;
+            _viewCheckOut.RefreshData();
+            _viewCheckOut.Left = (_sheet.Width / 2) - (_viewCheckOut.Width / 2);
+            _viewCheckOut.ChangeLanguage();
+            _sheet.Controls.Add(_viewCheckOut);
+        }
+        private void LaunchPrices()
+        {
+            _sheet.Controls.Clear();
+
+            _viewPrice.Top = 76;
+            _viewPrice.RefreshData();
+            _viewPrice.Left = (_sheet.Width / 2) - (_viewPrice.Width / 2);
+            _viewPrice.ChangeLanguage();
+            _sheet.Controls.Add(_viewPrice);
+
+        }
         #endregion
 
         #endregion
@@ -498,17 +548,17 @@ namespace Droid_Booking
         }
         private void _viewBookSearch_RequestBookDetail(object o)
         {
-            if (o is Book)
+            if (o is Booking)
             {
-                _currentBook = o as Book;
+                _currentbooking = o as Booking;
                 LaunchViewBookDetail();
             }
         }
         private void _viewBookSearch_RequestBookEdition(object o)
         {
-            if (o is Book)
+            if (o is Booking)
             {
-                _currentBook = o as Book;
+                _currentbooking = o as Booking;
                 LaunchViewBookEdit();
             }
         }

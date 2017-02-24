@@ -56,8 +56,7 @@
             // 
             // monthCalendar
             // 
-            this.monthCalendar.CalendarDimensions = new System.Drawing.Size(1, 3);
-            this.monthCalendar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.monthCalendar.Dock = System.Windows.Forms.DockStyle.Top;
             this.monthCalendar.Location = new System.Drawing.Point(0, 38);
             this.monthCalendar.Name = "monthCalendar";
             this.monthCalendar.ShowWeekNumbers = true;
