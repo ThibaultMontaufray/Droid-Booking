@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Droid_financial;
+using System;
 using System.Windows.Forms;
 
 namespace Droid_Booking
@@ -7,6 +8,7 @@ namespace Droid_Booking
     {
         #region Attribute
         private Interface_booking _intBoo;
+        private Interface_fnc _int_fin;
 
         private Ribbon _ribbon;
         private RibbonButton _btn_open;
@@ -18,6 +20,11 @@ namespace Droid_Booking
         {
             get { return _intBoo; }
             set { _intBoo = value; }
+        }
+        public Interface_fnc IntFinance
+        {
+            get { return _int_fin; }
+            set { _int_fin = value; }
         }
         #endregion
 
@@ -47,6 +54,8 @@ namespace Droid_Booking
             _intBoo.LanguageModified += _intBoo_LanguageModified;
             this.Controls.Add(_intBoo.Sheet);
 
+            _int_fin = new Interface_fnc(new System.Collections.Generic.List<string>());
+
             BuildRibbon();
         }
         private void BuildRibbon()
@@ -61,6 +70,7 @@ namespace Droid_Booking
             _ribbon.QuickAccessToolbar.Visible = false;
             _ribbon.QuickAccessToolbar.MinSizeMode = RibbonElementSizeMode.Compact;
             _ribbon.Tabs.Add(_intBoo.Tsm);
+            _ribbon.Tabs.Add(_int_fin.Tsm);
 
             _btn_open = new RibbonButton(GetText.Text("Open"));
             _btn_open.Image = Tools4Libraries.Resources.ResourceIconSet32Default.open_folder;

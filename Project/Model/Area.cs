@@ -21,7 +21,6 @@ namespace Droid_Booking
         #endregion
 
         #region Attribute
-        private readonly string AREA_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\Area\";
 
         private string _id;
         private string _name;
@@ -30,6 +29,7 @@ namespace Droid_Booking
         private TYPE _type;
         private Color _color;
         private string _comment;
+        private KeyValuePair<string, bool>[] _place; // place name, and true if place available
         #endregion
 
         #region Properties
@@ -51,7 +51,11 @@ namespace Droid_Booking
         public int Capacity
         {
             get { return _capacity; }
-            set { _capacity = value; }
+            set
+            {
+                _capacity = value;
+                InitPlaces();
+            }
         }
         public int Floor
         {
@@ -74,6 +78,11 @@ namespace Droid_Booking
             get { return _color; }
             set { _color = value; }
         }
+        public KeyValuePair<string, bool>[] Place
+        {
+            get { return _place; }
+            set { _place = value; }
+        }
         #endregion
 
         #region Constructor
@@ -82,17 +91,19 @@ namespace Droid_Booking
             Random rand = new Random((int)DateTime.Now.Ticks);
             _id = string.Format("area.{0}-{1}-{2}", rand.Next(), (int)DateTime.Now.Ticks, rand.Next());
 
+            _capacity = 0;
             _color = Color.DarkOrange;
             _type = TYPE.ROOM;
+            InitPlaces();
 
             System.Threading.Thread.Sleep(1);
         }
         #endregion
 
         #region Methods public
-        public void Save()
+        public void Save(string path)
         {
-            SaveFile(GenerateXml());
+            SaveFile(GenerateXml(), path);
         }
         public static Area GetArea(object o, List<Area> areas)
         {
@@ -130,16 +141,24 @@ namespace Droid_Booking
             }
             return serializedObject;
         }
-        private void SaveFile(string xmlObject)
+        private void SaveFile(string xmlObject, string path)
         {
-            if (!Directory.Exists(AREA_DIRECTORY))
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(AREA_DIRECTORY);
+                Directory.CreateDirectory(path);
             }
-            string filePath = Path.Combine(AREA_DIRECTORY, string.Format("{0}.{1}.xml", _type, _name));
+            string filePath = Path.Combine(path, string.Format("{0}.{1}.xml", _type, _name));
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
                 sw.Write(xmlObject);
+            }
+        }
+        private void InitPlaces()
+        {
+            _place = new KeyValuePair<string, bool>[_capacity];
+            for (int i = 0; i < _capacity; i++)
+            {
+                _place[i] = new KeyValuePair<string, bool>(i.ToString(), true);
             }
         }
         #endregion

@@ -5,5 +5,11 @@
     <Setting Name="Language" Type="System.String" Scope="User">
       <Value Profile="(Default)">English</Value>
     </Setting>
+    <Setting Name="PurgeDelay" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Month</Value>
+    </Setting>
+    <Setting Name="PurgeValue" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">6</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

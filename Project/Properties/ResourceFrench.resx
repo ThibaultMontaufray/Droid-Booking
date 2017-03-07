@@ -168,8 +168,8 @@
   <data name="Confirmed" xml:space="preserve">
     <value>Confirmé</value>
   </data>
-  <data name="Country" xml:space="preserve">
-    <value>Pays</value>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationalité</value>
   </data>
   <data name="DailyCheckIn" xml:space="preserve">
     <value>Arrivée quotidienne</value>
@@ -237,9 +237,6 @@
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>
-  <data name="Nationality" xml:space="preserve">
-    <value>Nationalité</value>
-  </data>
   <data name="Newbook" xml:space="preserve">
     <value>Créer réservation</value>
   </data>
@@ -293,5 +290,11 @@
   </data>
   <data name="View" xml:space="preserve">
     <value>Vue</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Vide</value>
+  </data>
+  <data name="PurgeHistory" xml:space="preserve">
+    <value>Délais d'historique</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Droid_People;
+using System;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace Droid_Booking
         private DataGridView dataGridViewCheckIn;
         private DataGridViewTextBoxColumn ColumnType;
         private DataGridViewTextBoxColumn ColumnName;
-        private DataGridViewTextBoxColumn ColumnUser;
+        private DataGridViewTextBoxColumn ColumnPerson;
         private Button buttonPrint;
         #endregion
 
@@ -52,28 +53,28 @@ namespace Droid_Booking
         public void ChangeLanguage()
         {
             ColumnType.HeaderText = GetText.Text("Type");
-            ColumnUser.HeaderText = GetText.Text("User");
+            ColumnPerson.HeaderText = GetText.Text("User");
             ColumnName.HeaderText = GetText.Text("Name");
 
             RefreshData();
         }
         public void RefreshData()
         {
-            User user;
+            Person user;
             Area area;
             DataGridViewRow row;
 
             dataGridViewCheckIn.Rows.Clear();
             foreach (Booking booking in _intBoo.Bookings.Where(b => b.CheckIn.Date.Equals(DateTime.Now.Date)))
             {
-                user = User.GetUserFromId(booking.UserId, _intBoo.Users);
+                user = Person.GetPersonFromId(booking.UserId, _intBoo.Persons);
                 area = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas);
 
                 dataGridViewCheckIn.Rows.Add();
                 row = dataGridViewCheckIn.Rows[dataGridViewCheckIn.Rows.Count - 1];
                 row.Cells[ColumnName.Index].Value = area.Name;
                 row.Cells[ColumnType.Index].Value = area.Type;
-                row.Cells[ColumnUser.Index].Value = string.Format("{0} {1}", user.FirstName, user.FamilyName);
+                row.Cells[ColumnPerson.Index].Value = string.Format("{0} {1}", user.FirstName, user.FamilyName);
             }
 
             labelDate.Text = DateTime.Now.ToShortDateString();
@@ -114,7 +115,7 @@ namespace Droid_Booking
             this.dataGridViewCheckIn = new System.Windows.Forms.DataGridView();
             this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelPrinter.SuspendLayout();
@@ -222,7 +223,7 @@ namespace Droid_Booking
             this.dataGridViewCheckIn.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnType,
             this.ColumnName,
-            this.ColumnUser});
+            this.ColumnPerson});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -255,9 +256,9 @@ namespace Droid_Booking
             // 
             // ColumnUser
             // 
-            this.ColumnUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnUser.HeaderText = "User";
-            this.ColumnUser.Name = "ColumnUser";
+            this.ColumnPerson.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnPerson.HeaderText = "User";
+            this.ColumnPerson.Name = "ColumnUser";
             // 
             // ViewCheckIn
             // 

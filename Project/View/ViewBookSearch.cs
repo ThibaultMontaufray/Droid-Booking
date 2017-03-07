@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Droid_People;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
@@ -21,7 +23,7 @@ namespace Droid_Booking
         private List<Booking> _filteredList;
 
         private IContainer components = null;
-        private PanelShield panelShield1;
+        private PanelCustom panelShield1;
         private CheckBox checkBoxNonCompletedPaiement;
         private CheckBox checkBoxCompletedPaiements;
         private NumericUpDown numericUpDownMaxPrice;
@@ -41,7 +43,7 @@ namespace Droid_Booking
         private Button buttonClearFilter;
         private DataGridView _dgvSearch;
         private DataGridViewTextBoxColumn ColumnArea;
-        private DataGridViewTextBoxColumn ColumnUser;
+        private DataGridViewTextBoxColumn ColumnPerson;
         private DataGridViewTextBoxColumn ColumnPrice;
         private DataGridViewTextBoxColumn ColumnPaid;
         private DataGridViewCheckBoxColumn ColumnConfirmed;
@@ -77,9 +79,9 @@ namespace Droid_Booking
         public void RefreshData()
         {
             comboBoxUsers.Items.Clear();
-            foreach (User user in _intBoo.Users)
+            foreach (Person person in _intBoo.Persons)
             {
-                comboBoxUsers.Items.Add(string.Format("{0} {1}", user.FirstName, user.FamilyName));
+                comboBoxUsers.Items.Add(string.Format("{0} {1}", person.FirstName, person.FamilyName));
             }
             comboBoxArea.Items.Clear();
             foreach (Area area in _intBoo.Areas)
@@ -102,7 +104,7 @@ namespace Droid_Booking
             buttonClearFilter.Text = GetText.Text("ClearFilter");
             
             ColumnArea.HeaderText = GetText.Text("Area");
-            ColumnUser.HeaderText = GetText.Text("User");
+            ColumnPerson.HeaderText = GetText.Text("User");
             ColumnPrice.HeaderText = GetText.Text("Price");
             ColumnPaid.HeaderText = GetText.Text("Paid");
             ColumnConfirmed.HeaderText = GetText.Text("Confirmed");
@@ -161,7 +163,7 @@ namespace Droid_Booking
             this.buttonClearFilter = new System.Windows.Forms.Button();
             this._dgvSearch = new System.Windows.Forms.DataGridView();
             this.ColumnArea = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnPaid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnConfirmed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -170,7 +172,7 @@ namespace Droid_Booking
             this.ColumnEdit = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnDelete = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnDetails = new System.Windows.Forms.DataGridViewImageColumn();
-            this.panelShield1 = new Droid_Booking.PanelShield();
+            this.panelShield1 = new PanelCustom();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearch)).BeginInit();
@@ -397,7 +399,7 @@ namespace Droid_Booking
             this._dgvSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._dgvSearch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnArea,
-            this.ColumnUser,
+            this.ColumnPerson,
             this.ColumnPrice,
             this.ColumnPaid,
             this.ColumnConfirmed,
@@ -435,10 +437,10 @@ namespace Droid_Booking
             // 
             // ColumnUser
             // 
-            this.ColumnUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnUser.HeaderText = "User";
-            this.ColumnUser.Name = "ColumnUser";
-            this.ColumnUser.ReadOnly = true;
+            this.ColumnPerson.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnPerson.HeaderText = "User";
+            this.ColumnPerson.Name = "ColumnUser";
+            this.ColumnPerson.ReadOnly = true;
             // 
             // ColumnPrice
             // 
@@ -591,11 +593,11 @@ namespace Droid_Booking
         private void Filter()
         {
             Area filterArea = Area.GetArea(comboBoxArea.SelectedItem, _intBoo.Areas);
-            User filterUser = User.GetUser(comboBoxUsers.SelectedItem, _intBoo.Users);
+            Person filterPerson = Person.GetUserByText(comboBoxUsers.SelectedItem, _intBoo.Persons);
             _filteredList = _intBoo.Bookings;
 
             if (filterArea != null) _filteredList = _filteredList.Where(f => f.AreaId.Equals(filterArea.Id)).ToList();
-            if (filterUser != null) _filteredList = _filteredList.Where(f => f.UserId.Equals(filterUser.Id)).ToList();
+            if (filterPerson != null) _filteredList = _filteredList.Where(f => f.UserId.Equals(filterPerson.Id)).ToList();
             if (!dateTimePickerEnd.Value.Equals(dateTimePickerEnd.MaxDate)) _filteredList = _filteredList.Where(f => f.CheckOut < dateTimePickerEnd.Value).ToList();
             if (!dateTimePickerStart.Value.Equals(dateTimePickerStart.MinDate)) _filteredList = _filteredList.Where(f => f.CheckIn > dateTimePickerStart.Value).ToList();
 
@@ -612,19 +614,19 @@ namespace Droid_Booking
         private void RefreshDataGridView()
         {
             Area area;
-            User user;
+            Person person;
             DataGridViewRow row;
             _dgvSearch.Rows.Clear();
             foreach (Booking booking in _filteredList.OrderBy(f => f.CheckIn))
             {
                 area = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas);
-                user = User.GetUserFromId(booking.UserId, _intBoo.Users);
+                person = Person.GetUserByText(booking.UserId, _intBoo.Persons);
 
                 _dgvSearch.Rows.Add();
                 row = _dgvSearch.Rows[_dgvSearch.Rows.Count - 1];
                 row.Tag = booking.Id;
                 row.Cells[ColumnArea.Index].Value = area.Type + " - " + area.Name;
-                row.Cells[ColumnUser.Index].Value = user.FirstName + " - " + user.FamilyName;
+                row.Cells[ColumnPerson.Index].Value = person.FirstName + " - " + person.FamilyName;
                 row.Cells[ColumnConfirmed.Index].Value = booking.Confirmed;
                 row.Cells[ColumnPrice.Index].Value = booking.Price;
                 row.Cells[ColumnPaid.Index].Value = booking.Paid;
@@ -671,7 +673,7 @@ namespace Droid_Booking
             }
             else if (books.Count > 1)
             {
-                MessageBox.Show("Too many books found for this user, area and date. Please change users settings.", "User not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Too many books found for this user, area and date. Please change users settings.", "Person not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else

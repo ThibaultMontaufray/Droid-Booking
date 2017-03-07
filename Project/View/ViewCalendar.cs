@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Droid_Booking
 {
@@ -62,11 +63,13 @@ namespace Droid_Booking
             DataGridViewColumn column;
             for (int i = 0; i < 30; i++)
             {
-                column = new DataGridViewTextBoxColumn();
+                //column = new DataGridViewTextBoxColumn();
+                column = new TextAndImageColumn();
                 column.Name = "Day" + i;
                 column.HeaderText = string.Format("{0}\r\n{1}", _startDate.AddDays(i).DayOfWeek, _startDate.AddDays(i).Day);
                 column.Width = 76;
                 column.Tag = _startDate.AddDays(i);
+                (column as TextAndImageColumn).Image = Properties.Resources.CenterWhite;
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
                 if (_startDate.AddDays(i).DayOfWeek == DayOfWeek.Saturday || _startDate.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
                 {
@@ -84,16 +87,19 @@ namespace Droid_Booking
                 row = new DataGridViewRow();
                 row.HeaderCell.Value = string.Format("{0} - {1}", area.Type.ToString(), area.Name);
                 row.Tag = area.Id;
+                row.Height = 30;
                 headerWidth = area.Type.ToString().Length * 15 + area.Name.Length * 15;
                 if (_dataGridViewPreview.RowHeadersWidth < headerWidth) { _dataGridViewPreview.RowHeadersWidth = headerWidth; }
+                Image[] parameters = new Image[_dataGridViewPreview.Columns.Count];
                 _dataGridViewPreview.Rows.Add(row);
             }
         }
         private void LoadBookings()
         {
             int indexRow;
+            int countBooking;
+            int capacityBooking;
             int[] indexColumns;
-            string val;
             foreach (Booking booking in _intBoo.Bookings)
             {
                 indexRow = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (r.Tag).Equals(booking.AreaId) select r.Index).First();
@@ -101,26 +107,22 @@ namespace Droid_Booking
 
                 foreach (int indexColumn in indexColumns)
                 {
-                    _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Style.BackColor = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Color;
-                    val = _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Value == null ? string.Empty : _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Value.ToString();
-                    UpdateCellValue(ref val, Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Capacity);
-                    _dataGridViewPreview.Rows[indexRow].Cells[indexColumn].Value = val;
+                    countBooking = _intBoo.Bookings.Where(b => b.CheckIn.Date <= ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date && b.CheckOut.Date >= ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date).Count();
+                    capacityBooking = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Capacity;
+                    (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Value = string.Format("{0} / {1}", countBooking, capacityBooking);
+                    if (countBooking == capacityBooking)
+                    {
+                        (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterRed;
+                    }
+                    else if (countBooking >= capacityBooking / 2)
+                    {
+                        (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterOrange;
+                    }
+                    else
+                    {
+                        (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterGreen;
+                    }
                 }
-            }
-        }
-        private void UpdateCellValue(ref string val, int capacity)
-        {
-            string[] tab;
-            int count;
-            if (string.IsNullOrEmpty(val))
-            {
-                val = string.Format("1 / {0}", capacity);
-            }
-            else
-            {
-                tab = val.Split('/');
-                count = int.Parse(tab[0].Trim()) + 1;
-                val = string.Format("{0} / {1}", count, capacity);
             }
         }
         #endregion

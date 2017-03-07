@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Droid_People;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -39,7 +40,7 @@ namespace Droid_Booking
 
             label1.Text = GetText.Text("Occupancy") + " : ";
             labelAreas.Text = GetText.Text("Area capacity details") + " : ";
-            labelName.Text = GetText.Text("User nationalities");
+            labelName.Text = GetText.Text("Person nationalities");
         }
         #endregion
 
@@ -61,9 +62,9 @@ namespace Droid_Booking
                 Label labelNat;
                 int posY = 30;
                 _nationalities.Clear();
-                foreach (User user in _intBoo.Users)
+                foreach (Person person in _intBoo.Persons)
                 {
-                    if (!_nationalities.ContainsKey(user.Country)) { _nationalities.Add(user.Country, _intBoo.Users.Where(u => user.Country.Equals(u.Country)).Count()); }
+                    if (!_nationalities.ContainsKey(person.Nationality)) { _nationalities.Add(person.Nationality, _intBoo.Persons.Where(u => person.Nationality.Equals(u.Nationality)).Count()); }
                 }
                 foreach (var nat in _nationalities.OrderByDescending(n => n.Value))
                 {
@@ -102,8 +103,9 @@ namespace Droid_Booking
                 {
                     _areas[Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Type.ToString()] += 1;
                 }
-                labelOccupancy.Text = string.Format("{0} / {1} ( {2} {3} % )", currentBooks.Count, totalCapacity, GetText.Text("Rate"), currentBooks.Count * 100 / totalCapacity);
-                
+                if (totalCapacity != 0) { labelOccupancy.Text = string.Format("{0} / {1} ( {2} {3} % )", currentBooks.Count, totalCapacity, GetText.Text("Rate"), currentBooks.Count * 100 / totalCapacity); }
+                else labelOccupancy.Text = GetText.Text("Empty");
+
                 foreach (var area in _areasCapacity.OrderByDescending(n => n.Value))
                 {
                     labelArea = new Label();

@@ -168,8 +168,8 @@
   <data name="Confirmed" xml:space="preserve">
     <value>Confirmed</value>
   </data>
-  <data name="Country" xml:space="preserve">
-    <value>Country</value>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationality</value>
   </data>
   <data name="DailyCheckIn" xml:space="preserve">
     <value>Daily check in</value>
@@ -237,9 +237,6 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="Nationality" xml:space="preserve">
-    <value>Nationality</value>
-  </data>
   <data name="Newbook" xml:space="preserve">
     <value>New book</value>
   </data>
@@ -289,12 +286,18 @@
     <value>User</value>
   </data>
   <data name="Useradd" xml:space="preserve">
-    <value>User add</value>
+    <value>Person add</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>
   </data>
   <data name="View" xml:space="preserve">
     <value>View</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Empty</value>
+  </data>
+  <data name="PurgeHistory" xml:space="preserve">
+    <value>Delay to purge history</value>
   </data>
 </root>

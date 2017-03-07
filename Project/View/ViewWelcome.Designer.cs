@@ -103,7 +103,7 @@
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(126, 19);
             this.labelName.TabIndex = 4;
-            this.labelName.Text = "User nationalities";
+            this.labelName.Text = "Person nationalities";
             // 
             // ViewWelcome
             // 

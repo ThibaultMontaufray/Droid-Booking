@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
@@ -12,8 +13,10 @@ namespace Droid_Booking
         private IContainer components = null;
         private PictureBox pictureBoxFlag;
         private ComboBox comboBoxLanguage;
-        private Droid_deployer.CloudView cloudView1;
-        private PanelShield panelShield1;
+        private Label labelMaxPurgeHistory;
+        private NumericUpDown numericUpDownPurge;
+        private ComboBox comboBoxPurge;
+        private PanelCustom panelShield1;
         private Label labelLanguage;
         #endregion
 
@@ -39,12 +42,14 @@ namespace Droid_Booking
         #region Methods public
         public void RefreshData()
         {
-            cloudView1.InterficeSyncany = _intBoo.Cloud;
             comboBoxLanguage.Text = Properties.Settings.Default.Language;
+            comboBoxPurge.Text = Properties.Settings.Default.PurgeDelay;
+            numericUpDownPurge.Value = Properties.Settings.Default.PurgeValue;
         }
         public void ChangeLanguage()
         {
             this.labelLanguage.Text = string.Format("{0} : ", GetText.Text("Language"));
+            this.labelMaxPurgeHistory.Text = string.Format("{0} : ", GetText.Text("PurgeHistory"));
         }
         #endregion
 
@@ -68,13 +73,15 @@ namespace Droid_Booking
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewSettings));
-            Droid_deployer.Interface_syncany interface_syncany1 = new Droid_deployer.Interface_syncany();
             this.pictureBoxFlag = new System.Windows.Forms.PictureBox();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguage = new System.Windows.Forms.Label();
-            this.cloudView1 = new Droid_deployer.CloudView();
-            this.panelShield1 = new Droid_Booking.PanelShield();
+            this.labelMaxPurgeHistory = new System.Windows.Forms.Label();
+            this.numericUpDownPurge = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxPurge = new System.Windows.Forms.ComboBox();
+            this.panelShield1 = new PanelCustom();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFlag)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPurge)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxFlag
@@ -115,30 +122,52 @@ namespace Droid_Booking
             this.labelLanguage.TabIndex = 11;
             this.labelLanguage.Text = "Language : ";
             // 
-            // cloudView1
+            // labelMaxPurgeHistory
             // 
-            this.cloudView1.BackColor = System.Drawing.Color.Transparent;
-            interface_syncany1.CloudConfigPath = null;
-            interface_syncany1.CloudConnectionType = null;
-            interface_syncany1.CloudRepositories = ((System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, string>>)(resources.GetObject("interface_syncany1.CloudRepositories")));
-            interface_syncany1.DirectoryOriginal = null;
-            interface_syncany1.DirectoryToAssociate = null;
-            interface_syncany1.Login = null;
-            interface_syncany1.Password = null;
-            interface_syncany1.WorkingDirectory = null;
-            this.cloudView1.InterficeSyncany = interface_syncany1;
-            this.cloudView1.Location = new System.Drawing.Point(0, 31);
-            this.cloudView1.Name = "cloudView1";
-            this.cloudView1.Size = new System.Drawing.Size(719, 336);
-            this.cloudView1.TabIndex = 16;
+            this.labelMaxPurgeHistory.AutoSize = true;
+            this.labelMaxPurgeHistory.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMaxPurgeHistory.ForeColor = System.Drawing.Color.White;
+            this.labelMaxPurgeHistory.Location = new System.Drawing.Point(7, 35);
+            this.labelMaxPurgeHistory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelMaxPurgeHistory.Name = "labelMaxPurgeHistory";
+            this.labelMaxPurgeHistory.Size = new System.Drawing.Size(164, 19);
+            this.labelMaxPurgeHistory.TabIndex = 18;
+            this.labelMaxPurgeHistory.Text = "Delay to purge history : ";
+            // 
+            // numericUpDownPurge
+            // 
+            this.numericUpDownPurge.Font = new System.Drawing.Font("Calibri", 12F);
+            this.numericUpDownPurge.Location = new System.Drawing.Point(177, 32);
+            this.numericUpDownPurge.Name = "numericUpDownPurge";
+            this.numericUpDownPurge.Size = new System.Drawing.Size(76, 27);
+            this.numericUpDownPurge.TabIndex = 19;
+            this.numericUpDownPurge.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDownPurge.ValueChanged += new System.EventHandler(this.numericUpDownPurge_ValueChanged);
+            // 
+            // comboBoxPurge
+            // 
+            this.comboBoxPurge.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPurge.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPurge.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxPurge.FormattingEnabled = true;
+            this.comboBoxPurge.Items.AddRange(new object[] {
+            "Day",
+            "Month"});
+            this.comboBoxPurge.Location = new System.Drawing.Point(260, 32);
+            this.comboBoxPurge.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxPurge.Name = "comboBoxPurge";
+            this.comboBoxPurge.Size = new System.Drawing.Size(223, 27);
+            this.comboBoxPurge.TabIndex = 20;
+            this.comboBoxPurge.SelectedIndexChanged += new System.EventHandler(this.comboBoxPurge_SelectedIndexChanged);
             // 
             // panelShield1
             // 
             this.panelShield1.BackColor = System.Drawing.Color.Transparent;
-            this.panelShield1.Location = new System.Drawing.Point(10, 10);
+            this.panelShield1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelShield1.Location = new System.Drawing.Point(0, 0);
             this.panelShield1.Name = "panelShield1";
-            this.panelShield1.Size = new System.Drawing.Size(771, 413);
-            this.panelShield1.TabIndex = 17;
+            this.panelShield1.Size = new System.Drawing.Size(550, 120);
+            this.panelShield1.TabIndex = 21;
             // 
             // ViewSettings
             // 
@@ -147,8 +176,9 @@ namespace Droid_Booking
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.panelShield1);
             this.Name = "ViewSettings";
-            this.Size = new System.Drawing.Size(791, 433);
+            this.Size = new System.Drawing.Size(550, 120);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFlag)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPurge)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -157,7 +187,9 @@ namespace Droid_Booking
             panelShield1.panelMiddle.Controls.Add(this.pictureBoxFlag);
             panelShield1.panelMiddle.Controls.Add(this.comboBoxLanguage);
             panelShield1.panelMiddle.Controls.Add(this.labelLanguage);
-            panelShield1.panelMiddle.Controls.Add(this.cloudView1);
+            panelShield1.panelMiddle.Controls.Add(this.comboBoxPurge);
+            panelShield1.panelMiddle.Controls.Add(this.numericUpDownPurge);
+            panelShield1.panelMiddle.Controls.Add(this.labelMaxPurgeHistory);
         }
         private void ChangeLanguageApplication()
         {
@@ -185,6 +217,16 @@ namespace Droid_Booking
         private void comboBoxLanguage_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             ChangeLanguageApplication();
+        }
+        private void numericUpDownPurge_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.PurgeValue = numericUpDownPurge.Value;
+            Properties.Settings.Default.Save();
+        }
+        private void comboBoxPurge_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.PurgeDelay = comboBoxPurge.SelectedItem.ToString();
+            Properties.Settings.Default.Save();
         }
         #endregion
     }

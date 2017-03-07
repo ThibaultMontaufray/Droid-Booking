@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Droid_People;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
@@ -29,10 +31,10 @@ namespace Droid_Booking
         private System.Windows.Forms.ComboBox comboBoxArea;
         private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ComboBox comboBoxUser;
-        private System.Windows.Forms.Label labelUser;
-        private System.Windows.Forms.Button buttonAddUser;
-        private PanelShield panelShield1;
+        private System.Windows.Forms.ComboBox comboBoxPerson;
+        private System.Windows.Forms.Label labelPerson;
+        private System.Windows.Forms.Button buttonAddPerson;
+        private PanelCustom panelShield1;
         #endregion
 
         #region Properties
@@ -58,7 +60,7 @@ namespace Droid_Booking
         public void RefreshData()
         {
             Area area;
-            User user;
+            Person user;
             if (_intBoo != null)
             {
                 comboBoxArea.Items.Clear();
@@ -66,17 +68,17 @@ namespace Droid_Booking
                 {
                     comboBoxArea.Items.Add(item.Type.ToString() + " - " + item.Name);
                 }
-                comboBoxUser.Items.Clear();
-                foreach (var item in _intBoo.Users)
+                comboBoxPerson.Items.Clear();
+                foreach (var item in _intBoo.Persons)
                 {
-                    comboBoxUser.Items.Add(item.FirstName + " " + item.FamilyName);
+                    comboBoxPerson.Items.Add(item.FirstName + " " + item.FamilyName);
                 }
                 if (_intBoo.CurrentBooking != null)
                 {
                     foreach (var item in comboBoxArea.Items)
                     {
                         area = Area.GetAreaFromId(_intBoo.CurrentBooking.AreaId, _intBoo.Areas);
-                        user = User.GetUserFromId(_intBoo.CurrentBooking.UserId, _intBoo.Users);
+                        user = Person.GetPersonFromId(_intBoo.CurrentBooking.UserId, _intBoo.Persons);
                         if (item.Equals(area.Type + " - " + area.Name))
                         {
                             comboBoxArea.SelectedItem = item;
@@ -84,7 +86,7 @@ namespace Droid_Booking
                         }
                         if (item.Equals(user.FirstName + " " + user.FamilyName))
                         {
-                            comboBoxUser.SelectedItem = item;
+                            comboBoxPerson.SelectedItem = item;
                             break;
                         }
                         dateTimePickerCheckOut.Value = _intBoo.CurrentBooking.CheckOut;
@@ -106,7 +108,7 @@ namespace Droid_Booking
             labelType.Text = GetText.Text("Area") + " : ";
             buttonApply.Text = GetText.Text("Save");
             buttonCancel.Text = GetText.Text("Cancel");
-            labelUser.Text = GetText.Text("User") + " : ";
+            labelPerson.Text = GetText.Text("User") + " : ";
         }
         #endregion
         
@@ -143,10 +145,10 @@ namespace Droid_Booking
             this.comboBoxArea = new System.Windows.Forms.ComboBox();
             this.buttonApply = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.comboBoxUser = new System.Windows.Forms.ComboBox();
-            this.labelUser = new System.Windows.Forms.Label();
-            this.buttonAddUser = new System.Windows.Forms.Button();
-            this.panelShield1 = new Droid_Booking.PanelShield();
+            this.comboBoxPerson = new System.Windows.Forms.ComboBox();
+            this.labelPerson = new System.Windows.Forms.Label();
+            this.buttonAddPerson = new System.Windows.Forms.Button();
+            this.panelShield1 = new PanelCustom();
             this.SuspendLayout();
             // 
             // dateTimePickerCheckIn
@@ -282,37 +284,37 @@ namespace Droid_Booking
             // 
             // comboBoxUser
             // 
-            this.comboBoxUser.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxUser.FormattingEnabled = true;
-            this.comboBoxUser.Location = new System.Drawing.Point(92, 28);
-            this.comboBoxUser.Name = "comboBoxUser";
-            this.comboBoxUser.Size = new System.Drawing.Size(175, 27);
-            this.comboBoxUser.TabIndex = 17;
+            this.comboBoxPerson.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPerson.FormattingEnabled = true;
+            this.comboBoxPerson.Location = new System.Drawing.Point(92, 28);
+            this.comboBoxPerson.Name = "comboBoxUser";
+            this.comboBoxPerson.Size = new System.Drawing.Size(175, 27);
+            this.comboBoxPerson.TabIndex = 17;
             // 
             // labelUser
             // 
-            this.labelUser.AutoSize = true;
-            this.labelUser.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUser.ForeColor = System.Drawing.Color.White;
-            this.labelUser.Location = new System.Drawing.Point(3, 31);
-            this.labelUser.Name = "labelUser";
-            this.labelUser.Size = new System.Drawing.Size(51, 19);
-            this.labelUser.TabIndex = 16;
-            this.labelUser.Text = "User : ";
+            this.labelPerson.AutoSize = true;
+            this.labelPerson.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPerson.ForeColor = System.Drawing.Color.White;
+            this.labelPerson.Location = new System.Drawing.Point(3, 31);
+            this.labelPerson.Name = "labelUser";
+            this.labelPerson.Size = new System.Drawing.Size(51, 19);
+            this.labelPerson.TabIndex = 16;
+            this.labelPerson.Text = "Person : ";
             // 
             // buttonAddUser
             // 
-            this.buttonAddUser.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonAddUser.BackgroundImage")));
-            this.buttonAddUser.FlatAppearance.BorderSize = 0;
-            this.buttonAddUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonAddUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonAddUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddUser.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddUser.Location = new System.Drawing.Point(276, 34);
-            this.buttonAddUser.Name = "buttonAddUser";
-            this.buttonAddUser.Size = new System.Drawing.Size(16, 16);
-            this.buttonAddUser.TabIndex = 18;
-            this.buttonAddUser.UseVisualStyleBackColor = true;
+            this.buttonAddPerson.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonAddPerson.BackgroundImage")));
+            this.buttonAddPerson.FlatAppearance.BorderSize = 0;
+            this.buttonAddPerson.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonAddPerson.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonAddPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddPerson.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddPerson.Location = new System.Drawing.Point(276, 34);
+            this.buttonAddPerson.Name = "buttonAddUser";
+            this.buttonAddPerson.Size = new System.Drawing.Size(16, 16);
+            this.buttonAddPerson.TabIndex = 18;
+            this.buttonAddPerson.UseVisualStyleBackColor = true;
             // 
             // panelShield1
             // 
@@ -336,9 +338,9 @@ namespace Droid_Booking
         }
         private void InitializeComponentSpecialized()
         {
-            panelShield1.panelMiddle.Controls.Add(this.buttonAddUser);
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxUser);
-            panelShield1.panelMiddle.Controls.Add(this.labelUser);
+            panelShield1.panelMiddle.Controls.Add(this.buttonAddPerson);
+            panelShield1.panelMiddle.Controls.Add(this.comboBoxPerson);
+            panelShield1.panelMiddle.Controls.Add(this.labelPerson);
             panelShield1.panelMiddle.Controls.Add(this.buttonCancel);
             panelShield1.panelMiddle.Controls.Add(this.buttonApply);
             panelShield1.panelMiddle.Controls.Add(this.comboBoxArea);
@@ -358,16 +360,16 @@ namespace Droid_Booking
             if (_intBoo.CurrentBooking == null) _intBoo.CurrentBooking = new Booking();
 
             Area filterArea = Area.GetArea(comboBoxArea.SelectedItem, _intBoo.Areas);
-            User filterUser = User.GetUser(comboBoxUser.SelectedItem, _intBoo.Users);
+            Person filterPerson = Person.GetUserByText(comboBoxPerson.SelectedItem, _intBoo.Persons);
 
             if (filterArea != null) _intBoo.CurrentBooking.AreaId = filterArea.Id;
-            if (filterUser != null) _intBoo.CurrentBooking.UserId = filterUser.Id;
+            if (filterPerson != null) _intBoo.CurrentBooking.UserId = filterPerson.Id;
             _intBoo.CurrentBooking.CheckIn = dateTimePickerCheckIn.Value;
             _intBoo.CurrentBooking.CheckOut = dateTimePickerCheckOut.Value;
             _intBoo.CurrentBooking.Confirmed = checkBoxConfirmed.Checked;
             _intBoo.CurrentBooking.Paid = decimal.Parse(textBoxPaid.Text);
             _intBoo.CurrentBooking.Price = decimal.Parse(textBoxPrice.Text);
-            _intBoo.CurrentBooking.Save();
+            _intBoo.CurrentBooking.Save(_intBoo.BOOK_DIRECTORY);
         }
         #endregion
 

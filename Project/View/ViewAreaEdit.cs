@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
@@ -27,7 +28,7 @@ namespace Droid_Booking
         private Label label5;
         private Button buttonSave;
         private Button buttonCancel;
-        private PanelShield panelShield1;
+        private PanelCustom panelShield1;
         #endregion
 
         #region Properties
@@ -138,7 +139,7 @@ namespace Droid_Booking
             this.label5 = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.panelShield1 = new Droid_Booking.PanelShield();
+            this.panelShield1 = new PanelCustom();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFloor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacity)).BeginInit();
             this.SuspendLayout();
@@ -365,7 +366,7 @@ namespace Droid_Booking
             _intBoo.CurrentArea.Color = textBoxColor.BackColor;
             _intBoo.CurrentArea.Comment = textBoxDescription.Text;
             _intBoo.CurrentArea.Type = (Area.TYPE)Enum.Parse(typeof(Area.TYPE), comboBoxType.SelectedItem.ToString());
-            _intBoo.CurrentArea.Save();
+            _intBoo.CurrentArea.Save(_intBoo.AREA_DIRECTORY);
         }
         private void buttonCancel_Click(object sender, EventArgs e)
         {

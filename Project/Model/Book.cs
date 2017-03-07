@@ -8,8 +8,6 @@ namespace Droid_Booking
     public class Booking
     {
         #region Attribute
-        private readonly string BOOK_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\Book\";
-
         private string _id;
         private DateTime _checkIn;
         private DateTime _checkOut;
@@ -74,9 +72,9 @@ namespace Droid_Booking
         #endregion
 
         #region Methods public
-        public void Save()
+        public void Save(string path)
         {
-            SaveFile(GenerateXml());
+            SaveFile(GenerateXml(), path);
         }
         #endregion
 
@@ -96,13 +94,13 @@ namespace Droid_Booking
             }
             return serializedObject;
         }
-        private void SaveFile(string xmlObject)
+        private void SaveFile(string xmlObject, string path)
         {
-            if (!Directory.Exists(BOOK_DIRECTORY))
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(BOOK_DIRECTORY);
+                Directory.CreateDirectory(path);
             }
-            string filePath = Path.Combine(BOOK_DIRECTORY, string.Format("{0}.xml", _id));
+            string filePath = Path.Combine(path, string.Format("{0}.xml", _id));
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
                 sw.Write(xmlObject);

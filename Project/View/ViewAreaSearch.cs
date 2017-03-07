@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
@@ -39,7 +40,7 @@ namespace Droid_Booking
         private DataGridViewTextBoxColumn ColumnCapacity;
         private DataGridViewTextBoxColumn ColumnType;
         private DataGridViewTextBoxColumn ColumnComment;
-        private PanelShield panelShield1;
+        private PanelCustom panelShield1;
         #endregion
 
         #region Properties
@@ -133,7 +134,7 @@ namespace Droid_Booking
             this.ColumnCapacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelShield1 = new Droid_Booking.PanelShield();
+            this.panelShield1 = new PanelCustom();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFloor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearch)).BeginInit();

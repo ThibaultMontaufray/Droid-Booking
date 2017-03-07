@@ -106,9 +106,9 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à booking.
+        ///   Recherche une chaîne localisée semblable à Book.
         /// </summary>
-        public static string booking {
+        public static string Book {
             get {
                 return ResourceManager.GetString("Book", resourceCulture);
             }
@@ -214,15 +214,6 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Country.
-        /// </summary>
-        public static string Country {
-            get {
-                return ResourceManager.GetString("Country", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Daily check in.
         /// </summary>
         public static string DailyCheckIn {
@@ -255,6 +246,15 @@ namespace Droid_Booking.Properties {
         public static string departures {
             get {
                 return ResourceManager.GetString("departures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Empty.
+        /// </summary>
+        public static string Empty {
+            get {
+                return ResourceManager.GetString("Empty", resourceCulture);
             }
         }
         
@@ -430,9 +430,9 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à New booking.
+        ///   Recherche une chaîne localisée semblable à New book.
         /// </summary>
-        public static string Newbooking {
+        public static string Newbook {
             get {
                 return ResourceManager.GetString("Newbook", resourceCulture);
             }
@@ -466,9 +466,9 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Price of the booking.
+        ///   Recherche une chaîne localisée semblable à Price of the book.
         /// </summary>
-        public static string PriceOfThebooking {
+        public static string PriceOfTheBook {
             get {
                 return ResourceManager.GetString("PriceOfTheBook", resourceCulture);
             }
@@ -480,6 +480,15 @@ namespace Droid_Booking.Properties {
         public static string Prices {
             get {
                 return ResourceManager.GetString("Prices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Delay to purge history.
+        /// </summary>
+        public static string PurgeHistory {
+            get {
+                return ResourceManager.GetString("PurgeHistory", resourceCulture);
             }
         }
         
@@ -520,9 +529,9 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Search booking.
+        ///   Recherche une chaîne localisée semblable à Search book.
         /// </summary>
-        public static string Searchbooking {
+        public static string Searchbook {
             get {
                 return ResourceManager.GetString("Searchbook", resourceCulture);
             }
@@ -574,7 +583,7 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à User add.
+        ///   Recherche une chaîne localisée semblable à Person add.
         /// </summary>
         public static string Useradd {
             get {

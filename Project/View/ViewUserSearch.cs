@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Droid_People;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
@@ -15,42 +17,42 @@ namespace Droid_Booking
         private readonly DataGridViewCellStyle cellStyle1 = new DataGridViewCellStyle() { BackColor = System.Drawing.Color.DarkGray };
         private readonly DataGridViewCellStyle cellStyle2 = new DataGridViewCellStyle() { BackColor = System.Drawing.Color.LightGray };
         private Interface_booking _intBoo;
-        private List<User> _filteredUsers;
+        private List<Person> _filteredUsers;
         
         private System.ComponentModel.IContainer components = null;
         private ComboBox comboBoxGender;
-        private ComboBox comboBoxCountry;
+        private ComboBox comboBoxNationality;
         private Button buttonValidation;
         private TextBox textBoxFamilyName;
         private TextBox textBoxId;
         private Label labelId;
-        private Label labelCountry;
+        private Label labelNationality;
         private Label labelGender;
         private TextBox textBoxFirstname;
         private PictureBox pictureBox1;
         private Label labelFamilyname;
         private Label labelFirstname;
-        private DataGridView _dgvSearchUser;
+        private DataGridView _dgvSearchPerson;
         private FontDialog fontDialog1;
         private DataGridViewTextBoxColumn ColumnName;
         private DataGridViewTextBoxColumn ColumnFamilyName;
         private DataGridViewImageColumn ColumnGender;
-        private DataGridViewTextBoxColumn ColumnCountry;
+        private DataGridViewTextBoxColumn ColumnNationality;
         private DataGridViewTextBoxColumn ColumnId;
         private DataGridViewTextBoxColumn ColumnMail;
         private DataGridViewTextBoxColumn ColumnComment;
         private DataGridViewImageColumn ColumnEdit;
         private DataGridViewImageColumn ColumnDelete;
         private DataGridViewImageColumn ColumnDetail;
-        private PanelShield panelUserSearch;
-        private User _currentUser;
+        private PanelCustom panelUserSearch;
+        private Person _currentPerson;
         #endregion
 
         #region Properties
-        public User CurrentUser
+        public Person CurrentUser
         {
-            get { return _currentUser; }
-            set { _currentUser = value; }
+            get { return _currentPerson; }
+            set { _currentPerson = value; }
         }
         #endregion
 
@@ -78,12 +80,12 @@ namespace Droid_Booking
             ColumnFamilyName.HeaderText = GetText.Text("Name");
             ColumnGender.HeaderText = GetText.Text("Gender");
             ColumnId.HeaderText = GetText.Text("Id");
-            ColumnCountry.HeaderText = GetText.Text("Country");
+            ColumnNationality.HeaderText = GetText.Text("Nationality");
             ColumnMail.HeaderText = GetText.Text("Mail");
             ColumnComment.HeaderText = GetText.Text("Comment");
 
             labelId.Text = GetText.Text("Id") + " : ";
-            labelCountry.Text = GetText.Text("Country") + " : ";
+            labelNationality.Text = GetText.Text("Nationality") + " : ";
             labelGender.Text = GetText.Text("Gender") + " : ";
             labelFamilyname.Text = GetText.Text("FamilyName") + " : ";
             labelFirstname.Text = GetText.Text("FirstName") + " : ";
@@ -113,8 +115,8 @@ namespace Droid_Booking
             LoadGender();
             LoadCountries();
 
-            _dgvSearchUser.Visible = _dgvSearchUser.Rows.Count != 0;
-            _dgvSearchUser.Height = (_dgvSearchUser.Rows.Count * 22) + _dgvSearchUser.ColumnHeadersHeight;
+            _dgvSearchPerson.Visible = _dgvSearchPerson.Rows.Count != 0;
+            _dgvSearchPerson.Height = (_dgvSearchPerson.Rows.Count * 22) + _dgvSearchPerson.ColumnHeadersHeight;
             ChangeLanguage();
         }
         private void InitializeComponent()
@@ -125,11 +127,11 @@ namespace Droid_Booking
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this._dgvSearchUser = new System.Windows.Forms.DataGridView();
+            this._dgvSearchPerson = new System.Windows.Forms.DataGridView();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnFamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnGender = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ColumnCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnNationality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnMail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -137,32 +139,32 @@ namespace Droid_Booking
             this.ColumnEdit = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnDelete = new System.Windows.Forms.DataGridViewImageColumn();
             this.comboBoxGender = new System.Windows.Forms.ComboBox();
-            this.comboBoxCountry = new System.Windows.Forms.ComboBox();
+            this.comboBoxNationality = new System.Windows.Forms.ComboBox();
             this.buttonValidation = new System.Windows.Forms.Button();
             this.textBoxFamilyName = new System.Windows.Forms.TextBox();
             this.textBoxId = new System.Windows.Forms.TextBox();
             this.labelId = new System.Windows.Forms.Label();
-            this.labelCountry = new System.Windows.Forms.Label();
+            this.labelNationality = new System.Windows.Forms.Label();
             this.labelGender = new System.Windows.Forms.Label();
             this.textBoxFirstname = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelFamilyname = new System.Windows.Forms.Label();
             this.labelFirstname = new System.Windows.Forms.Label();
-            this.panelUserSearch = new Droid_Booking.PanelShield();
-            ((System.ComponentModel.ISupportInitialize)(this._dgvSearchUser)).BeginInit();
+            this.panelUserSearch = new PanelCustom();
+            ((System.ComponentModel.ISupportInitialize)(this._dgvSearchPerson)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // _dgvSearchUser
             // 
-            this._dgvSearchUser.AllowUserToAddRows = false;
-            this._dgvSearchUser.AllowUserToDeleteRows = false;
-            this._dgvSearchUser.AllowUserToOrderColumns = true;
-            this._dgvSearchUser.AllowUserToResizeRows = false;
-            this._dgvSearchUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this._dgvSearchPerson.AllowUserToAddRows = false;
+            this._dgvSearchPerson.AllowUserToDeleteRows = false;
+            this._dgvSearchPerson.AllowUserToOrderColumns = true;
+            this._dgvSearchPerson.AllowUserToResizeRows = false;
+            this._dgvSearchPerson.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._dgvSearchUser.BackgroundColor = System.Drawing.Color.Gray;
-            this._dgvSearchUser.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this._dgvSearchPerson.BackgroundColor = System.Drawing.Color.Gray;
+            this._dgvSearchPerson.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.DarkRed;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -170,28 +172,28 @@ namespace Droid_Booking
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DarkRed;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._dgvSearchUser.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this._dgvSearchUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._dgvSearchUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this._dgvSearchPerson.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this._dgvSearchPerson.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._dgvSearchPerson.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnName,
             this.ColumnFamilyName,
             this.ColumnGender,
-            this.ColumnCountry,
+            this.ColumnNationality,
             this.ColumnId,
             this.ColumnMail,
             this.ColumnComment,
             this.ColumnDetail,
             this.ColumnEdit,
             this.ColumnDelete});
-            this._dgvSearchUser.Location = new System.Drawing.Point(46, 198);
-            this._dgvSearchUser.MultiSelect = false;
-            this._dgvSearchUser.Name = "_dgvSearchUser";
-            this._dgvSearchUser.RowHeadersVisible = false;
-            this._dgvSearchUser.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this._dgvSearchUser.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this._dgvSearchUser.Size = new System.Drawing.Size(1397, 277);
-            this._dgvSearchUser.TabIndex = 24;
-            this._dgvSearchUser.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._dgvSearchUser_CellClick);
+            this._dgvSearchPerson.Location = new System.Drawing.Point(46, 198);
+            this._dgvSearchPerson.MultiSelect = false;
+            this._dgvSearchPerson.Name = "_dgvSearchUser";
+            this._dgvSearchPerson.RowHeadersVisible = false;
+            this._dgvSearchPerson.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this._dgvSearchPerson.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this._dgvSearchPerson.Size = new System.Drawing.Size(1397, 277);
+            this._dgvSearchPerson.TabIndex = 24;
+            this._dgvSearchPerson.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._dgvSearchUser_CellClick);
             // 
             // ColumnName
             // 
@@ -215,12 +217,12 @@ namespace Droid_Booking
             this.ColumnGender.HeaderText = "Gender";
             this.ColumnGender.Name = "ColumnGender";
             // 
-            // ColumnCountry
+            // ColumnNationality
             // 
-            this.ColumnCountry.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColumnCountry.HeaderText = "Country";
-            this.ColumnCountry.Name = "ColumnCountry";
-            this.ColumnCountry.Width = 84;
+            this.ColumnNationality.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColumnNationality.HeaderText = "Nationality";
+            this.ColumnNationality.Name = "ColumnNationality";
+            this.ColumnNationality.Width = 84;
             // 
             // ColumnId
             // 
@@ -282,14 +284,14 @@ namespace Droid_Booking
             this.comboBoxGender.Size = new System.Drawing.Size(280, 27);
             this.comboBoxGender.TabIndex = 26;
             // 
-            // comboBoxCountry
+            // comboBoxNationality
             // 
-            this.comboBoxCountry.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxCountry.FormattingEnabled = true;
-            this.comboBoxCountry.Location = new System.Drawing.Point(632, 21);
-            this.comboBoxCountry.Name = "comboBoxCountry";
-            this.comboBoxCountry.Size = new System.Drawing.Size(300, 27);
-            this.comboBoxCountry.TabIndex = 25;
+            this.comboBoxNationality.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxNationality.FormattingEnabled = true;
+            this.comboBoxNationality.Location = new System.Drawing.Point(632, 21);
+            this.comboBoxNationality.Name = "comboBoxNationality";
+            this.comboBoxNationality.Size = new System.Drawing.Size(300, 27);
+            this.comboBoxNationality.TabIndex = 25;
             // 
             // buttonValidation
             // 
@@ -329,16 +331,16 @@ namespace Droid_Booking
             this.labelId.TabIndex = 15;
             this.labelId.Text = "Id : ";
             // 
-            // labelCountry
+            // labelNationality
             // 
-            this.labelCountry.AutoSize = true;
-            this.labelCountry.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCountry.ForeColor = System.Drawing.Color.White;
-            this.labelCountry.Location = new System.Drawing.Point(555, 24);
-            this.labelCountry.Name = "labelCountry";
-            this.labelCountry.Size = new System.Drawing.Size(71, 19);
-            this.labelCountry.TabIndex = 8;
-            this.labelCountry.Text = "Country : ";
+            this.labelNationality.AutoSize = true;
+            this.labelNationality.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNationality.ForeColor = System.Drawing.Color.White;
+            this.labelNationality.Location = new System.Drawing.Point(555, 24);
+            this.labelNationality.Name = "labelNationality";
+            this.labelNationality.Size = new System.Drawing.Size(71, 19);
+            this.labelNationality.TabIndex = 8;
+            this.labelNationality.Text = "Nationality : ";
             // 
             // labelGender
             // 
@@ -409,10 +411,10 @@ namespace Droid_Booking
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.panelUserSearch);
-            this.Controls.Add(this._dgvSearchUser);
+            this.Controls.Add(this._dgvSearchPerson);
             this.Name = "ViewUserSearch";
             this.Size = new System.Drawing.Size(1520, 500);
-            ((System.ComponentModel.ISupportInitialize)(this._dgvSearchUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dgvSearchPerson)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -425,8 +427,8 @@ namespace Droid_Booking
             this.panelUserSearch.panelMiddle.Controls.Add(labelFamilyname);
             this.panelUserSearch.panelMiddle.Controls.Add(labelGender);
             this.panelUserSearch.panelMiddle.Controls.Add(labelId);
-            this.panelUserSearch.panelMiddle.Controls.Add(labelCountry);
-            this.panelUserSearch.panelMiddle.Controls.Add(comboBoxCountry);
+            this.panelUserSearch.panelMiddle.Controls.Add(labelNationality);
+            this.panelUserSearch.panelMiddle.Controls.Add(comboBoxNationality);
             this.panelUserSearch.panelMiddle.Controls.Add(comboBoxGender);
             this.panelUserSearch.panelMiddle.Controls.Add(textBoxFamilyName);
             this.panelUserSearch.panelMiddle.Controls.Add(textBoxFirstname);
@@ -438,7 +440,7 @@ namespace Droid_Booking
         {
             comboBoxGender.Items.Clear();
             comboBoxGender.Items.Add("All");
-            foreach (var item in Enum.GetValues(typeof(User.GENDER)))
+            foreach (var item in Enum.GetValues(typeof(Person.GENDER)))
             {
                 comboBoxGender.Items.Add(item.ToString());
             }
@@ -446,75 +448,75 @@ namespace Droid_Booking
         }
         private void LoadCountries()
         {
-            comboBoxCountry.Items.Clear();
-            comboBoxCountry.Items.Add("All");
-            foreach (var item in _intBoo.Users)
+            comboBoxNationality.Items.Clear();
+            comboBoxNationality.Items.Add("All");
+            foreach (var item in _intBoo.Persons)
             {
-                if (!comboBoxCountry.Items.Contains(item.Country)) { comboBoxCountry.Items.Add(item.Country); }
+                if (!comboBoxNationality.Items.Contains(item.Nationality)) { comboBoxNationality.Items.Add(item.Nationality); }
             }
-            comboBoxCountry.Sorted = true;
+            comboBoxNationality.Sorted = true;
         }
         private void SearchUser()
         {
-            _filteredUsers = _intBoo.Users;
+            _filteredUsers = _intBoo.Persons;
 
-            if (!string.IsNullOrEmpty(textBoxFirstname.Text)) { _filteredUsers = _filteredUsers.Where(a => a.FirstName == textBoxFirstname.Text).ToList(); }
+            if (!string.IsNullOrEmpty(textBoxFirstname.Text)) { _filteredUsers = _filteredUsers.Where(a => a.FirstName.Firstname == textBoxFirstname.Text).ToList(); }
             if (!string.IsNullOrEmpty(textBoxFamilyName.Text)) { _filteredUsers = _filteredUsers.Where(a => a.FamilyName == textBoxFamilyName.Text).ToList(); }
             if (!string.IsNullOrEmpty(textBoxId.Text)) { _filteredUsers = _filteredUsers.Where(a => a.Id == textBoxId.Text).ToList(); }
-            if (comboBoxGender.SelectedItem != null && comboBoxGender.SelectedItem.ToString() != "All") { _filteredUsers = _filteredUsers.Where(a => a.Gender == (User.GENDER)Enum.Parse(typeof(User.GENDER), comboBoxGender.SelectedItem.ToString())).ToList(); }
-            if (comboBoxCountry.SelectedItem != null && comboBoxCountry.SelectedItem.ToString() != "All") { _filteredUsers = _filteredUsers.Where(a => a.Country == comboBoxCountry.SelectedItem.ToString()).ToList(); }
+            if (comboBoxGender.SelectedItem != null && comboBoxGender.SelectedItem.ToString() != "All") { _filteredUsers = _filteredUsers.Where(a => a.Gender == (Person.GENDER)Enum.Parse(typeof(Person.GENDER), comboBoxGender.SelectedItem.ToString())).ToList(); }
+            if (comboBoxNationality.SelectedItem != null && comboBoxNationality.SelectedItem.ToString() != "All") { _filteredUsers = _filteredUsers.Where(a => a.Nationality == comboBoxNationality.SelectedItem.ToString()).ToList(); }
 
             LoadFilteredUsers();
-            _dgvSearchUser.Visible = _dgvSearchUser.Rows.Count != 0;
-            _dgvSearchUser.Height = (_dgvSearchUser.Rows.Count * 22) + _dgvSearchUser.ColumnHeadersHeight;
+            _dgvSearchPerson.Visible = _dgvSearchPerson.Rows.Count != 0;
+            _dgvSearchPerson.Height = (_dgvSearchPerson.Rows.Count * 22) + _dgvSearchPerson.ColumnHeadersHeight;
         }
         private void LoadFilteredUsers()
         {
             bool altenate = true;
             DataGridViewRow row;
-            _dgvSearchUser.Rows.Clear();
-            foreach (User user in _filteredUsers)
+            _dgvSearchPerson.Rows.Clear();
+            foreach (Person user in _filteredUsers)
             {
                 altenate = !altenate;
-                _dgvSearchUser.Rows.Add();
-                row = _dgvSearchUser.Rows[_dgvSearchUser.Rows.Count - 1];
+                _dgvSearchPerson.Rows.Add();
+                row = _dgvSearchPerson.Rows[_dgvSearchPerson.Rows.Count - 1];
                 foreach (DataGridViewCell cell in row.Cells)
                 {
                     cell.Style = altenate ? cellStyle1 : cellStyle2;
                     cell.Style.SelectionBackColor = System.Drawing.Color.DimGray;
                 }
-                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnName)].Value = user.FirstName;
-                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnFamilyName)].Value = user.FamilyName;
-                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnId)].Value = user.Id;
-                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnCountry)].Value = user.Country;
-                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnComment)].Value = user.Comment;
-                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnMail)].Value = user.Mail;
+                row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnName)].Value = user.FirstName;
+                row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnFamilyName)].Value = user.FamilyName;
+                row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnId)].Value = user.Id;
+                row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnNationality)].Value = user.Nationality;
+                row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnComment)].Value = user.Comment;
+                row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnMail)].Value = user.Mail;
                 switch (user.Gender)
                 {
-                    case User.GENDER.MALE:
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.male;
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "MALE";
+                    case Person.GENDER.MALE:
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.male;
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Tag = "MALE";
                         break;
-                    case User.GENDER.FEMAL:
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.female;
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "FEMAL";
+                    case Person.GENDER.FEMAL:
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.female;
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Tag = "FEMAL";
                         break;
-                    case User.GENDER.OTHER:
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.rainbow;
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "OTHER";
+                    case Person.GENDER.OTHER:
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.rainbow;
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Tag = "OTHER";
                         break;
-                    case User.GENDER.UNKNOW:
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.question;
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "UNKNOW";
+                    case Person.GENDER.UNKNOW:
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.question;
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Tag = "UNKNOW";
                         break;
                     default:
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.question;
-                        row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnGender)].Tag = "UNKNOW";
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.question;
+                        row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnGender)].Tag = "UNKNOW";
                         break;
                 }
-                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnDetail)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.report_user;
-                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnDelete)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.cross;
-                row.Cells[_dgvSearchUser.Columns.IndexOf(ColumnEdit)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.user_edit;
+                row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnDetail)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.report_user;
+                row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnDelete)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.cross;
+                row.Cells[_dgvSearchPerson.Columns.IndexOf(ColumnEdit)].Value = Tools4Libraries.Resources.ResourceIconSet16Default.user_edit;
             }
         }
         private void DeleteUser(int rowIndex)
@@ -523,50 +525,50 @@ namespace Droid_Booking
             {
                 if (DetectUser(rowIndex))
                 {
-                    _intBoo.Users.Remove(_currentUser);
+                    _intBoo.Persons.Remove(_currentPerson);
                 }
             }
         }
         private void EditUser(int rowIndex)
         {
             DetectUser(rowIndex);
-            RequestUserEdition(_currentUser);
+            RequestUserEdition(_currentPerson);
         }
         private void DetailUser(int rowIndex)
         {
             DetectUser(rowIndex);
-            RequestUserDetail(_currentUser);
+            RequestUserDetail(_currentPerson);
         }
         private bool DetectUser(int rowIndex)
         {
-            List<User> users = _intBoo.Users.Where(u => u.Id.Equals(_dgvSearchUser.Rows[rowIndex].Cells[ColumnId.Index].Value.ToString())).ToList();
-            users = users.Where(u => u.Country.Equals(_dgvSearchUser.Rows[rowIndex].Cells[ColumnCountry.Index].Value.ToString())).ToList();
+            List<Person> users = _intBoo.Persons.Where(u => u.Id.Equals(_dgvSearchPerson.Rows[rowIndex].Cells[ColumnId.Index].Value.ToString())).ToList();
+            users = users.Where(u => u.Nationality.Equals(_dgvSearchPerson.Rows[rowIndex].Cells[ColumnNationality.Index].Value.ToString())).ToList();
 
             if (users.Count == 0)
             {
-                MessageBox.Show("This user has not be found", "User not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This user has not be found", "Person not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if (users.Count > 1)
             {
-                MessageBox.Show("Too many users found for this Id and Country. Please change users settings.", "User not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Too many users found for this Id and Nationality. Please change users settings.", "Person not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else
             {
-                _currentUser = users[0];
+                _currentPerson = users[0];
                 return true;
             }
         }
         private void LoadUser()
         {
-            if (_currentUser != null)
+            if (_currentPerson != null)
             { 
-                textBoxFamilyName.Text = _currentUser.FamilyName;
-                textBoxFirstname.Text = _currentUser.FirstName;
-                comboBoxCountry.Text = _currentUser.Country;
-                comboBoxGender.Text = _currentUser.Gender.ToString();
-                textBoxId.Text = _currentUser.Id;
+                textBoxFamilyName.Text = _currentPerson.FamilyName;
+                textBoxFirstname.Text = _currentPerson.FirstName.Firstname;
+                comboBoxNationality.Text = _currentPerson.Nationality;
+                comboBoxGender.Text = _currentPerson.Gender.ToString();
+                textBoxId.Text = _currentPerson.Id;
             }
         }
         #endregion

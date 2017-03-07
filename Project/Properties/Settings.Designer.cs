@@ -34,5 +34,29 @@ namespace Droid_Booking.Properties {
                 this["Language"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Month")]
+        public string PurgeDelay {
+            get {
+                return ((string)(this["PurgeDelay"]));
+            }
+            set {
+                this["PurgeDelay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public decimal PurgeValue {
+            get {
+                return ((decimal)(this["PurgeValue"]));
+            }
+            set {
+                this["PurgeValue"] = value;
+            }
+        }
     }
 }
