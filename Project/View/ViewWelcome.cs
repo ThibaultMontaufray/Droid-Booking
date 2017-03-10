@@ -39,8 +39,14 @@ namespace Droid_Booking
             LoadGlobalStat();
 
             label1.Text = GetText.Text("Occupancy") + " : ";
-            labelAreas.Text = GetText.Text("Area capacity details") + " : ";
-            labelName.Text = GetText.Text("Person nationalities");
+            labelAreas.Text = GetText.Text("AreaCapacityDetails") + " : ";
+            labelName.Text = GetText.Text("currentNationalities");
+        }
+        public void RefreshData()
+        {
+            LoadNationalities();
+            LoadGlobalStat();
+            ChangeLanguage();
         }
         #endregion
 
@@ -51,9 +57,7 @@ namespace Droid_Booking
             _areas = new Dictionary<string, int>();
             _areasCapacity = new Dictionary<string, int>();
 
-            LoadNationalities();
-            LoadGlobalStat();
-            ChangeLanguage();
+            RefreshData();
         }
         private void LoadNationalities()
         {

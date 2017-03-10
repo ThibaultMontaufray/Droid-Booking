@@ -50,7 +50,7 @@ namespace Droid_Booking
         #region Methods private
         private void Init()
         {
-            _intBoo = new Interface_booking();
+            _intBoo = new Interface_booking(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\");
             _intBoo.LanguageModified += _intBoo_LanguageModified;
             this.Controls.Add(_intBoo.Sheet);
 

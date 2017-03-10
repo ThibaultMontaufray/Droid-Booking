@@ -44,6 +44,10 @@ namespace Droid_Booking
         {
 
         }
+        public void RefreshData()
+        {
+
+        }
         #endregion
 
         #region Methods private

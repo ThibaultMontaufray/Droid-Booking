@@ -88,6 +88,15 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Détail de la capacité des espaces.
+        /// </summary>
+        public static string AreaCapacityDetails {
+            get {
+                return ResourceManager.GetString("AreaCapacityDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à arrivée.
         /// </summary>
         public static string arrival {
@@ -210,6 +219,15 @@ namespace Droid_Booking.Properties {
         public static string Confirmed {
             get {
                 return ResourceManager.GetString("Confirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nationalités présentes.
+        /// </summary>
+        public static string currentNationalities {
+            get {
+                return ResourceManager.GetString("currentNationalities", resourceCulture);
             }
         }
         
@@ -435,6 +453,15 @@ namespace Droid_Booking.Properties {
         public static string Newbook {
             get {
                 return ResourceManager.GetString("Newbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Taux d&apos;occupation.
+        /// </summary>
+        public static string Occupancy {
+            get {
+                return ResourceManager.GetString("Occupancy", resourceCulture);
             }
         }
         

@@ -297,4 +297,13 @@
   <data name="PurgeHistory" xml:space="preserve">
     <value>Délais d'historique</value>
   </data>
+  <data name="AreaCapacityDetails" xml:space="preserve">
+    <value>Détail de la capacité des espaces</value>
+  </data>
+  <data name="currentNationalities" xml:space="preserve">
+    <value>Nationalités présentes</value>
+  </data>
+  <data name="Occupancy" xml:space="preserve">
+    <value>Taux d'occupation</value>
+  </data>
 </root>

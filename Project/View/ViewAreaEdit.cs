@@ -366,7 +366,7 @@ namespace Droid_Booking
             _intBoo.CurrentArea.Color = textBoxColor.BackColor;
             _intBoo.CurrentArea.Comment = textBoxDescription.Text;
             _intBoo.CurrentArea.Type = (Area.TYPE)Enum.Parse(typeof(Area.TYPE), comboBoxType.SelectedItem.ToString());
-            _intBoo.CurrentArea.Save(_intBoo.AREA_DIRECTORY);
+            _intBoo.CurrentArea.Save(_intBoo._directoryArea);
         }
         private void buttonCancel_Click(object sender, EventArgs e)
         {

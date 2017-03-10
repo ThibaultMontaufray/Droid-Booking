@@ -369,7 +369,7 @@ namespace Droid_Booking
             _intBoo.CurrentBooking.Confirmed = checkBoxConfirmed.Checked;
             _intBoo.CurrentBooking.Paid = decimal.Parse(textBoxPaid.Text);
             _intBoo.CurrentBooking.Price = decimal.Parse(textBoxPrice.Text);
-            _intBoo.CurrentBooking.Save(_intBoo.BOOK_DIRECTORY);
+            _intBoo.CurrentBooking.Save(_intBoo._directoryBook);
         }
         #endregion
 

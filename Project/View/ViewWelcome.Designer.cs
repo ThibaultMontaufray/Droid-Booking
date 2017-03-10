@@ -101,16 +101,16 @@
             this.labelName.ForeColor = System.Drawing.Color.White;
             this.labelName.Location = new System.Drawing.Point(5, 5);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(126, 19);
+            this.labelName.Size = new System.Drawing.Size(148, 19);
             this.labelName.TabIndex = 4;
-            this.labelName.Text = "Person nationalities";
+            this.labelName.Text = "Current nationalities";
             // 
             // ViewWelcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Controls.Add(this.panelCountries);
             this.Controls.Add(this.panelStatUsers);
             this.Name = "ViewWelcome";

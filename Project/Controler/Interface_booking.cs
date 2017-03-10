@@ -1,9 +1,12 @@
-﻿using Droid_deployer;
+﻿// Log code : 06 - 00
+
 using Droid_People;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 using Tools4Libraries;
 
 namespace Droid_Booking
@@ -14,15 +17,14 @@ namespace Droid_Booking
     {
         #region Attribtue
         public readonly int TOP_OFFSET = 175;
-        public readonly string CLOUD_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\";
-        public readonly string PERSON_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\User\";
-        public readonly string AREA_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\Area\";
-        public readonly string BOOK_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\Book\";
+        public string _directoryCloud;
+        public string _directoryUser;
+        public string _directoryArea;
+        public string _directoryBook;
 
         public event InterfaceEventHandler SheetDisplayRequested;
         public event InterfaceBookingEventHandler LanguageModified;
 
-        private Interface_syncany _cloud;
         private Panel _sheet;
         private ToolStripMenuBooking _tsm;
         private ViewCalendar _viewCalendar;
@@ -45,14 +47,10 @@ namespace Droid_Booking
         private Person _currentPerson;
         private Area _currentArea;
         private Booking _currentbooking;
+        private string _workingDirectory;
         #endregion
 
         #region Properties
-        public Interface_syncany Cloud
-        {
-            get { return _cloud; }
-            set { _cloud = value; }
-        }
         public Booking CurrentBooking
         {
             get { return _currentbooking; }
@@ -101,8 +99,14 @@ namespace Droid_Booking
         #endregion
 
         #region Constructor
-        public Interface_booking()
+        public Interface_booking(string workingDirectory)
         {
+            _workingDirectory = workingDirectory;
+            _directoryCloud = _workingDirectory + @"";
+            _directoryUser = _workingDirectory + @"User\";
+            _directoryArea = _workingDirectory + @"Area\";
+            _directoryBook = _workingDirectory + @"Book\";
+
             Init();
         }
         #endregion
@@ -226,6 +230,9 @@ namespace Droid_Booking
                 case "booksearch":
                     LaunchViewBookSearch();
                     break;
+                case "saveprice":
+                    LaunchSavePrice();
+                    break;
                 //case "viewusersearch":
                 //    LaunchViewUserSearch();
                 //    break;
@@ -260,8 +267,6 @@ namespace Droid_Booking
         #region Methods private
         private void Init()
         {
-            InitCloud();
-
             _sheet = new Panel();
             _sheet.BackColor = System.Drawing.Color.DimGray;
             _sheet.Dock = DockStyle.Fill;
@@ -273,7 +278,7 @@ namespace Droid_Booking
             InitData();
 
             _viewCalendar = new ViewCalendar(this);
-            _viewCalendar.Dock = DockStyle.Fill;
+            _viewCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             _viewCalendar.Name = "CurrentView";
 
             //_viewUserSearch = new ViewUserSearch(this);
@@ -284,7 +289,6 @@ namespace Droid_Booking
             
             _viewAreaSearch = new ViewAreaSearch(this);
             _viewAreaSearch.Name = "CurrentView";
-            _viewAreaSearch.Dock = DockStyle.Fill;
 
             _viewAreaEdit = new ViewAreaEdit(this);
             _viewAreaEdit.Name = "CurrentView";
@@ -310,21 +314,9 @@ namespace Droid_Booking
             _viewPrice.Name = "CurrentView";
 
             _viewWelcome = new ViewWelcome(this);
-            _viewWelcome.Dock = DockStyle.Fill;
             _viewWelcome.Name = "CurrentView";
-            _sheet.Controls.Add(_viewWelcome);
-        }
-        private void InitCloud()
-        {
-            if (!Directory.Exists(Path.Combine(Tools4Libraries.Log.ApplicationAppData, "Config"))) { Directory.CreateDirectory(Path.Combine(Tools4Libraries.Log.ApplicationAppData, "Config")); }
-            if (!Directory.Exists(CLOUD_DIRECTORY)) { Directory.CreateDirectory(CLOUD_DIRECTORY); }
 
-            _cloud = new Interface_syncany();
-            _cloud.Login = "BookLog";
-            _cloud.Login = "BookPwd";
-            _cloud.CloudConfigPath = Path.Combine(Tools4Libraries.Log.ApplicationAppData, "Config");
-            _cloud.DirectoryOriginal = CLOUD_DIRECTORY;
-            _cloud.CloudConnectionType = "local";
+            LaunchViewWelcome();
         }
         private void InitData()
         {
@@ -386,20 +378,66 @@ namespace Droid_Booking
         }
         private void LoadPrices()
         {
+            string fileData = string.Empty;
+
             if (_prices == null) { _prices = new List<Price>(); }
             else { _prices.Clear(); }
 
-            if  (File.Exists(Path.Combine(CLOUD_DIRECTORY, "prices.xml")))
+            if  (File.Exists(Path.Combine(_directoryCloud, "prices.xml")))
             {
-
+                using (StreamReader sr = new StreamReader(Path.Combine(_directoryCloud, "prices.xml")))
+                {
+                    fileData = sr.ReadToEnd();
+                }
+                XmlSerializer xsSubmit = new XmlSerializer(typeof(List<Price>));
+                using (var sww = new StringReader(fileData))
+                {
+                    using (XmlReader reader = XmlReader.Create(sww))
+                    {
+                        try
+                        {
+                            _prices = (List<Price>)xsSubmit.Deserialize(reader);
+                        }
+                        catch (Exception exp)
+                        {
+                            Log.Write("[ ERR 0600 ] Cannot load price xml file : " + exp.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                _prices = new List<Price>();
             }
         }
         private void SavePrices()
         {
+            string serializedObject = string.Empty;
 
+            if (!Directory.Exists(_directoryCloud)) { Directory.CreateDirectory(_directoryCloud); }
+            //if (!File.Exists(Path.Combine(CLOUD_DIRECTORY, "prices.xml"))) { File.Create(Path.Combine(CLOUD_DIRECTORY, "prices.xml")); }
+
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(List<Price>));
+            using (var sww = new StringWriter())
+            {
+                using (XmlWriter writer = XmlWriter.Create(sww))
+                {
+                    xsSubmit.Serialize(writer, _prices);
+                    serializedObject = sww.ToString();
+                }
+            }
+
+            using (StreamWriter sw = new StreamWriter(Path.Combine(_directoryCloud, "prices.xml"), false))
+            {
+                sw.Write(serializedObject);
+            }
         }
 
         #region Launcher
+        private void LaunchSavePrice()
+        {
+            SavePrices();
+        }
         private void LaunchSettings()
         {
             _sheet.Controls.Clear();
@@ -414,6 +452,10 @@ namespace Droid_Booking
         private void LaunchViewWelcome()
         {
             _sheet.Controls.Clear();
+            
+            _viewWelcome.Top = TOP_OFFSET;
+            _viewWelcome.RefreshData();
+            _viewWelcome.Left = (_sheet.Width / 2) - (_viewWelcome.Width / 2);
             _viewWelcome.ChangeLanguage();
             _sheet.Controls.Add(_viewWelcome);
             if (SheetDisplayRequested != null) SheetDisplayRequested();
@@ -421,6 +463,12 @@ namespace Droid_Booking
         private void LaunchViewCalendar()
         {
             _sheet.Controls.Clear();
+
+            _viewCalendar.Top = TOP_OFFSET - 25;
+            _viewCalendar.RefreshData();
+            _viewCalendar.Left = 0;
+            _viewCalendar.Width = _sheet.Width;
+            _viewCalendar.Height = _sheet.Height - TOP_OFFSET + 25;
             _viewCalendar.ChangeLanguage();
             _sheet.Controls.Add(_viewCalendar);
             if (SheetDisplayRequested != null) SheetDisplayRequested();

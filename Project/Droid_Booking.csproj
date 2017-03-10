@@ -347,6 +347,8 @@
     <None Include="Resources\CenterRed.png" />
     <None Include="Resources\CenterWhite.png" />
     <Content Include="License-LGPL.txt" />
+    <None Include="Resources\lexBg.jpg" />
+    <None Include="Resources\ShieldTileBgWhite.png" />
     <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

@@ -300,4 +300,13 @@
   <data name="PurgeHistory" xml:space="preserve">
     <value>Delay to purge history</value>
   </data>
+  <data name="AreaCapacityDetails" xml:space="preserve">
+    <value>Area capacity details</value>
+  </data>
+  <data name="currentNationalities" xml:space="preserve">
+    <value>Current nationalities</value>
+  </data>
+  <data name="Occupancy" xml:space="preserve">
+    <value>Occupancy</value>
+  </data>
 </root>

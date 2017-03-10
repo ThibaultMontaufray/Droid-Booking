@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
@@ -96,6 +97,8 @@ namespace Droid_Booking
             LoadType();
             LoadName();
             LoadPlace();
+
+            _intBoo.GlobalAction(this, new ToolBarEventArgs("saveprice"));
         }
         #endregion
 
