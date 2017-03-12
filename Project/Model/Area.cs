@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -98,12 +99,56 @@ namespace Droid_Booking
 
             System.Threading.Thread.Sleep(1);
         }
+        public Area(string fileName)
+        {
+            Random rand = new Random((int)DateTime.Now.Ticks);
+            _id = string.Format("area.{0}-{1}-{2}", rand.Next(), (int)DateTime.Now.Ticks, rand.Next());
+
+            _capacity = 0;
+            _color = Color.DarkOrange;
+            _type = TYPE.ROOM;
+            InitPlaces();
+            Load(fileName);
+
+            System.Threading.Thread.Sleep(1);
+        }
         #endregion
 
         #region Methods public
         public void Save(string path)
         {
-            SaveFile(GenerateXml(), path);
+            SaveFile(path);
+        }
+        public void Load(string pathFile)
+        {
+            if (File.Exists(pathFile))
+            {
+                using (StreamReader sr = new StreamReader(pathFile))
+                {
+                    var json = sr.ReadToEnd();
+                    var data = JsonConvert.DeserializeObject<Area>(json);
+                    if (data != null) { Import(data, this); }
+                }
+            }
+            else if (Directory.Exists(pathFile))
+            {
+                foreach (string file in Directory.GetFiles(pathFile))
+                {
+                    if (Path.GetFileName(file).StartsWith("area.") && Path.GetExtension(file).Equals(".xml"))
+                    {
+                        using (StreamReader sr = new StreamReader(file))
+                        {
+                            var json = sr.ReadToEnd();
+                            var data = JsonConvert.DeserializeObject<Area>(json);
+                            if (data != null)
+                            {
+                                Import(data, this);
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
         }
         public static Area GetArea(object o, List<Area> areas)
         {
@@ -126,6 +171,19 @@ namespace Droid_Booking
         #endregion
 
         #region Methods private
+        private void Import(Area source, Area target)
+        {
+            target._capacity = source._capacity;
+            target._color = source._color;
+            target._comment = source._comment;
+            target._floor = source._floor;
+            target._id = source._id;
+            target._name = source._name;
+            target._place = source._place;
+            target._type = source._type;
+
+            source = null;
+        }
         private string GenerateXml()
         {
             string serializedObject = string.Empty;
@@ -141,7 +199,23 @@ namespace Droid_Booking
             }
             return serializedObject;
         }
-        private void SaveFile(string xmlObject, string path)
+        private void SaveFile(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            if (!Directory.Exists(Path.Combine(path, _id)))
+            {
+                Directory.CreateDirectory(Path.Combine(path, _id));
+            }
+            string filePath = Path.Combine(path, string.Format("{0}//{0}.xml", _id));
+            using (StreamWriter sw = new StreamWriter(filePath, false))
+            {
+                sw.Write(JsonConvert.SerializeObject(this));
+            }
+        }
+        private void SaveXml(string xmlObject, string path)
         {
             if (!Directory.Exists(path))
             {

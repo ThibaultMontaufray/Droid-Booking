@@ -5,7 +5,7 @@ using Tools4Libraries;
 
 namespace Droid_Booking
 {
-    public partial class ViewSettings : UserControl, IView
+    public partial class ViewSettings : UserControlCustom, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -16,7 +16,6 @@ namespace Droid_Booking
         private Label labelMaxPurgeHistory;
         private NumericUpDown numericUpDownPurge;
         private ComboBox comboBoxPurge;
-        private PanelCustom panelShield1;
         private Label labelLanguage;
         #endregion
 
@@ -34,7 +33,6 @@ namespace Droid_Booking
             _intBoo = intBoo;
 
             InitializeComponent();
-            InitializeComponentSpecialized();
             Init();
         }
         #endregion
@@ -79,7 +77,6 @@ namespace Droid_Booking
             this.labelMaxPurgeHistory = new System.Windows.Forms.Label();
             this.numericUpDownPurge = new System.Windows.Forms.NumericUpDown();
             this.comboBoxPurge = new System.Windows.Forms.ComboBox();
-            this.panelShield1 = new PanelCustom();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFlag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPurge)).BeginInit();
             this.SuspendLayout();
@@ -97,7 +94,7 @@ namespace Droid_Booking
             // comboBoxLanguage
             // 
             this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLanguage.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxLanguage.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxLanguage.ForeColor = System.Drawing.Color.Black;
             this.comboBoxLanguage.FormattingEnabled = true;
             this.comboBoxLanguage.Items.AddRange(new object[] {
@@ -106,40 +103,40 @@ namespace Droid_Booking
             this.comboBoxLanguage.Location = new System.Drawing.Point(177, -3);
             this.comboBoxLanguage.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxLanguage.Name = "comboBoxLanguage";
-            this.comboBoxLanguage.Size = new System.Drawing.Size(255, 27);
+            this.comboBoxLanguage.Size = new System.Drawing.Size(255, 23);
             this.comboBoxLanguage.TabIndex = 12;
             this.comboBoxLanguage.SelectedIndexChanged += new System.EventHandler(this.comboBoxLanguage_SelectedIndexChanged);
             // 
             // labelLanguage
             // 
             this.labelLanguage.AutoSize = true;
-            this.labelLanguage.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLanguage.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLanguage.ForeColor = System.Drawing.Color.White;
             this.labelLanguage.Location = new System.Drawing.Point(7, 0);
             this.labelLanguage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLanguage.Name = "labelLanguage";
-            this.labelLanguage.Size = new System.Drawing.Size(84, 19);
+            this.labelLanguage.Size = new System.Drawing.Size(73, 17);
             this.labelLanguage.TabIndex = 11;
             this.labelLanguage.Text = "Language : ";
             // 
             // labelMaxPurgeHistory
             // 
             this.labelMaxPurgeHistory.AutoSize = true;
-            this.labelMaxPurgeHistory.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMaxPurgeHistory.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMaxPurgeHistory.ForeColor = System.Drawing.Color.White;
             this.labelMaxPurgeHistory.Location = new System.Drawing.Point(7, 35);
             this.labelMaxPurgeHistory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMaxPurgeHistory.Name = "labelMaxPurgeHistory";
-            this.labelMaxPurgeHistory.Size = new System.Drawing.Size(164, 19);
+            this.labelMaxPurgeHistory.Size = new System.Drawing.Size(142, 17);
             this.labelMaxPurgeHistory.TabIndex = 18;
             this.labelMaxPurgeHistory.Text = "Delay to purge history : ";
             // 
             // numericUpDownPurge
             // 
-            this.numericUpDownPurge.Font = new System.Drawing.Font("Calibri", 12F);
+            this.numericUpDownPurge.Font = new System.Drawing.Font("Calibri", 10F);
             this.numericUpDownPurge.Location = new System.Drawing.Point(177, 32);
             this.numericUpDownPurge.Name = "numericUpDownPurge";
-            this.numericUpDownPurge.Size = new System.Drawing.Size(76, 27);
+            this.numericUpDownPurge.Size = new System.Drawing.Size(76, 24);
             this.numericUpDownPurge.TabIndex = 19;
             this.numericUpDownPurge.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDownPurge.ValueChanged += new System.EventHandler(this.numericUpDownPurge_ValueChanged);
@@ -147,7 +144,7 @@ namespace Droid_Booking
             // comboBoxPurge
             // 
             this.comboBoxPurge.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPurge.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPurge.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxPurge.ForeColor = System.Drawing.Color.Black;
             this.comboBoxPurge.FormattingEnabled = true;
             this.comboBoxPurge.Items.AddRange(new object[] {
@@ -156,40 +153,28 @@ namespace Droid_Booking
             this.comboBoxPurge.Location = new System.Drawing.Point(260, 32);
             this.comboBoxPurge.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxPurge.Name = "comboBoxPurge";
-            this.comboBoxPurge.Size = new System.Drawing.Size(223, 27);
+            this.comboBoxPurge.Size = new System.Drawing.Size(223, 23);
             this.comboBoxPurge.TabIndex = 20;
             this.comboBoxPurge.SelectedIndexChanged += new System.EventHandler(this.comboBoxPurge_SelectedIndexChanged);
-            // 
-            // panelShield1
-            // 
-            this.panelShield1.BackColor = System.Drawing.Color.Transparent;
-            this.panelShield1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelShield1.Location = new System.Drawing.Point(0, 0);
-            this.panelShield1.Name = "panelShield1";
-            this.panelShield1.Size = new System.Drawing.Size(550, 120);
-            this.panelShield1.TabIndex = 21;
             // 
             // ViewSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.panelShield1);
+            this.Controls.Add(this.pictureBoxFlag);
+            this.Controls.Add(this.comboBoxLanguage);
+            this.Controls.Add(this.labelLanguage);
+            this.Controls.Add(this.comboBoxPurge);
+            this.Controls.Add(this.numericUpDownPurge);
+            this.Controls.Add(this.labelMaxPurgeHistory);
             this.Name = "ViewSettings";
-            this.Size = new System.Drawing.Size(550, 120);
+            this.Size = new System.Drawing.Size(488, 61);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFlag)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPurge)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
-        }
-        private void InitializeComponentSpecialized()
-        {
-            panelShield1.panelMiddle.Controls.Add(this.pictureBoxFlag);
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxLanguage);
-            panelShield1.panelMiddle.Controls.Add(this.labelLanguage);
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxPurge);
-            panelShield1.panelMiddle.Controls.Add(this.numericUpDownPurge);
-            panelShield1.panelMiddle.Controls.Add(this.labelMaxPurgeHistory);
         }
         private void ChangeLanguageApplication()
         {

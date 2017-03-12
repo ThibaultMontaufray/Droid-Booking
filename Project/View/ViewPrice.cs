@@ -6,7 +6,7 @@ using Tools4Libraries;
 
 namespace Droid_Booking
 {
-    public class ViewPrice : UserControl, IView
+    public class ViewPrice : UserControlCustom, IView
     {
         #region Attribute
         private Label labelType;
@@ -536,7 +536,7 @@ namespace Droid_Booking
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.groupBoxAdd);
             this.Controls.Add(this.dataGridViewPrices);
-            this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "ViewPrice";
             this.Size = new System.Drawing.Size(756, 364);

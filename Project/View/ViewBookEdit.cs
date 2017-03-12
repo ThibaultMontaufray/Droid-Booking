@@ -12,7 +12,7 @@ using Tools4Libraries;
 
 namespace Droid_Booking
 {
-    public partial class ViewBookEdit : UserControl, IView
+    public partial class ViewBookEdit : UserControlCustom, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -34,7 +34,6 @@ namespace Droid_Booking
         private System.Windows.Forms.ComboBox comboBoxPerson;
         private System.Windows.Forms.Label labelPerson;
         private System.Windows.Forms.Button buttonAddPerson;
-        private PanelCustom panelShield1;
         #endregion
 
         #region Properties
@@ -51,7 +50,6 @@ namespace Droid_Booking
             _intBoo = intBoo;
 
             InitializeComponent();
-            InitializeComponentSpecialized();
             Init();
         }
         #endregion
@@ -148,7 +146,6 @@ namespace Droid_Booking
             this.comboBoxPerson = new System.Windows.Forms.ComboBox();
             this.labelPerson = new System.Windows.Forms.Label();
             this.buttonAddPerson = new System.Windows.Forms.Button();
-            this.panelShield1 = new PanelCustom();
             this.SuspendLayout();
             // 
             // dateTimePickerCheckIn
@@ -163,22 +160,22 @@ namespace Droid_Booking
             // labelStart
             // 
             this.labelStart.AutoSize = true;
-            this.labelStart.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStart.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelStart.ForeColor = System.Drawing.Color.White;
             this.labelStart.Location = new System.Drawing.Point(3, 62);
             this.labelStart.Name = "labelStart";
-            this.labelStart.Size = new System.Drawing.Size(51, 19);
+            this.labelStart.Size = new System.Drawing.Size(46, 17);
             this.labelStart.TabIndex = 4;
             this.labelStart.Text = "Start : ";
             // 
             // labelEnd
             // 
             this.labelEnd.AutoSize = true;
-            this.labelEnd.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEnd.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEnd.ForeColor = System.Drawing.Color.White;
             this.labelEnd.Location = new System.Drawing.Point(3, 91);
             this.labelEnd.Name = "labelEnd";
-            this.labelEnd.Size = new System.Drawing.Size(45, 19);
+            this.labelEnd.Size = new System.Drawing.Size(39, 17);
             this.labelEnd.TabIndex = 6;
             this.labelEnd.Text = "End : ";
             // 
@@ -194,11 +191,11 @@ namespace Droid_Booking
             // checkBoxConfirmed
             // 
             this.checkBoxConfirmed.AutoSize = true;
-            this.checkBoxConfirmed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxConfirmed.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxConfirmed.ForeColor = System.Drawing.Color.White;
             this.checkBoxConfirmed.Location = new System.Drawing.Point(7, 180);
             this.checkBoxConfirmed.Name = "checkBoxConfirmed";
-            this.checkBoxConfirmed.Size = new System.Drawing.Size(147, 23);
+            this.checkBoxConfirmed.Size = new System.Drawing.Size(131, 21);
             this.checkBoxConfirmed.TabIndex = 7;
             this.checkBoxConfirmed.Text = "Confirmation done";
             this.checkBoxConfirmed.UseVisualStyleBackColor = true;
@@ -214,22 +211,22 @@ namespace Droid_Booking
             // labelPrice
             // 
             this.labelPrice.AutoSize = true;
-            this.labelPrice.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrice.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPrice.ForeColor = System.Drawing.Color.White;
             this.labelPrice.Location = new System.Drawing.Point(3, 117);
             this.labelPrice.Name = "labelPrice";
-            this.labelPrice.Size = new System.Drawing.Size(130, 19);
+            this.labelPrice.Size = new System.Drawing.Size(129, 17);
             this.labelPrice.TabIndex = 9;
             this.labelPrice.Text = "Price of the booking : ";
             // 
             // labelPaid
             // 
             this.labelPaid.AutoSize = true;
-            this.labelPaid.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPaid.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPaid.ForeColor = System.Drawing.Color.White;
             this.labelPaid.Location = new System.Drawing.Point(3, 146);
             this.labelPaid.Name = "labelPaid";
-            this.labelPaid.Size = new System.Drawing.Size(103, 19);
+            this.labelPaid.Size = new System.Drawing.Size(90, 17);
             this.labelPaid.TabIndex = 11;
             this.labelPaid.Text = "Amount paid : ";
             // 
@@ -244,21 +241,21 @@ namespace Droid_Booking
             // labelType
             // 
             this.labelType.AutoSize = true;
-            this.labelType.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelType.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelType.ForeColor = System.Drawing.Color.White;
             this.labelType.Location = new System.Drawing.Point(3, 0);
             this.labelType.Name = "labelType";
-            this.labelType.Size = new System.Drawing.Size(51, 19);
+            this.labelType.Size = new System.Drawing.Size(45, 17);
             this.labelType.TabIndex = 12;
             this.labelType.Text = "Area : ";
             // 
             // comboBoxArea
             // 
-            this.comboBoxArea.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxArea.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxArea.FormattingEnabled = true;
             this.comboBoxArea.Location = new System.Drawing.Point(92, -3);
             this.comboBoxArea.Name = "comboBoxArea";
-            this.comboBoxArea.Size = new System.Drawing.Size(200, 27);
+            this.comboBoxArea.Size = new System.Drawing.Size(200, 23);
             this.comboBoxArea.TabIndex = 13;
             // 
             // buttonApply
@@ -282,27 +279,27 @@ namespace Droid_Booking
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // comboBoxUser
+            // comboBoxPerson
             // 
-            this.comboBoxPerson.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPerson.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxPerson.FormattingEnabled = true;
             this.comboBoxPerson.Location = new System.Drawing.Point(92, 28);
-            this.comboBoxPerson.Name = "comboBoxUser";
-            this.comboBoxPerson.Size = new System.Drawing.Size(175, 27);
+            this.comboBoxPerson.Name = "comboBoxPerson";
+            this.comboBoxPerson.Size = new System.Drawing.Size(175, 23);
             this.comboBoxPerson.TabIndex = 17;
             // 
-            // labelUser
+            // labelPerson
             // 
             this.labelPerson.AutoSize = true;
-            this.labelPerson.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPerson.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPerson.ForeColor = System.Drawing.Color.White;
             this.labelPerson.Location = new System.Drawing.Point(3, 31);
-            this.labelPerson.Name = "labelUser";
-            this.labelPerson.Size = new System.Drawing.Size(51, 19);
+            this.labelPerson.Name = "labelPerson";
+            this.labelPerson.Size = new System.Drawing.Size(56, 17);
             this.labelPerson.TabIndex = 16;
             this.labelPerson.Text = "Person : ";
             // 
-            // buttonAddUser
+            // buttonAddPerson
             // 
             this.buttonAddPerson.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonAddPerson.BackgroundImage")));
             this.buttonAddPerson.FlatAppearance.BorderSize = 0;
@@ -311,49 +308,37 @@ namespace Droid_Booking
             this.buttonAddPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddPerson.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAddPerson.Location = new System.Drawing.Point(276, 34);
-            this.buttonAddPerson.Name = "buttonAddUser";
+            this.buttonAddPerson.Name = "buttonAddPerson";
             this.buttonAddPerson.Size = new System.Drawing.Size(16, 16);
             this.buttonAddPerson.TabIndex = 18;
             this.buttonAddPerson.UseVisualStyleBackColor = true;
-            // 
-            // panelShield1
-            // 
-            this.panelShield1.BackColor = System.Drawing.Color.Transparent;
-            this.panelShield1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelShield1.Location = new System.Drawing.Point(0, 0);
-            this.panelShield1.Name = "panelShield1";
-            this.panelShield1.Size = new System.Drawing.Size(350, 300);
-            this.panelShield1.TabIndex = 19;
             // 
             // ViewBookEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.panelShield1);
+            this.Controls.Add(this.buttonAddPerson);
+            this.Controls.Add(this.comboBoxPerson);
+            this.Controls.Add(this.labelPerson);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonApply);
+            this.Controls.Add(this.comboBoxArea);
+            this.Controls.Add(this.labelType);
+            this.Controls.Add(this.labelPaid);
+            this.Controls.Add(this.textBoxPaid);
+            this.Controls.Add(this.labelPrice);
+            this.Controls.Add(this.textBoxPrice);
+            this.Controls.Add(this.checkBoxConfirmed);
+            this.Controls.Add(this.labelEnd);
+            this.Controls.Add(this.dateTimePickerCheckOut);
+            this.Controls.Add(this.labelStart);
+            this.Controls.Add(this.dateTimePickerCheckIn);
             this.Name = "ViewBookEdit";
-            this.Size = new System.Drawing.Size(330, 300);
+            this.Size = new System.Drawing.Size(296, 243);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
-        }
-        private void InitializeComponentSpecialized()
-        {
-            panelShield1.panelMiddle.Controls.Add(this.buttonAddPerson);
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxPerson);
-            panelShield1.panelMiddle.Controls.Add(this.labelPerson);
-            panelShield1.panelMiddle.Controls.Add(this.buttonCancel);
-            panelShield1.panelMiddle.Controls.Add(this.buttonApply);
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxArea);
-            panelShield1.panelMiddle.Controls.Add(this.labelType);
-            panelShield1.panelMiddle.Controls.Add(this.labelPaid);
-            panelShield1.panelMiddle.Controls.Add(this.textBoxPaid);
-            panelShield1.panelMiddle.Controls.Add(this.labelPrice);
-            panelShield1.panelMiddle.Controls.Add(this.textBoxPrice);
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxConfirmed);
-            panelShield1.panelMiddle.Controls.Add(this.labelEnd);
-            panelShield1.panelMiddle.Controls.Add(this.dateTimePickerCheckOut);
-            panelShield1.panelMiddle.Controls.Add(this.labelStart);
-            panelShield1.panelMiddle.Controls.Add(this.dateTimePickerCheckIn);
         }
         private void SaveBook()
         {

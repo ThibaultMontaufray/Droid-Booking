@@ -11,7 +11,7 @@ using Tools4Libraries;
 
 namespace Droid_Booking
 {
-    public partial class ViewAreaSearch : UserControl, IView
+    public partial class ViewAreaSearch : UserControlCustom, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -40,7 +40,6 @@ namespace Droid_Booking
         private DataGridViewTextBoxColumn ColumnCapacity;
         private DataGridViewTextBoxColumn ColumnType;
         private DataGridViewTextBoxColumn ColumnComment;
-        private PanelCustom panelShield1;
         #endregion
 
         #region Properties
@@ -50,7 +49,6 @@ namespace Droid_Booking
         public ViewAreaSearch()
         {
             InitializeComponent();
-            InitializeComponentSpecialized();
             Init();
         }
         public ViewAreaSearch(Interface_booking intBoo)
@@ -58,7 +56,6 @@ namespace Droid_Booking
             _intBoo = intBoo;
 
             InitializeComponent();
-            InitializeComponentSpecialized();
             Init();
         }
         #endregion
@@ -134,7 +131,6 @@ namespace Droid_Booking
             this.ColumnCapacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnComment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelShield1 = new PanelCustom();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFloor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearch)).BeginInit();
@@ -143,11 +139,11 @@ namespace Droid_Booking
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelName.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelName.ForeColor = System.Drawing.Color.White;
             this.labelName.Location = new System.Drawing.Point(-4, 0);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(59, 19);
+            this.labelName.Size = new System.Drawing.Size(52, 17);
             this.labelName.TabIndex = 3;
             this.labelName.Text = "Name : ";
             // 
@@ -156,28 +152,28 @@ namespace Droid_Booking
             this.labelColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelColor.AutoSize = true;
-            this.labelColor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelColor.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelColor.ForeColor = System.Drawing.Color.White;
             this.labelColor.Location = new System.Drawing.Point(433, 0);
             this.labelColor.Name = "labelColor";
-            this.labelColor.Size = new System.Drawing.Size(55, 19);
+            this.labelColor.Size = new System.Drawing.Size(47, 17);
             this.labelColor.TabIndex = 4;
             this.labelColor.Text = "Color : ";
             // 
             // textBoxName
             // 
-            this.textBoxName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxName.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxName.Location = new System.Drawing.Point(61, -3);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(357, 27);
+            this.textBoxName.Size = new System.Drawing.Size(357, 24);
             this.textBoxName.TabIndex = 12;
             // 
             // textBoxColor
             // 
-            this.textBoxColor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxColor.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxColor.Location = new System.Drawing.Point(514, -3);
             this.textBoxColor.Name = "textBoxColor";
-            this.textBoxColor.Size = new System.Drawing.Size(193, 27);
+            this.textBoxColor.Size = new System.Drawing.Size(193, 24);
             this.textBoxColor.TabIndex = 13;
             // 
             // ribbonColorChooser1
@@ -210,17 +206,17 @@ namespace Droid_Booking
             // labelCapacity
             // 
             this.labelCapacity.AutoSize = true;
-            this.labelCapacity.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCapacity.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCapacity.ForeColor = System.Drawing.Color.White;
             this.labelCapacity.Location = new System.Drawing.Point(-4, 29);
             this.labelCapacity.Name = "labelCapacity";
-            this.labelCapacity.Size = new System.Drawing.Size(77, 19);
+            this.labelCapacity.Size = new System.Drawing.Size(66, 17);
             this.labelCapacity.TabIndex = 15;
             this.labelCapacity.Text = "Capacity : ";
             // 
             // numericUpDownCapacity
             // 
-            this.numericUpDownCapacity.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownCapacity.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownCapacity.Location = new System.Drawing.Point(95, 27);
             this.numericUpDownCapacity.Maximum = new decimal(new int[] {
             1000,
@@ -233,7 +229,7 @@ namespace Droid_Booking
             0,
             -2147483648});
             this.numericUpDownCapacity.Name = "numericUpDownCapacity";
-            this.numericUpDownCapacity.Size = new System.Drawing.Size(105, 27);
+            this.numericUpDownCapacity.Size = new System.Drawing.Size(105, 24);
             this.numericUpDownCapacity.TabIndex = 16;
             this.numericUpDownCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDownCapacity.Value = new decimal(new int[] {
@@ -245,28 +241,28 @@ namespace Droid_Booking
             // labelFloor
             // 
             this.labelFloor.AutoSize = true;
-            this.labelFloor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFloor.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelFloor.ForeColor = System.Drawing.Color.White;
             this.labelFloor.Location = new System.Drawing.Point(228, 29);
             this.labelFloor.Name = "labelFloor";
-            this.labelFloor.Size = new System.Drawing.Size(53, 19);
+            this.labelFloor.Size = new System.Drawing.Size(46, 17);
             this.labelFloor.TabIndex = 17;
             this.labelFloor.Text = "Floor : ";
             // 
             // labelType
             // 
             this.labelType.AutoSize = true;
-            this.labelType.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelType.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelType.ForeColor = System.Drawing.Color.White;
             this.labelType.Location = new System.Drawing.Point(433, 29);
             this.labelType.Name = "labelType";
-            this.labelType.Size = new System.Drawing.Size(51, 19);
+            this.labelType.Size = new System.Drawing.Size(44, 17);
             this.labelType.TabIndex = 19;
             this.labelType.Text = "Type : ";
             // 
             // numericUpDownFloor
             // 
-            this.numericUpDownFloor.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownFloor.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownFloor.Location = new System.Drawing.Point(313, 27);
             this.numericUpDownFloor.Maximum = new decimal(new int[] {
             1000,
@@ -279,7 +275,7 @@ namespace Droid_Booking
             0,
             -2147483648});
             this.numericUpDownFloor.Name = "numericUpDownFloor";
-            this.numericUpDownFloor.Size = new System.Drawing.Size(105, 27);
+            this.numericUpDownFloor.Size = new System.Drawing.Size(105, 24);
             this.numericUpDownFloor.TabIndex = 21;
             this.numericUpDownFloor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDownFloor.Value = new decimal(new int[] {
@@ -290,11 +286,11 @@ namespace Droid_Booking
             // 
             // comboBoxType
             // 
-            this.comboBoxType.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxType.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxType.FormattingEnabled = true;
             this.comboBoxType.Location = new System.Drawing.Point(514, 25);
             this.comboBoxType.Name = "comboBoxType";
-            this.comboBoxType.Size = new System.Drawing.Size(270, 27);
+            this.comboBoxType.Size = new System.Drawing.Size(270, 23);
             this.comboBoxType.TabIndex = 24;
             // 
             // buttonValidation
@@ -323,10 +319,10 @@ namespace Droid_Booking
             this.ColumnCapacity,
             this.ColumnType,
             this.ColumnComment});
-            this._dgvSearch.Location = new System.Drawing.Point(42, 156);
+            this._dgvSearch.Location = new System.Drawing.Point(0, 86);
             this._dgvSearch.Name = "_dgvSearch";
             this._dgvSearch.RowHeadersVisible = false;
-            this._dgvSearch.Size = new System.Drawing.Size(1198, 128);
+            this._dgvSearch.Size = new System.Drawing.Size(788, 275);
             this._dgvSearch.TabIndex = 25;
             // 
             // ColumnName
@@ -361,45 +357,32 @@ namespace Droid_Booking
             this.ColumnComment.HeaderText = "Comment";
             this.ColumnComment.Name = "ColumnComment";
             // 
-            // panelShield1
-            // 
-            this.panelShield1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelShield1.BackColor = System.Drawing.Color.Transparent;
-            this.panelShield1.Location = new System.Drawing.Point(10, 10);
-            this.panelShield1.Name = "panelShield1";
-            this.panelShield1.Size = new System.Drawing.Size(1260, 140);
-            this.panelShield1.TabIndex = 26;
-            // 
-            // ViewArea
+            // ViewAreaSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.panelShield1);
+            this.Controls.Add(this.comboBoxType);
+            this.Controls.Add(this.buttonValidation);
+            this.Controls.Add(this.labelName);
+            this.Controls.Add(this.textBoxColor);
+            this.Controls.Add(this.labelColor);
+            this.Controls.Add(this.numericUpDownCapacity);
+            this.Controls.Add(this.numericUpDownFloor);
+            this.Controls.Add(this.labelCapacity);
+            this.Controls.Add(this.textBoxName);
+            this.Controls.Add(this.labelFloor);
+            this.Controls.Add(this.buttonColorChoose);
+            this.Controls.Add(this.labelType);
             this.Controls.Add(this._dgvSearch);
-            this.Name = "ViewArea";
-            this.Size = new System.Drawing.Size(1280, 456);
+            this.Name = "ViewAreaSearch";
+            this.Size = new System.Drawing.Size(788, 364);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCapacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFloor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearch)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
-        }
-        private void InitializeComponentSpecialized()
-        {
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxType);
-            panelShield1.panelMiddle.Controls.Add(this.buttonValidation);
-            panelShield1.panelMiddle.Controls.Add(this.labelName);
-            panelShield1.panelMiddle.Controls.Add(this.textBoxColor);
-            panelShield1.panelMiddle.Controls.Add(this.labelColor);
-            panelShield1.panelMiddle.Controls.Add(this.numericUpDownCapacity);
-            panelShield1.panelMiddle.Controls.Add(this.numericUpDownFloor);
-            panelShield1.panelMiddle.Controls.Add(this.labelCapacity);
-            panelShield1.panelMiddle.Controls.Add(this.textBoxName);
-            panelShield1.panelMiddle.Controls.Add(this.labelFloor);
-            panelShield1.panelMiddle.Controls.Add(this.buttonColorChoose);
-            panelShield1.panelMiddle.Controls.Add(this.labelType);
         }
         private void DisplayAreaAddView()
         {

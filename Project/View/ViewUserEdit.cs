@@ -160,7 +160,7 @@
 //            // labelName
 //            // 
 //            this.labelName.AutoSize = true;
-//            this.labelName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.labelName.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.labelName.ForeColor = System.Drawing.Color.White;
 //            this.labelName.Location = new System.Drawing.Point(159, 6);
 //            this.labelName.Name = "labelName";
@@ -171,7 +171,7 @@
 //            // textBoxFirstname
 //            // 
 //            this.textBoxFirstname.BackColor = System.Drawing.Color.Gainsboro;
-//            this.textBoxFirstname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.textBoxFirstname.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.textBoxFirstname.Location = new System.Drawing.Point(276, 3);
 //            this.textBoxFirstname.Name = "textBoxFirstname";
 //            this.textBoxFirstname.Size = new System.Drawing.Size(290, 27);
@@ -180,7 +180,7 @@
 //            // textBoxFamilyName
 //            // 
 //            this.textBoxFamilyName.BackColor = System.Drawing.Color.Gainsboro;
-//            this.textBoxFamilyName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.textBoxFamilyName.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.textBoxFamilyName.Location = new System.Drawing.Point(276, 31);
 //            this.textBoxFamilyName.Name = "textBoxFamilyName";
 //            this.textBoxFamilyName.Size = new System.Drawing.Size(290, 27);
@@ -189,7 +189,7 @@
 //            // label1
 //            // 
 //            this.label1.AutoSize = true;
-//            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.label1.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.label1.ForeColor = System.Drawing.Color.White;
 //            this.label1.Location = new System.Drawing.Point(159, 34);
 //            this.label1.Name = "label1";
@@ -200,7 +200,7 @@
 //            // textBoxNationality
 //            // 
 //            this.textBoxNationality.BackColor = System.Drawing.Color.Gainsboro;
-//            this.textBoxNationality.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.textBoxNationality.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.textBoxNationality.Location = new System.Drawing.Point(276, 59);
 //            this.textBoxNationality.Name = "textBoxNationality";
 //            this.textBoxNationality.Size = new System.Drawing.Size(290, 27);
@@ -209,7 +209,7 @@
 //            // label2
 //            // 
 //            this.label2.AutoSize = true;
-//            this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.label2.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.label2.ForeColor = System.Drawing.Color.White;
 //            this.label2.Location = new System.Drawing.Point(159, 62);
 //            this.label2.Name = "label2";
@@ -220,7 +220,7 @@
 //            // textBoxId
 //            // 
 //            this.textBoxId.BackColor = System.Drawing.Color.Gainsboro;
-//            this.textBoxId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.textBoxId.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.textBoxId.Location = new System.Drawing.Point(276, 87);
 //            this.textBoxId.Name = "textBoxId";
 //            this.textBoxId.Size = new System.Drawing.Size(290, 27);
@@ -229,7 +229,7 @@
 //            // label3
 //            // 
 //            this.label3.AutoSize = true;
-//            this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.label3.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.label3.ForeColor = System.Drawing.Color.White;
 //            this.label3.Location = new System.Drawing.Point(159, 90);
 //            this.label3.Name = "label3";
@@ -240,7 +240,7 @@
 //            // label4
 //            // 
 //            this.label4.AutoSize = true;
-//            this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.label4.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.label4.ForeColor = System.Drawing.Color.White;
 //            this.label4.Location = new System.Drawing.Point(159, 118);
 //            this.label4.Name = "label4";
@@ -251,7 +251,7 @@
 //            // textBoxMail
 //            // 
 //            this.textBoxMail.BackColor = System.Drawing.Color.Gainsboro;
-//            this.textBoxMail.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.textBoxMail.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.textBoxMail.Location = new System.Drawing.Point(276, 143);
 //            this.textBoxMail.Name = "textBoxMail";
 //            this.textBoxMail.Size = new System.Drawing.Size(290, 27);
@@ -260,7 +260,7 @@
 //            // label5
 //            // 
 //            this.label5.AutoSize = true;
-//            this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.label5.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.label5.ForeColor = System.Drawing.Color.White;
 //            this.label5.Location = new System.Drawing.Point(159, 146);
 //            this.label5.Name = "label5";
@@ -271,7 +271,7 @@
 //            // textBoxComment
 //            // 
 //            this.textBoxComment.BackColor = System.Drawing.Color.WhiteSmoke;
-//            this.textBoxComment.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.textBoxComment.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.textBoxComment.Location = new System.Drawing.Point(3, 209);
 //            this.textBoxComment.Multiline = true;
 //            this.textBoxComment.Name = "textBoxComment";
@@ -282,7 +282,7 @@
 //            // 
 //            this.comboBoxGender.BackColor = System.Drawing.Color.Gainsboro;
 //            this.comboBoxGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-//            this.comboBoxGender.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.comboBoxGender.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.comboBoxGender.FormattingEnabled = true;
 //            this.comboBoxGender.Location = new System.Drawing.Point(276, 115);
 //            this.comboBoxGender.Name = "comboBoxGender";
@@ -292,7 +292,7 @@
 //            // label6
 //            // 
 //            this.label6.AutoSize = true;
-//            this.label6.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.label6.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.label6.ForeColor = System.Drawing.Color.White;
 //            this.label6.Location = new System.Drawing.Point(159, 174);
 //            this.label6.Name = "label6";
@@ -302,7 +302,7 @@
 //            // 
 //            // buttonApply
 //            // 
-//            this.buttonApply.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.buttonApply.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.buttonApply.Location = new System.Drawing.Point(482, 315);
 //            this.buttonApply.Name = "buttonApply";
 //            this.buttonApply.Size = new System.Drawing.Size(84, 29);
@@ -313,7 +313,7 @@
 //            // 
 //            // buttonCancel
 //            // 
-//            this.buttonCancel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+//            this.buttonCancel.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 //            this.buttonCancel.Location = new System.Drawing.Point(392, 315);
 //            this.buttonCancel.Name = "buttonCancel";
 //            this.buttonCancel.Size = new System.Drawing.Size(84, 29);

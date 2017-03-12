@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
@@ -106,25 +107,29 @@ namespace Droid_Booking
             int[] indexColumns;
             foreach (Booking booking in _intBoo.Bookings)
             {
-                indexRow = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (r.Tag).Equals(booking.AreaId) select r.Index).First();
-                indexColumns = (from c in _dataGridViewPreview.Columns.Cast<DataGridViewColumn>() where ((DateTime)c.Tag) >= booking.CheckIn && ((DateTime)c.Tag) <= booking.CheckOut select c.Index).ToArray();
+                var res = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (r.Tag).Equals(booking.AreaId) select r.Index).ToList();
+                if (res.Count > 0)
+                { 
+                    indexRow = res.First();
+                    indexColumns = (from c in _dataGridViewPreview.Columns.Cast<DataGridViewColumn>() where ((DateTime)c.Tag) >= booking.CheckIn && ((DateTime)c.Tag) <= booking.CheckOut select c.Index).ToArray();
 
-                foreach (int indexColumn in indexColumns)
-                {
-                    countBooking = _intBoo.Bookings.Where(b => b.CheckIn.Date <= ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date && b.CheckOut.Date >= ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date).Count();
-                    capacityBooking = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Capacity;
-                    (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Value = string.Format("{0} / {1}", countBooking, capacityBooking);
-                    if (countBooking == capacityBooking)
+                    foreach (int indexColumn in indexColumns)
                     {
-                        (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterRed;
-                    }
-                    else if (countBooking >= capacityBooking / 2)
-                    {
-                        (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterOrange;
-                    }
-                    else
-                    {
-                        (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterGreen;
+                        countBooking = _intBoo.Bookings.Where(b => b.CheckIn.Date <= ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date && b.CheckOut.Date >= ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date).Count();
+                        capacityBooking = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Capacity;
+                        (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Value = string.Format("{0} / {1}", countBooking, capacityBooking);
+                        if (countBooking == capacityBooking)
+                        {
+                            (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterRed;
+                        }
+                        else if (countBooking >= capacityBooking / 2)
+                        {
+                            (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterOrange;
+                        }
+                        else
+                        {
+                            (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterGreen;
+                        }
                     }
                 }
             }

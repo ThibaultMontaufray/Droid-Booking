@@ -8,7 +8,7 @@ using Tools4Libraries;
 namespace Droid_Booking
 {
     public delegate void ViewUserEventHandler(object o);
-    public class ViewUserSearch : UserControl, IView
+    public class ViewUserSearch : UserControlCustom, IView
     {
         #region Attribute
         public event ViewUserEventHandler RequestUserDetail;
@@ -29,7 +29,6 @@ namespace Droid_Booking
         private Label labelNationality;
         private Label labelGender;
         private TextBox textBoxFirstname;
-        private PictureBox pictureBox1;
         private Label labelFamilyname;
         private Label labelFirstname;
         private DataGridView _dgvSearchPerson;
@@ -44,7 +43,6 @@ namespace Droid_Booking
         private DataGridViewImageColumn ColumnEdit;
         private DataGridViewImageColumn ColumnDelete;
         private DataGridViewImageColumn ColumnDetail;
-        private PanelCustom panelUserSearch;
         private Person _currentPerson;
         #endregion
 
@@ -60,7 +58,6 @@ namespace Droid_Booking
         public ViewUserSearch()
         {
             InitializeComponent();
-            InitializeComponentSpecial();
             Init();
         }
         public ViewUserSearch(Interface_booking intBoo)
@@ -68,7 +65,6 @@ namespace Droid_Booking
             _intBoo = intBoo;
 
             InitializeComponent();
-            InitializeComponentSpecial();
             Init();
         }
         #endregion
@@ -121,11 +117,11 @@ namespace Droid_Booking
         }
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewUserSearch));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this._dgvSearchPerson = new System.Windows.Forms.DataGridView();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -147,32 +143,27 @@ namespace Droid_Booking
             this.labelNationality = new System.Windows.Forms.Label();
             this.labelGender = new System.Windows.Forms.Label();
             this.textBoxFirstname = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelFamilyname = new System.Windows.Forms.Label();
             this.labelFirstname = new System.Windows.Forms.Label();
-            this.panelUserSearch = new PanelCustom();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearchPerson)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // _dgvSearchUser
+            // _dgvSearchPerson
             // 
             this._dgvSearchPerson.AllowUserToAddRows = false;
             this._dgvSearchPerson.AllowUserToDeleteRows = false;
             this._dgvSearchPerson.AllowUserToOrderColumns = true;
             this._dgvSearchPerson.AllowUserToResizeRows = false;
-            this._dgvSearchPerson.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._dgvSearchPerson.BackgroundColor = System.Drawing.Color.Gray;
             this._dgvSearchPerson.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.DarkRed;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DarkRed;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this._dgvSearchPerson.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkRed;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkRed;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this._dgvSearchPerson.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this._dgvSearchPerson.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._dgvSearchPerson.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnName,
@@ -185,13 +176,14 @@ namespace Droid_Booking
             this.ColumnDetail,
             this.ColumnEdit,
             this.ColumnDelete});
-            this._dgvSearchPerson.Location = new System.Drawing.Point(46, 198);
+            this._dgvSearchPerson.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this._dgvSearchPerson.Location = new System.Drawing.Point(0, 97);
             this._dgvSearchPerson.MultiSelect = false;
-            this._dgvSearchPerson.Name = "_dgvSearchUser";
+            this._dgvSearchPerson.Name = "_dgvSearchPerson";
             this._dgvSearchPerson.RowHeadersVisible = false;
             this._dgvSearchPerson.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this._dgvSearchPerson.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this._dgvSearchPerson.Size = new System.Drawing.Size(1397, 277);
+            this._dgvSearchPerson.Size = new System.Drawing.Size(1027, 269);
             this._dgvSearchPerson.TabIndex = 24;
             this._dgvSearchPerson.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._dgvSearchUser_CellClick);
             // 
@@ -200,20 +192,20 @@ namespace Droid_Booking
             this.ColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.ColumnName.HeaderText = "Firstname";
             this.ColumnName.Name = "ColumnName";
-            this.ColumnName.Width = 98;
+            this.ColumnName.Width = 89;
             // 
             // ColumnFamilyName
             // 
             this.ColumnFamilyName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.ColumnFamilyName.HeaderText = "Name";
             this.ColumnFamilyName.Name = "ColumnFamilyName";
-            this.ColumnFamilyName.Width = 72;
+            this.ColumnFamilyName.Width = 67;
             // 
             // ColumnGender
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle6.NullValue")));
-            this.ColumnGender.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle2.NullValue")));
+            this.ColumnGender.DefaultCellStyle = dataGridViewCellStyle2;
             this.ColumnGender.HeaderText = "Gender";
             this.ColumnGender.Name = "ColumnGender";
             // 
@@ -222,21 +214,21 @@ namespace Droid_Booking
             this.ColumnNationality.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.ColumnNationality.HeaderText = "Nationality";
             this.ColumnNationality.Name = "ColumnNationality";
-            this.ColumnNationality.Width = 84;
+            this.ColumnNationality.Width = 95;
             // 
             // ColumnId
             // 
             this.ColumnId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.ColumnId.HeaderText = "Id";
             this.ColumnId.Name = "ColumnId";
-            this.ColumnId.Width = 46;
+            this.ColumnId.Width = 44;
             // 
             // ColumnMail
             // 
             this.ColumnMail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.ColumnMail.HeaderText = "Mail";
             this.ColumnMail.Name = "ColumnMail";
-            this.ColumnMail.Width = 63;
+            this.ColumnMail.Width = 58;
             // 
             // ColumnComment
             // 
@@ -256,9 +248,9 @@ namespace Droid_Booking
             // ColumnEdit
             // 
             this.ColumnEdit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle7.NullValue")));
-            this.ColumnEdit.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle3.NullValue")));
+            this.ColumnEdit.DefaultCellStyle = dataGridViewCellStyle3;
             this.ColumnEdit.HeaderText = "";
             this.ColumnEdit.Name = "ColumnEdit";
             this.ColumnEdit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -267,9 +259,9 @@ namespace Droid_Booking
             // ColumnDelete
             // 
             this.ColumnDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle8.NullValue")));
-            this.ColumnDelete.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle4.NullValue")));
+            this.ColumnDelete.DefaultCellStyle = dataGridViewCellStyle4;
             this.ColumnDelete.HeaderText = "";
             this.ColumnDelete.Name = "ColumnDelete";
             this.ColumnDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -277,26 +269,26 @@ namespace Droid_Booking
             // 
             // comboBoxGender
             // 
-            this.comboBoxGender.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxGender.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxGender.FormattingEnabled = true;
-            this.comboBoxGender.Location = new System.Drawing.Point(258, 77);
+            this.comboBoxGender.Location = new System.Drawing.Point(185, 59);
             this.comboBoxGender.Name = "comboBoxGender";
-            this.comboBoxGender.Size = new System.Drawing.Size(280, 27);
+            this.comboBoxGender.Size = new System.Drawing.Size(316, 23);
             this.comboBoxGender.TabIndex = 26;
             // 
             // comboBoxNationality
             // 
-            this.comboBoxNationality.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxNationality.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxNationality.FormattingEnabled = true;
-            this.comboBoxNationality.Location = new System.Drawing.Point(632, 21);
+            this.comboBoxNationality.Location = new System.Drawing.Point(722, 3);
             this.comboBoxNationality.Name = "comboBoxNationality";
-            this.comboBoxNationality.Size = new System.Drawing.Size(300, 27);
+            this.comboBoxNationality.Size = new System.Drawing.Size(300, 23);
             this.comboBoxNationality.TabIndex = 25;
             // 
             // buttonValidation
             // 
             this.buttonValidation.Font = new System.Drawing.Font("Calibri", 11F);
-            this.buttonValidation.Location = new System.Drawing.Point(857, 82);
+            this.buttonValidation.Location = new System.Drawing.Point(947, 64);
             this.buttonValidation.Name = "buttonValidation";
             this.buttonValidation.Size = new System.Drawing.Size(75, 27);
             this.buttonValidation.TabIndex = 21;
@@ -306,135 +298,106 @@ namespace Droid_Booking
             // 
             // textBoxFamilyName
             // 
-            this.textBoxFamilyName.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFamilyName.Location = new System.Drawing.Point(258, 49);
+            this.textBoxFamilyName.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFamilyName.Location = new System.Drawing.Point(185, 31);
             this.textBoxFamilyName.Name = "textBoxFamilyName";
-            this.textBoxFamilyName.Size = new System.Drawing.Size(280, 27);
+            this.textBoxFamilyName.Size = new System.Drawing.Size(316, 24);
             this.textBoxFamilyName.TabIndex = 19;
             // 
             // textBoxId
             // 
-            this.textBoxId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxId.Location = new System.Drawing.Point(632, 49);
+            this.textBoxId.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxId.Location = new System.Drawing.Point(722, 31);
             this.textBoxId.Name = "textBoxId";
-            this.textBoxId.Size = new System.Drawing.Size(300, 27);
+            this.textBoxId.Size = new System.Drawing.Size(300, 24);
             this.textBoxId.TabIndex = 18;
             // 
             // labelId
             // 
             this.labelId.AutoSize = true;
-            this.labelId.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelId.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelId.ForeColor = System.Drawing.Color.White;
-            this.labelId.Location = new System.Drawing.Point(555, 52);
+            this.labelId.Location = new System.Drawing.Point(569, 34);
             this.labelId.Name = "labelId";
-            this.labelId.Size = new System.Drawing.Size(35, 19);
+            this.labelId.Size = new System.Drawing.Size(29, 17);
             this.labelId.TabIndex = 15;
             this.labelId.Text = "Id : ";
             // 
             // labelNationality
             // 
             this.labelNationality.AutoSize = true;
-            this.labelNationality.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNationality.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelNationality.ForeColor = System.Drawing.Color.White;
-            this.labelNationality.Location = new System.Drawing.Point(555, 24);
+            this.labelNationality.Location = new System.Drawing.Point(569, 6);
             this.labelNationality.Name = "labelNationality";
-            this.labelNationality.Size = new System.Drawing.Size(71, 19);
+            this.labelNationality.Size = new System.Drawing.Size(80, 17);
             this.labelNationality.TabIndex = 8;
             this.labelNationality.Text = "Nationality : ";
             // 
             // labelGender
             // 
             this.labelGender.AutoSize = true;
-            this.labelGender.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGender.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelGender.ForeColor = System.Drawing.Color.White;
-            this.labelGender.Location = new System.Drawing.Point(129, 80);
+            this.labelGender.Location = new System.Drawing.Point(2, 62);
             this.labelGender.Name = "labelGender";
-            this.labelGender.Size = new System.Drawing.Size(68, 19);
+            this.labelGender.Size = new System.Drawing.Size(60, 17);
             this.labelGender.TabIndex = 6;
             this.labelGender.Text = "Gender : ";
             // 
             // textBoxFirstname
             // 
-            this.textBoxFirstname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFirstname.Location = new System.Drawing.Point(258, 21);
+            this.textBoxFirstname.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFirstname.Location = new System.Drawing.Point(185, 3);
             this.textBoxFirstname.Name = "textBoxFirstname";
-            this.textBoxFirstname.Size = new System.Drawing.Size(280, 27);
+            this.textBoxFirstname.Size = new System.Drawing.Size(316, 24);
             this.textBoxFirstname.TabIndex = 11;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Gray;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Image = global::Droid_Booking.Properties.Resources.shadow_man;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 13);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // labelFamilyname
             // 
             this.labelFamilyname.AutoSize = true;
-            this.labelFamilyname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFamilyname.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelFamilyname.ForeColor = System.Drawing.Color.White;
-            this.labelFamilyname.Location = new System.Drawing.Point(129, 52);
+            this.labelFamilyname.Location = new System.Drawing.Point(2, 34);
             this.labelFamilyname.Name = "labelFamilyname";
-            this.labelFamilyname.Size = new System.Drawing.Size(103, 19);
+            this.labelFamilyname.Size = new System.Drawing.Size(89, 17);
             this.labelFamilyname.TabIndex = 4;
             this.labelFamilyname.Text = "Family name : ";
             // 
             // labelFirstname
             // 
             this.labelFirstname.AutoSize = true;
-            this.labelFirstname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFirstname.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelFirstname.ForeColor = System.Drawing.Color.White;
-            this.labelFirstname.Location = new System.Drawing.Point(129, 24);
+            this.labelFirstname.Location = new System.Drawing.Point(2, 6);
             this.labelFirstname.Name = "labelFirstname";
-            this.labelFirstname.Size = new System.Drawing.Size(85, 19);
+            this.labelFirstname.Size = new System.Drawing.Size(74, 17);
             this.labelFirstname.TabIndex = 2;
             this.labelFirstname.Text = "Firstname : ";
-            // 
-            // panelUserSearch
-            // 
-            this.panelUserSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUserSearch.BackColor = System.Drawing.Color.Transparent;
-            this.panelUserSearch.Location = new System.Drawing.Point(10, 10);
-            this.panelUserSearch.Margin = new System.Windows.Forms.Padding(5);
-            this.panelUserSearch.Name = "panelUserSearch";
-            this.panelUserSearch.Size = new System.Drawing.Size(1500, 165);
-            this.panelUserSearch.TabIndex = 27;
             // 
             // ViewUserSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.panelUserSearch);
+            this.Controls.Add(this.labelFirstname);
+            this.Controls.Add(this.labelFamilyname);
+            this.Controls.Add(this.labelGender);
+            this.Controls.Add(this.labelId);
+            this.Controls.Add(this.labelNationality);
+            this.Controls.Add(this.comboBoxNationality);
+            this.Controls.Add(this.comboBoxGender);
+            this.Controls.Add(this.textBoxFamilyName);
+            this.Controls.Add(this.textBoxFirstname);
+            this.Controls.Add(this.textBoxId);
+            this.Controls.Add(this.buttonValidation);
             this.Controls.Add(this._dgvSearchPerson);
             this.Name = "ViewUserSearch";
-            this.Size = new System.Drawing.Size(1520, 500);
+            this.Size = new System.Drawing.Size(1027, 366);
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearchPerson)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
-        private void InitializeComponentSpecial()
-        {
-            this.panelUserSearch.panelMiddle.Controls.Add(pictureBox1);
-            this.panelUserSearch.panelMiddle.Controls.Add(labelFirstname);
-            this.panelUserSearch.panelMiddle.Controls.Add(labelFamilyname);
-            this.panelUserSearch.panelMiddle.Controls.Add(labelGender);
-            this.panelUserSearch.panelMiddle.Controls.Add(labelId);
-            this.panelUserSearch.panelMiddle.Controls.Add(labelNationality);
-            this.panelUserSearch.panelMiddle.Controls.Add(comboBoxNationality);
-            this.panelUserSearch.panelMiddle.Controls.Add(comboBoxGender);
-            this.panelUserSearch.panelMiddle.Controls.Add(textBoxFamilyName);
-            this.panelUserSearch.panelMiddle.Controls.Add(textBoxFirstname);
-            this.panelUserSearch.panelMiddle.Controls.Add(textBoxId);
-            this.panelUserSearch.panelMiddle.Controls.Add(buttonValidation);
-            this.panelUserSearch.Size = new System.Drawing.Size(1480, 174);
         }
         private void LoadGender()
         {

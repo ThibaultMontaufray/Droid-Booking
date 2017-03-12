@@ -77,7 +77,7 @@ namespace Droid_Booking
                     labelNat.Left = 5;
                     labelNat.Top = posY;
                     labelNat.ForeColor = System.Drawing.Color.White;
-                    labelNat.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    labelNat.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     labelNat.AutoSize = true;
                     panelCountries.Controls.Add(labelNat);
                     posY += labelNat.Height + 5;
@@ -117,7 +117,7 @@ namespace Droid_Booking
                     labelArea.Left = 20;
                     labelArea.Top = posY;
                     labelArea.ForeColor = System.Drawing.Color.White;
-                    labelArea.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    labelArea.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     labelArea.AutoSize = true;
                     panelStatUsers.Controls.Add(labelArea);
                     posY += labelArea.Height + 5;

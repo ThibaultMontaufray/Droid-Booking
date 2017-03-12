@@ -29,17 +29,17 @@ namespace Droid_Booking
         private ToolStripMenuBooking _tsm;
         private ViewCalendar _viewCalendar;
         //private ViewUserSearch _viewUserSearch;
-        private ViewAreaSearch _viewAreaSearch;
-        private ViewAreaEdit _viewAreaEdit;
-        private ViewWelcome _viewWelcome;
-        private ViewBookEdit _viewBookEdit;
-        private ViewBookSearch _viewBookSearch;
-        private ViewSettings _viewSetting;
+        private PanelCustom _viewAreaSearch;
+        private PanelCustom _viewAreaEdit;
+        private PanelCustom _viewBookEdit;
+        private PanelCustom _viewBookSearch;
+        private PanelCustom _viewSetting;
+        private PanelCustom _viewPrice;
         private ViewCheckIn _viewCheckIn;
         private ViewCheckOut _viewCheckOut;
-        private ViewPrice _viewPrice;
+        private ViewWelcome _viewWelcome;
 
-        private List<Person> _peoples;
+        private List<Person> _users;
         private List<Area> _areas;
         private List<Booking> _books;
         private List<Price> _prices;
@@ -78,8 +78,8 @@ namespace Droid_Booking
         }
         public List<Person> Persons
         {
-            get { return _peoples; }
-            set { _peoples = value; }
+            get { return _users; }
+            set { _users = value; }
         }
         public List<Price> Prices
         {
@@ -102,10 +102,11 @@ namespace Droid_Booking
         public Interface_booking(string workingDirectory)
         {
             _workingDirectory = workingDirectory;
-            _directoryCloud = _workingDirectory + @"";
-            _directoryUser = _workingDirectory + @"User\";
-            _directoryArea = _workingDirectory + @"Area\";
-            _directoryBook = _workingDirectory + @"Book\";
+
+            _directoryCloud = _workingDirectory;
+            _directoryUser = Path.Combine(_workingDirectory, "Users");
+            _directoryArea = Path.Combine(_workingDirectory, "Areas");
+            _directoryBook = Path.Combine(_workingDirectory, "Books");
 
             Init();
         }
@@ -287,21 +288,27 @@ namespace Droid_Booking
             //_viewUserSearch.RequestUserEdition += _viewUserSearch_RequestUserEdition;
             //_viewUserSearch.Name = "CurrentView";
             
-            _viewAreaSearch = new ViewAreaSearch(this);
+            _viewAreaSearch = new PanelCustom(new ViewAreaSearch(this));
+            _viewAreaSearch.Title = "Search area";
             _viewAreaSearch.Name = "CurrentView";
 
-            _viewAreaEdit = new ViewAreaEdit(this);
+            _viewAreaEdit = new PanelCustom(new ViewAreaEdit(this));
+            _viewAreaEdit.Title = "Edit area";
             _viewAreaEdit.Name = "CurrentView";
 
-            _viewBookSearch = new ViewBookSearch(this);
-            _viewBookSearch.RequestBookDetail += _viewBookSearch_RequestBookDetail;
-            _viewBookSearch.RequestBookEdition += _viewBookSearch_RequestBookEdition;
+            ViewBookSearch vbs = new ViewBookSearch(this);
+            vbs.RequestBookDetail += _viewBookSearch_RequestBookDetail;
+            vbs.RequestBookEdition += _viewBookSearch_RequestBookEdition;
+            _viewBookSearch = new PanelCustom(vbs);
+            _viewBookSearch.Title = "Search booking";
             _viewBookSearch.Name = "CurrentView";
 
-            _viewBookEdit = new ViewBookEdit(this);
+            _viewBookEdit = new PanelCustom(new ViewBookEdit(this));
+            _viewBookEdit.Title = "Edit booking";
             _viewBookEdit.Name = "CurrentView";
 
-            _viewSetting = new ViewSettings(this);
+            _viewSetting = new PanelCustom(new ViewSettings(this));
+            _viewSetting.Title = "Settings";
             _viewSetting.Name = "CurrentView";
 
             _viewCheckIn = new ViewCheckIn(this);
@@ -310,7 +317,8 @@ namespace Droid_Booking
             _viewCheckOut = new ViewCheckOut(this);
             _viewCheckOut.Name = "CurrentView";
 
-            _viewPrice = new ViewPrice(this);
+            _viewPrice = new PanelCustom(new ViewPrice(this));
+            _viewPrice.Title = "Prices";
             _viewPrice.Name = "CurrentView";
 
             _viewWelcome = new ViewWelcome(this);
@@ -320,12 +328,15 @@ namespace Droid_Booking
         }
         private void InitData()
         {
-            _peoples = new List<Person>();
+            _users = new List<Person>();
             _areas = new List<Area>();
             _books = new List<Booking>();
             _prices = new List<Price>();
 
             LoadPrices();
+            LoadUsers();
+            LoadAreas();
+            LoadBooks();
             LoadDataDemo();
         }
         private void LoadDataDemo()
@@ -410,6 +421,39 @@ namespace Droid_Booking
                 _prices = new List<Price>();
             }
         }
+        private void LoadUsers()
+        {
+            _users.Clear();
+            if (Directory.Exists(_directoryUser))
+            { 
+                foreach (string dirName in Directory.GetDirectories(_directoryUser))
+                {
+                    _users.Add(new Person(dirName));
+                }
+            }
+        }
+        private void LoadAreas()
+        {
+            _areas.Clear();
+            if (Directory.Exists(_directoryArea))
+            {
+                foreach (string dirName in Directory.GetDirectories(_directoryArea))
+                {
+                    _areas.Add(new Area(dirName));
+                }
+            }
+        }
+        private void LoadBooks()
+        {
+            _books.Clear();
+            if (Directory.Exists(_directoryBook))
+            {
+                foreach (string dirName in Directory.GetDirectories(_directoryBook))
+                {
+                    _books.Add(new Booking(dirName));
+                }
+            }
+        }
         private void SavePrices()
         {
             string serializedObject = string.Empty;
@@ -440,14 +484,7 @@ namespace Droid_Booking
         }
         private void LaunchSettings()
         {
-            _sheet.Controls.Clear();
-
-            _viewSetting.Top = TOP_OFFSET;
-            _viewSetting.RefreshData();
-            _viewSetting.Left = (_sheet.Width / 2) - (_viewSetting.Width / 2);
-            _viewSetting.ChangeLanguage();
-            _sheet.Controls.Add(_viewSetting);
-            if (SheetDisplayRequested != null) SheetDisplayRequested();
+            DisplayControl(_viewSetting);
         }
         private void LaunchViewWelcome()
         {
@@ -480,25 +517,11 @@ namespace Droid_Booking
         }
         private void LaunchViewBookEdit()
         {
-            _sheet.Controls.Clear();
-
-            _viewBookEdit.Top = TOP_OFFSET;
-            _viewBookEdit.RefreshData();
-            _viewBookEdit.Left = (_sheet.Width / 2) - (_viewBookEdit.Width / 2);
-            _viewBookEdit.ChangeLanguage();
-            _sheet.Controls.Add(_viewBookEdit);
-            if (SheetDisplayRequested != null) SheetDisplayRequested();
+            DisplayControl(_viewBookEdit);
         }
         private void LaunchViewBookSearch()
         {
-            _sheet.Controls.Clear();
-
-            _viewBookSearch.Top = TOP_OFFSET;
-            _viewBookSearch.RefreshData();
-            _viewBookSearch.Left = (_sheet.Width / 2) - (_viewBookSearch.Width / 2);
-            _viewBookSearch.ChangeLanguage();
-            _sheet.Controls.Add(_viewBookSearch);
-            if (SheetDisplayRequested != null) SheetDisplayRequested();
+            DisplayControl(_viewBookSearch);
         }
         //private void LaunchViewUserSearch()
         //{
@@ -549,34 +572,16 @@ namespace Droid_Booking
         //}
         private void LaunchViewAreaSearch()
         {
-            _sheet.Controls.Clear();
-            _viewAreaSearch.RefreshData();
-            _viewAreaSearch.ChangeLanguage();
-            _sheet.Controls.Add(_viewAreaSearch);
-            if (SheetDisplayRequested != null) SheetDisplayRequested();
+            DisplayControl(_viewAreaSearch);
         }
         private void LaunchViewAreaEdit()
         {
-            _sheet.Controls.Clear();
-
-            _viewAreaEdit.Top = TOP_OFFSET;
-            _viewAreaEdit.RefreshData();
-            _viewAreaEdit.Left = (_sheet.Width / 2) - (_viewAreaEdit.Width / 2);
-            _viewAreaEdit.ChangeLanguage();
-            _sheet.Controls.Add(_viewAreaEdit);
-            if (SheetDisplayRequested != null) SheetDisplayRequested();
+            DisplayControl(_viewAreaEdit);
         }
         private void LaunchViewAreaAdd()
         {
-            _sheet.Controls.Clear();
-
-            _viewAreaEdit.Top = TOP_OFFSET;
             _currentArea = new Area();
-            _viewAreaEdit.RefreshData();
-            _viewAreaEdit.Left = (_sheet.Width / 2) - (_viewAreaEdit.Width / 2);
-            _viewAreaEdit.ChangeLanguage();
-            _sheet.Controls.Add(_viewAreaEdit);
-            if (SheetDisplayRequested != null) SheetDisplayRequested();
+            DisplayControl(_viewAreaEdit);
         }
         private void LaunchCheckIn()
         {
@@ -602,15 +607,18 @@ namespace Droid_Booking
         }
         private void LaunchPrices()
         {
+            DisplayControl(_viewPrice);
+        }
+        private void DisplayControl(PanelCustom pc)
+        {
             _sheet.Controls.Clear();
 
-            _viewPrice.Top = TOP_OFFSET;
-            _viewPrice.RefreshData();
-            _viewPrice.Left = (_sheet.Width / 2) - (_viewPrice.Width / 2);
-            _viewPrice.ChangeLanguage();
-            _sheet.Controls.Add(_viewPrice);
+            pc.Top = TOP_OFFSET;
+            pc.RefreshData();
+            pc.Left = (_sheet.Width / 2) - (pc.Width / 2);
+            pc.ChangeLanguage();
+            _sheet.Controls.Add(pc);
             if (SheetDisplayRequested != null) SheetDisplayRequested();
-
         }
         #endregion
 

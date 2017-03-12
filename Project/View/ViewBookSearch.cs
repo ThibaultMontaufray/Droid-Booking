@@ -13,7 +13,7 @@ using Tools4Libraries;
 namespace Droid_Booking
 {
     public delegate void ViewBookEventHandler(object o);
-    public partial class ViewBookSearch : UserControl, IView
+    public partial class ViewBookSearch : UserControlCustom, IView
     {
         #region Attribute
         public event ViewUserEventHandler RequestBookDetail;
@@ -23,7 +23,6 @@ namespace Droid_Booking
         private List<Booking> _filteredList;
 
         private IContainer components = null;
-        private PanelCustom panelShield1;
         private CheckBox checkBoxNonCompletedPaiement;
         private CheckBox checkBoxCompletedPaiements;
         private NumericUpDown numericUpDownMaxPrice;
@@ -43,7 +42,6 @@ namespace Droid_Booking
         private Button buttonClearFilter;
         private DataGridView _dgvSearch;
         private DataGridViewTextBoxColumn ColumnArea;
-        private DataGridViewTextBoxColumn ColumnPerson;
         private DataGridViewTextBoxColumn ColumnPrice;
         private DataGridViewTextBoxColumn ColumnPaid;
         private DataGridViewCheckBoxColumn ColumnConfirmed;
@@ -52,6 +50,7 @@ namespace Droid_Booking
         private DataGridViewImageColumn ColumnEdit;
         private DataGridViewImageColumn ColumnDelete;
         private DataGridViewImageColumn ColumnDetails;
+        private DataGridViewTextBoxColumn ColumnUser;
         private Label labelUsers;
         #endregion
 
@@ -62,7 +61,6 @@ namespace Droid_Booking
         public ViewBookSearch()
         {
             InitializeComponent();
-            InitializeComponentSpecialized();
             Init();
         }
         public ViewBookSearch(Interface_booking intBoo)
@@ -70,7 +68,6 @@ namespace Droid_Booking
             _intBoo = intBoo;
 
             InitializeComponent();
-            InitializeComponentSpecialized();
             Init();
         }
         #endregion
@@ -104,7 +101,7 @@ namespace Droid_Booking
             buttonClearFilter.Text = GetText.Text("ClearFilter");
             
             ColumnArea.HeaderText = GetText.Text("Area");
-            ColumnPerson.HeaderText = GetText.Text("User");
+            ColumnUser.HeaderText = GetText.Text("User");
             ColumnPrice.HeaderText = GetText.Text("Price");
             ColumnPaid.HeaderText = GetText.Text("Paid");
             ColumnConfirmed.HeaderText = GetText.Text("Confirmed");
@@ -163,7 +160,7 @@ namespace Droid_Booking
             this.buttonClearFilter = new System.Windows.Forms.Button();
             this._dgvSearch = new System.Windows.Forms.DataGridView();
             this.ColumnArea = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnPaid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnConfirmed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -172,7 +169,6 @@ namespace Droid_Booking
             this.ColumnEdit = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnDelete = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnDetails = new System.Windows.Forms.DataGridViewImageColumn();
-            this.panelShield1 = new PanelCustom();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearch)).BeginInit();
@@ -181,11 +177,11 @@ namespace Droid_Booking
             // checkBoxNonCompletedPaiement
             // 
             this.checkBoxNonCompletedPaiement.AutoSize = true;
-            this.checkBoxNonCompletedPaiement.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxNonCompletedPaiement.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxNonCompletedPaiement.ForeColor = System.Drawing.Color.White;
             this.checkBoxNonCompletedPaiement.Location = new System.Drawing.Point(400, 86);
             this.checkBoxNonCompletedPaiement.Name = "checkBoxNonCompletedPaiement";
-            this.checkBoxNonCompletedPaiement.Size = new System.Drawing.Size(253, 23);
+            this.checkBoxNonCompletedPaiement.Size = new System.Drawing.Size(222, 21);
             this.checkBoxNonCompletedPaiement.TabIndex = 32;
             this.checkBoxNonCompletedPaiement.Text = "Filter on non completed paiements";
             this.checkBoxNonCompletedPaiement.UseVisualStyleBackColor = true;
@@ -193,18 +189,18 @@ namespace Droid_Booking
             // checkBoxCompletedPaiements
             // 
             this.checkBoxCompletedPaiements.AutoSize = true;
-            this.checkBoxCompletedPaiements.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCompletedPaiements.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCompletedPaiements.ForeColor = System.Drawing.Color.White;
             this.checkBoxCompletedPaiements.Location = new System.Drawing.Point(400, 57);
             this.checkBoxCompletedPaiements.Name = "checkBoxCompletedPaiements";
-            this.checkBoxCompletedPaiements.Size = new System.Drawing.Size(225, 23);
+            this.checkBoxCompletedPaiements.Size = new System.Drawing.Size(198, 21);
             this.checkBoxCompletedPaiements.TabIndex = 31;
             this.checkBoxCompletedPaiements.Text = "Filter on completed paiements";
             this.checkBoxCompletedPaiements.UseVisualStyleBackColor = true;
             // 
             // numericUpDownMaxPrice
             // 
-            this.numericUpDownMaxPrice.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownMaxPrice.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownMaxPrice.Location = new System.Drawing.Point(791, 27);
             this.numericUpDownMaxPrice.Maximum = new decimal(new int[] {
             999,
@@ -212,7 +208,7 @@ namespace Droid_Booking
             0,
             0});
             this.numericUpDownMaxPrice.Name = "numericUpDownMaxPrice";
-            this.numericUpDownMaxPrice.Size = new System.Drawing.Size(77, 27);
+            this.numericUpDownMaxPrice.Size = new System.Drawing.Size(77, 24);
             this.numericUpDownMaxPrice.TabIndex = 30;
             this.numericUpDownMaxPrice.Value = new decimal(new int[] {
             999,
@@ -222,147 +218,147 @@ namespace Droid_Booking
             // 
             // numericUpDownMinPrice
             // 
-            this.numericUpDownMinPrice.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownMinPrice.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownMinPrice.Location = new System.Drawing.Point(791, -2);
             this.numericUpDownMinPrice.Name = "numericUpDownMinPrice";
-            this.numericUpDownMinPrice.Size = new System.Drawing.Size(77, 27);
+            this.numericUpDownMinPrice.Size = new System.Drawing.Size(77, 24);
             this.numericUpDownMinPrice.TabIndex = 29;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(700, 29);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 19);
+            this.label4.Size = new System.Drawing.Size(74, 17);
             this.label4.TabIndex = 28;
             this.label4.Text = "Max price : ";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(700, 0);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 19);
+            this.label3.Size = new System.Drawing.Size(71, 17);
             this.label3.TabIndex = 27;
             this.label3.Text = "Min price : ";
             // 
-            // checkBoxNonConfirmedBook
+            // checkBoxNonConfirmedbooking
             // 
             this.checkBoxNonConfirmedbooking.AutoSize = true;
-            this.checkBoxNonConfirmedbooking.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxNonConfirmedbooking.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxNonConfirmedbooking.ForeColor = System.Drawing.Color.White;
             this.checkBoxNonConfirmedbooking.Location = new System.Drawing.Point(400, 28);
-            this.checkBoxNonConfirmedbooking.Name = "checkBoxNonConfirmedBook";
-            this.checkBoxNonConfirmedbooking.Size = new System.Drawing.Size(239, 23);
+            this.checkBoxNonConfirmedbooking.Name = "checkBoxNonConfirmedbooking";
+            this.checkBoxNonConfirmedbooking.Size = new System.Drawing.Size(209, 21);
             this.checkBoxNonConfirmedbooking.TabIndex = 26;
             this.checkBoxNonConfirmedbooking.Text = "Filter on non confirmed bookings";
             this.checkBoxNonConfirmedbooking.UseVisualStyleBackColor = true;
             // 
-            // checkBoxConfirmedBook
+            // checkBoxConfirmedbooking
             // 
             this.checkBoxConfirmedbooking.AutoSize = true;
-            this.checkBoxConfirmedbooking.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxConfirmedbooking.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxConfirmedbooking.ForeColor = System.Drawing.Color.White;
             this.checkBoxConfirmedbooking.Location = new System.Drawing.Point(400, -1);
-            this.checkBoxConfirmedbooking.Name = "checkBoxConfirmedBook";
-            this.checkBoxConfirmedbooking.Size = new System.Drawing.Size(211, 23);
+            this.checkBoxConfirmedbooking.Name = "checkBoxConfirmedbooking";
+            this.checkBoxConfirmedbooking.Size = new System.Drawing.Size(185, 21);
             this.checkBoxConfirmedbooking.TabIndex = 25;
             this.checkBoxConfirmedbooking.Text = "Filter on confirmed bookings";
             this.checkBoxConfirmedbooking.UseVisualStyleBackColor = true;
             // 
             // dateTimePickerEnd
             // 
-            this.dateTimePickerEnd.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePickerEnd.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePickerEnd.Location = new System.Drawing.Point(103, 84);
             this.dateTimePickerEnd.Name = "dateTimePickerEnd";
-            this.dateTimePickerEnd.Size = new System.Drawing.Size(272, 27);
+            this.dateTimePickerEnd.Size = new System.Drawing.Size(272, 24);
             this.dateTimePickerEnd.TabIndex = 24;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(4, 87);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 19);
+            this.label2.Size = new System.Drawing.Size(73, 17);
             this.label2.TabIndex = 23;
             this.label2.Text = "Check out : ";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(4, 58);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 19);
+            this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 22;
             this.label1.Text = "Check in : ";
             // 
             // dateTimePickerStart
             // 
-            this.dateTimePickerStart.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePickerStart.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePickerStart.Location = new System.Drawing.Point(103, 55);
             this.dateTimePickerStart.Name = "dateTimePickerStart";
-            this.dateTimePickerStart.Size = new System.Drawing.Size(272, 27);
+            this.dateTimePickerStart.Size = new System.Drawing.Size(272, 24);
             this.dateTimePickerStart.TabIndex = 21;
             // 
             // comboBoxArea
             // 
-            this.comboBoxArea.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxArea.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxArea.FormattingEnabled = true;
             this.comboBoxArea.Location = new System.Drawing.Point(103, 26);
             this.comboBoxArea.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxArea.Name = "comboBoxArea";
-            this.comboBoxArea.Size = new System.Drawing.Size(272, 27);
+            this.comboBoxArea.Size = new System.Drawing.Size(272, 23);
             this.comboBoxArea.TabIndex = 20;
             // 
             // labelArea
             // 
             this.labelArea.AutoSize = true;
-            this.labelArea.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelArea.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelArea.ForeColor = System.Drawing.Color.White;
             this.labelArea.Location = new System.Drawing.Point(4, 29);
             this.labelArea.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelArea.Name = "labelArea";
-            this.labelArea.Size = new System.Drawing.Size(51, 19);
+            this.labelArea.Size = new System.Drawing.Size(45, 17);
             this.labelArea.TabIndex = 19;
             this.labelArea.Text = "Area : ";
             // 
             // comboBoxUsers
             // 
-            this.comboBoxUsers.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxUsers.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxUsers.FormattingEnabled = true;
             this.comboBoxUsers.Location = new System.Drawing.Point(103, -3);
             this.comboBoxUsers.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxUsers.Name = "comboBoxUsers";
-            this.comboBoxUsers.Size = new System.Drawing.Size(272, 27);
+            this.comboBoxUsers.Size = new System.Drawing.Size(272, 23);
             this.comboBoxUsers.TabIndex = 18;
             // 
             // labelUsers
             // 
             this.labelUsers.AutoSize = true;
-            this.labelUsers.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUsers.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelUsers.ForeColor = System.Drawing.Color.White;
             this.labelUsers.Location = new System.Drawing.Point(4, 0);
             this.labelUsers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelUsers.Name = "labelUsers";
-            this.labelUsers.Size = new System.Drawing.Size(58, 19);
+            this.labelUsers.Size = new System.Drawing.Size(49, 17);
             this.labelUsers.TabIndex = 17;
             this.labelUsers.Text = "Users : ";
             // 
             // buttonFilter
             // 
-            this.buttonFilter.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonFilter.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonFilter.Location = new System.Drawing.Point(793, 82);
             this.buttonFilter.Name = "buttonFilter";
             this.buttonFilter.Size = new System.Drawing.Size(75, 28);
@@ -373,7 +369,7 @@ namespace Droid_Booking
             // 
             // buttonClearFilter
             // 
-            this.buttonClearFilter.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClearFilter.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonClearFilter.Location = new System.Drawing.Point(679, 82);
             this.buttonClearFilter.Name = "buttonClearFilter";
             this.buttonClearFilter.Size = new System.Drawing.Size(108, 28);
@@ -399,7 +395,7 @@ namespace Droid_Booking
             this._dgvSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._dgvSearch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnArea,
-            this.ColumnPerson,
+            this.ColumnUser,
             this.ColumnPrice,
             this.ColumnPaid,
             this.ColumnConfirmed,
@@ -410,20 +406,20 @@ namespace Droid_Booking
             this.ColumnDetails});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this._dgvSearch.DefaultCellStyle = dataGridViewCellStyle4;
-            this._dgvSearch.Location = new System.Drawing.Point(128, 172);
+            this._dgvSearch.Location = new System.Drawing.Point(7, 116);
             this._dgvSearch.MultiSelect = false;
             this._dgvSearch.Name = "_dgvSearch";
             this._dgvSearch.ReadOnly = true;
             this._dgvSearch.RowHeadersVisible = false;
             this._dgvSearch.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this._dgvSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this._dgvSearch.Size = new System.Drawing.Size(873, 150);
+            this._dgvSearch.Size = new System.Drawing.Size(861, 292);
             this._dgvSearch.TabIndex = 1;
             this._dgvSearch.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._dgvSearch_CellClick);
             // 
@@ -437,10 +433,10 @@ namespace Droid_Booking
             // 
             // ColumnUser
             // 
-            this.ColumnPerson.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnPerson.HeaderText = "User";
-            this.ColumnPerson.Name = "ColumnUser";
-            this.ColumnPerson.ReadOnly = true;
+            this.ColumnUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnUser.HeaderText = "User";
+            this.ColumnUser.Name = "ColumnUser";
+            this.ColumnUser.ReadOnly = true;
             // 
             // ColumnPrice
             // 
@@ -449,25 +445,6 @@ namespace Droid_Booking
             this.ColumnPrice.HeaderText = "Price";
             this.ColumnPrice.Name = "ColumnPrice";
             this.ColumnPrice.ReadOnly = true;
-
-            Controls.Add(this.checkBoxNonCompletedPaiement);
-            Controls.Add(this.checkBoxCompletedPaiements);
-            Controls.Add(this.numericUpDownMaxPrice);
-            Controls.Add(this.numericUpDownMinPrice);
-            Controls.Add(this.label4);
-            Controls.Add(this.label3);
-            Controls.Add(this.checkBoxNonConfirmedbooking);
-            Controls.Add(this.checkBoxConfirmedbooking);
-            Controls.Add(this.dateTimePickerEnd);
-            Controls.Add(this.label2);
-            Controls.Add(this.label1);
-            Controls.Add(this.dateTimePickerStart);
-            Controls.Add(this.comboBoxArea);
-            Controls.Add(this.labelArea);
-            Controls.Add(this.comboBoxUsers);
-            Controls.Add(this.labelUsers);
-            Controls.Add(this.buttonClearFilter);
-            Controls.Add(this.buttonFilter);
             // 
             // ColumnPaid
             // 
@@ -531,49 +508,38 @@ namespace Droid_Booking
             this.ColumnDetails.ReadOnly = true;
             this.ColumnDetails.Width = 5;
             // 
-            // panelShield1
-            // 
-            this.panelShield1.BackColor = System.Drawing.Color.Transparent;
-            this.panelShield1.Location = new System.Drawing.Point(110, 10);
-            this.panelShield1.Name = "panelShield1";
-            this.panelShield1.Size = new System.Drawing.Size(920, 156);
-            this.panelShield1.TabIndex = 0;
-            // 
             // ViewBookSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.checkBoxNonCompletedPaiement);
+            this.Controls.Add(this.checkBoxCompletedPaiements);
+            this.Controls.Add(this.numericUpDownMaxPrice);
+            this.Controls.Add(this.numericUpDownMinPrice);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.checkBoxNonConfirmedbooking);
+            this.Controls.Add(this.checkBoxConfirmedbooking);
+            this.Controls.Add(this.dateTimePickerEnd);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dateTimePickerStart);
+            this.Controls.Add(this.comboBoxArea);
+            this.Controls.Add(this.labelArea);
+            this.Controls.Add(this.comboBoxUsers);
+            this.Controls.Add(this.labelUsers);
+            this.Controls.Add(this.buttonClearFilter);
+            this.Controls.Add(this.buttonFilter);
             this.Controls.Add(this._dgvSearch);
-            this.Controls.Add(this.panelShield1);
             this.Name = "ViewBookSearch";
-            this.Size = new System.Drawing.Size(1130, 492);
+            this.Size = new System.Drawing.Size(873, 411);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._dgvSearch)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
-        }
-        private void InitializeComponentSpecialized()
-        {
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxNonCompletedPaiement);
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxCompletedPaiements);
-            panelShield1.panelMiddle.Controls.Add(this.numericUpDownMaxPrice);
-            panelShield1.panelMiddle.Controls.Add(this.numericUpDownMinPrice);
-            panelShield1.panelMiddle.Controls.Add(this.label4);
-            panelShield1.panelMiddle.Controls.Add(this.label3);
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxNonConfirmedbooking);
-            panelShield1.panelMiddle.Controls.Add(this.checkBoxConfirmedbooking);
-            panelShield1.panelMiddle.Controls.Add(this.dateTimePickerEnd);
-            panelShield1.panelMiddle.Controls.Add(this.label2);
-            panelShield1.panelMiddle.Controls.Add(this.label1);
-            panelShield1.panelMiddle.Controls.Add(this.dateTimePickerStart);
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxArea);
-            panelShield1.panelMiddle.Controls.Add(this.labelArea);
-            panelShield1.panelMiddle.Controls.Add(this.comboBoxUsers);
-            panelShield1.panelMiddle.Controls.Add(this.labelUsers);
-            panelShield1.panelMiddle.Controls.Add(this.buttonClearFilter);
-            panelShield1.panelMiddle.Controls.Add(this.buttonFilter);
         }
         private void ClearFilter()
         {
@@ -626,7 +592,7 @@ namespace Droid_Booking
                 row = _dgvSearch.Rows[_dgvSearch.Rows.Count - 1];
                 row.Tag = booking.Id;
                 row.Cells[ColumnArea.Index].Value = area.Type + " - " + area.Name;
-                row.Cells[ColumnPerson.Index].Value = person.FirstName + " - " + person.FamilyName;
+                row.Cells[ColumnUser.Index].Value = person.FirstName + " - " + person.FamilyName;
                 row.Cells[ColumnConfirmed.Index].Value = booking.Confirmed;
                 row.Cells[ColumnPrice.Index].Value = booking.Price;
                 row.Cells[ColumnPaid.Index].Value = booking.Paid;
