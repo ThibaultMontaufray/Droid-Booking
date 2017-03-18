@@ -4,6 +4,7 @@ using Droid_People;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -16,7 +17,7 @@ namespace Droid_Booking
     public class Interface_booking : GPInterface
     {
         #region Attribtue
-        public readonly int TOP_OFFSET = 175;
+        public readonly int TOP_OFFSET = 150;
         public string _directoryCloud;
         public string _directoryUser;
         public string _directoryArea;
@@ -24,6 +25,7 @@ namespace Droid_Booking
 
         public event InterfaceEventHandler SheetDisplayRequested;
         public event InterfaceBookingEventHandler LanguageModified;
+        public event InterfaceBookingEventHandler CreatePersonRequested;
 
         private Panel _sheet;
         private ToolStripMenuBooking _tsm;
@@ -47,6 +49,7 @@ namespace Droid_Booking
         private Person _currentPerson;
         private Area _currentArea;
         private Booking _currentbooking;
+        private Price _currentPrice;
         private string _workingDirectory;
         #endregion
 
@@ -95,6 +98,11 @@ namespace Droid_Booking
         {
             get { return _tsm; }
             set { _tsm = value as ToolStripMenuBooking; }
+        }
+        public Price CurrentPrice
+        {
+            get { return _currentPrice; }
+            set { _currentPrice = value; }
         }
         #endregion
 
@@ -234,6 +242,9 @@ namespace Droid_Booking
                 case "saveprice":
                     LaunchSavePrice();
                     break;
+                case "getprice":
+                    LaunchDeterminePrice();
+                    break;
                 //case "viewusersearch":
                 //    LaunchViewUserSearch();
                 //    break;
@@ -244,6 +255,9 @@ namespace Droid_Booking
                 //    LaunchViewUserEdit();
                 //    break;
                 case "areaadd":
+                    LaunchViewAreaAdd();
+                    break;
+                case "areaedit":
                     LaunchViewAreaEdit();
                     break;
                 case "areasearch":
@@ -303,7 +317,9 @@ namespace Droid_Booking
             _viewBookSearch.Title = "Search booking";
             _viewBookSearch.Name = "CurrentView";
 
-            _viewBookEdit = new PanelCustom(new ViewBookEdit(this));
+            ViewBookEdit vbe = new ViewBookEdit(this);
+            vbe.CreatePersonRequested += Vbe_CreatePersonRequested;
+            _viewBookEdit = new PanelCustom(vbe);
             _viewBookEdit.Title = "Edit booking";
             _viewBookEdit.Name = "CurrentView";
 
@@ -476,6 +492,17 @@ namespace Droid_Booking
                 sw.Write(serializedObject);
             }
         }
+        private void DisplayControl(PanelCustom pc)
+        {
+            _sheet.Controls.Clear();
+
+            pc.Top = TOP_OFFSET;
+            pc.RefreshData();
+            pc.Left = (_sheet.Width / 2) - (pc.Width / 2);
+            pc.ChangeLanguage();
+            _sheet.Controls.Add(pc);
+            if (SheetDisplayRequested != null) SheetDisplayRequested();
+        }
 
         #region Launcher
         private void LaunchSavePrice()
@@ -609,16 +636,46 @@ namespace Droid_Booking
         {
             DisplayControl(_viewPrice);
         }
-        private void DisplayControl(PanelCustom pc)
+        private void LaunchDeterminePrice()
         {
-            _sheet.Controls.Clear();
+            _currentPrice = null;
+            if (_currentArea != null)
+            {
+                var lst = _prices.Where(p => p.Type.ToString().Equals(_currentArea.Type.ToString())).ToList();
+                if (lst.Count() == 0) return;
+                else if (lst.Count() == 1)
+                {
+                    _currentPrice = lst.First();
+                }
+                else if (!string.IsNullOrEmpty(_currentArea.Name))
+                {
+                    var lst2 = lst.Where(p => p.Name.Equals(_currentArea.Name)).ToList();
+                    if (lst2.Count() == 0)
+                    {
+                        _currentPrice = lst.First();
+                    }
+                    else if (lst2.Count() == 1)
+                    {
+                        _currentPrice = lst2.First();
+                    }
+                    else
+                    {
+                        var lst3 = lst2.Where(p => p.Place.Equals(_currentArea.Place)).ToList();
+                        if (lst3.Count() == 0)
+                        {
+                            _currentPrice = lst2.First();
+                        }
+                        else if (lst3.Count() == 1)
+                        {
+                            _currentPrice = lst3.First();
+                        }
+                        else
+                        {
 
-            pc.Top = TOP_OFFSET;
-            pc.RefreshData();
-            pc.Left = (_sheet.Width / 2) - (pc.Width / 2);
-            pc.ChangeLanguage();
-            _sheet.Controls.Add(pc);
-            if (SheetDisplayRequested != null) SheetDisplayRequested();
+                        }
+                    }
+                }
+            }
         }
         #endregion
 
@@ -660,6 +717,10 @@ namespace Droid_Booking
                 _currentbooking = o as Booking;
                 LaunchViewBookEdit();
             }
+        }
+        private void Vbe_CreatePersonRequested()
+        {
+            if (CreatePersonRequested != null) { CreatePersonRequested(); }
         }
         #endregion
     }

@@ -8,6 +8,8 @@ namespace Droid_Booking
     public partial class ViewSettings : UserControlCustom, IView
     {
         #region Attribute
+        public override event UserControlCustomEventHandler HeightChanged;
+
         private Interface_booking _intBoo;
 
         private IContainer components = null;

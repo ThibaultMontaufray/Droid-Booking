@@ -29,12 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewWelcome));
+            Droid_Geography.WorldMap worldMap3 = new Droid_Geography.WorldMap();
             this.panelStatUsers = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelOccTitle = new System.Windows.Forms.Label();
             this.labelAreas = new System.Windows.Forms.Label();
             this.labelOccupancy = new System.Windows.Forms.Label();
             this.panelCountries = new System.Windows.Forms.Panel();
             this.labelName = new System.Windows.Forms.Label();
+            this.worldMapView = new Droid_Geography.WorldMapView();
+            this.labelOccTitle = new System.Windows.Forms.Label();
             this.panelStatUsers.SuspendLayout();
             this.panelCountries.SuspendLayout();
             this.SuspendLayout();
@@ -43,24 +46,24 @@
             // 
             this.panelStatUsers.BackColor = System.Drawing.Color.Transparent;
             this.panelStatUsers.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelStatUsers.BackgroundImage")));
-            this.panelStatUsers.Controls.Add(this.label1);
+            this.panelStatUsers.Controls.Add(this.labelOccTitle);
             this.panelStatUsers.Controls.Add(this.labelAreas);
             this.panelStatUsers.Controls.Add(this.labelOccupancy);
-            this.panelStatUsers.Location = new System.Drawing.Point(440, 69);
+            this.panelStatUsers.Location = new System.Drawing.Point(275, 25);
             this.panelStatUsers.Name = "panelStatUsers";
-            this.panelStatUsers.Size = new System.Drawing.Size(323, 90);
+            this.panelStatUsers.Size = new System.Drawing.Size(450, 60);
             this.panelStatUsers.TabIndex = 0;
             // 
-            // label1
+            // labelOccTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(5, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 19);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Occupancy : ";
+            this.labelOccTitle.AutoSize = true;
+            this.labelOccTitle.Font = new System.Drawing.Font("Calibri", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOccTitle.ForeColor = System.Drawing.Color.White;
+            this.labelOccTitle.Location = new System.Drawing.Point(5, 5);
+            this.labelOccTitle.Name = "labelOccTitle";
+            this.labelOccTitle.Size = new System.Drawing.Size(83, 17);
+            this.labelOccTitle.TabIndex = 18;
+            this.labelOccTitle.Text = "Occupancy : ";
             // 
             // labelAreas
             // 
@@ -69,7 +72,7 @@
             this.labelAreas.ForeColor = System.Drawing.Color.White;
             this.labelAreas.Location = new System.Drawing.Point(5, 30);
             this.labelAreas.Name = "labelAreas";
-            this.labelAreas.Size = new System.Drawing.Size(163, 19);
+            this.labelAreas.Size = new System.Drawing.Size(139, 17);
             this.labelAreas.TabIndex = 17;
             this.labelAreas.Text = "Area capacity details : ";
             // 
@@ -80,7 +83,7 @@
             this.labelOccupancy.ForeColor = System.Drawing.Color.White;
             this.labelOccupancy.Location = new System.Drawing.Point(113, 5);
             this.labelOccupancy.Name = "labelOccupancy";
-            this.labelOccupancy.Size = new System.Drawing.Size(33, 19);
+            this.labelOccupancy.Size = new System.Drawing.Size(29, 17);
             this.labelOccupancy.TabIndex = 16;
             this.labelOccupancy.Text = "___";
             // 
@@ -89,7 +92,7 @@
             this.panelCountries.BackColor = System.Drawing.Color.Transparent;
             this.panelCountries.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelCountries.BackgroundImage")));
             this.panelCountries.Controls.Add(this.labelName);
-            this.panelCountries.Location = new System.Drawing.Point(75, 69);
+            this.panelCountries.Location = new System.Drawing.Point(650, 110);
             this.panelCountries.Name = "panelCountries";
             this.panelCountries.Size = new System.Drawing.Size(300, 40);
             this.panelCountries.TabIndex = 1;
@@ -101,9 +104,35 @@
             this.labelName.ForeColor = System.Drawing.Color.White;
             this.labelName.Location = new System.Drawing.Point(5, 5);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(148, 19);
+            this.labelName.Size = new System.Drawing.Size(129, 17);
             this.labelName.TabIndex = 4;
             this.labelName.Text = "Current nationalities";
+            // 
+            // worldMapView
+            // 
+            this.worldMapView.BackColor = System.Drawing.Color.DimGray;
+            worldMap3.CurrentCountry = null;
+            worldMap3.Mode = Droid_Geography.WorldMap.PresentationMode.POPULATION;
+            worldMap3.RunAnimation = true;
+            worldMap3.WorkingDirectory = "C:\\Users\\amost\\AppData\\Roaming\\Servodroid\\Droid-Geography";
+            worldMap3.Zoom = 1;
+            this.worldMapView.CurrentWorldMap = worldMap3;
+            this.worldMapView.Location = new System.Drawing.Point(25, 110);
+            this.worldMapView.Name = "worldMapView";
+            this.worldMapView.Size = new System.Drawing.Size(600, 400);
+            this.worldMapView.TabIndex = 0;
+            this.worldMapView.Zoom = 0;
+            // 
+            // label1
+            // 
+            this.labelOccTitle.AutoSize = true;
+            this.labelOccTitle.Font = new System.Drawing.Font("Calibri", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOccTitle.ForeColor = System.Drawing.Color.White;
+            this.labelOccTitle.Location = new System.Drawing.Point(5, 5);
+            this.labelOccTitle.Name = "label1";
+            this.labelOccTitle.Size = new System.Drawing.Size(83, 17);
+            this.labelOccTitle.TabIndex = 18;
+            this.labelOccTitle.Text = "Occupancy : ";
             // 
             // ViewWelcome
             // 
@@ -111,6 +140,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Controls.Add(this.worldMapView);
             this.Controls.Add(this.panelCountries);
             this.Controls.Add(this.panelStatUsers);
             this.Name = "ViewWelcome";
@@ -130,6 +160,7 @@
         private System.Windows.Forms.Label labelOccupancy;
         private System.Windows.Forms.Panel panelCountries;
         private System.Windows.Forms.Label labelName;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelOccTitle;
+        private Droid_Geography.WorldMapView worldMapView;
     }
 }

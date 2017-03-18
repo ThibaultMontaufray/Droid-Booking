@@ -11,6 +11,7 @@ namespace Droid_Booking
     public class ViewUserSearch : UserControlCustom, IView
     {
         #region Attribute
+        public override event UserControlCustomEventHandler HeightChanged;
         public event ViewUserEventHandler RequestUserDetail;
         public event ViewUserEventHandler RequestUserEdition;
 

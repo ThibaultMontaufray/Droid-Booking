@@ -319,6 +319,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Droid-Geography\Project\Droid-Geography.csproj">
+      <Project>{530856d4-8d7f-4682-a071-f212c52d9274}</Project>
+      <Name>Droid-Geography</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Tools4Libraries\Tools4Libraries.csproj">
       <Project>{aad2b1be-9b2d-455d-8dd4-64e4e84dd985}</Project>
       <Name>Tools4Libraries</Name>
@@ -348,6 +352,7 @@
     <Content Include="License-LGPL.txt" />
     <None Include="Resources\lexBg.jpg" />
     <None Include="Resources\ShieldTileBgWhite.png" />
+    <None Include="Resources\bgMain.png" />
     <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

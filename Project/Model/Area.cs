@@ -230,9 +230,9 @@ namespace Droid_Booking
         private void InitPlaces()
         {
             _place = new KeyValuePair<string, bool>[_capacity];
-            for (int i = 0; i < _capacity; i++)
+            for (int i = 1; i <= _capacity; i++)
             {
-                _place[i] = new KeyValuePair<string, bool>(i.ToString(), true);
+                _place[i-1] = new KeyValuePair<string, bool>(i.ToString(), true);
             }
         }
         #endregion

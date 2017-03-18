@@ -1,4 +1,5 @@
 ﻿using Droid_People;
+using Droid_Geography;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,6 @@ namespace Droid_Booking
         public ViewWelcome(Interface_booking intBoo)
         {
             _intBoo = intBoo;
-
             InitializeComponent();
             Init();
         }
@@ -35,10 +35,7 @@ namespace Droid_Booking
         #region Methods public
         public void ChangeLanguage()
         {
-            LoadNationalities();
-            LoadGlobalStat();
-
-            label1.Text = GetText.Text("Occupancy") + " : ";
+            labelOccTitle.Text = GetText.Text("Occupancy") + " : ";
             labelAreas.Text = GetText.Text("AreaCapacityDetails") + " : ";
             labelName.Text = GetText.Text("currentNationalities");
         }
@@ -46,6 +43,8 @@ namespace Droid_Booking
         {
             LoadNationalities();
             LoadGlobalStat();
+            AdjustWindows();
+
             ChangeLanguage();
         }
         #endregion
@@ -56,8 +55,7 @@ namespace Droid_Booking
             _nationalities = new Dictionary<string, int>();
             _areas = new Dictionary<string, int>();
             _areasCapacity = new Dictionary<string, int>();
-
-            RefreshData();
+            worldMapView.CurrentWorldMap.Mode = WorldMap.PresentationMode.CUSTOM;
         }
         private void LoadNationalities()
         {
@@ -65,15 +63,20 @@ namespace Droid_Booking
             {
                 Label labelNat;
                 int posY = 30;
+
                 _nationalities.Clear();
+                panelCountries.Height = 40;
+                panelCountries.Controls.Clear();
+                panelCountries.Controls.Add(labelName);
                 foreach (Person person in _intBoo.Persons)
                 {
                     if (!_nationalities.ContainsKey(person.Nationality)) { _nationalities.Add(person.Nationality, _intBoo.Persons.Where(u => person.Nationality.Equals(u.Nationality)).Count()); }
                 }
+                worldMapView.CurrentWorldMap.ClearCustomValues();
                 foreach (var nat in _nationalities.OrderByDescending(n => n.Value))
                 {
                     labelNat = new Label();
-                    labelNat.Text = string.Format("{0} : {1}", nat.Key, nat.Value);
+                    labelNat.Text = string.Format("{0} : {1}", string.IsNullOrEmpty(nat.Key) ? "Unknown" : nat.Key, nat.Value);
                     labelNat.Left = 5;
                     labelNat.Top = posY;
                     labelNat.ForeColor = System.Drawing.Color.White;
@@ -82,8 +85,15 @@ namespace Droid_Booking
                     panelCountries.Controls.Add(labelNat);
                     posY += labelNat.Height + 5;
                     panelCountries.Height += labelNat.Height + 5; ;
+
+                    if (!string.IsNullOrEmpty(nat.Key))
+                    { 
+                        var country = worldMapView.CurrentWorldMap.Countries.Where(c => c.Name.Equals(nat.Key)).First();
+                        country.CustomValue = nat.Value;
+                    }
                 }
             }
+            worldMapView.UpdateMap();
         }
         private void LoadGlobalStat()
         {
@@ -91,6 +101,10 @@ namespace Droid_Booking
             {
                 Label labelArea;
                 int posY = 65;
+                panelStatUsers.Controls.Clear();
+                panelStatUsers.Controls.Add(labelAreas);
+                panelStatUsers.Controls.Add(labelOccupancy);
+                panelStatUsers.Controls.Add(labelOccTitle);
                 List<Booking> currentBooks = _intBoo.Bookings.Where(b => b.CheckIn < DateTime.Now && b.CheckOut > DateTime.Now).ToList();
                 int totalCapacity = 0;
                 foreach (Area area in _intBoo.Areas)
@@ -110,6 +124,7 @@ namespace Droid_Booking
                 if (totalCapacity != 0) { labelOccupancy.Text = string.Format("{0} / {1} ( {2} {3} % )", currentBooks.Count, totalCapacity, GetText.Text("Rate"), currentBooks.Count * 100 / totalCapacity); }
                 else labelOccupancy.Text = GetText.Text("Empty");
 
+                panelStatUsers.Height = 70;
                 foreach (var area in _areasCapacity.OrderByDescending(n => n.Value))
                 {
                     labelArea = new Label();
@@ -124,6 +139,12 @@ namespace Droid_Booking
                     panelStatUsers.Height += labelArea.Height + 5; ;
                 }
             }
+        }
+        private void AdjustWindows()
+        {
+            worldMapView.Top = panelStatUsers.Height + 50;
+            panelCountries.Top = panelStatUsers.Height + 50;
+            this.Height = (panelCountries.Height > worldMapView.Height ? panelCountries.Height : worldMapView.Height) + panelStatUsers.Height + 100;
         }
         #endregion
 

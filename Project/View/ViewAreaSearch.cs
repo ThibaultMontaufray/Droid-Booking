@@ -14,6 +14,7 @@ namespace Droid_Booking
     public partial class ViewAreaSearch : UserControlCustom, IView
     {
         #region Attribute
+        public override event UserControlCustomEventHandler HeightChanged;
         private Interface_booking _intBoo;
         private List<Area> _filterdArea;
         

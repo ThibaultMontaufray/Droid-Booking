@@ -9,6 +9,8 @@ namespace Droid_Booking
     public partial class ViewAreaEdit : UserControlCustom, IView
     {
         #region Attribute
+        public override event UserControlCustomEventHandler HeightChanged;
+
         private Interface_booking _intBoo;
 
         private IContainer components = null;
@@ -48,7 +50,7 @@ namespace Droid_Booking
         #endregion
 
         #region Methods public
-        public void RefreshData()
+        public override void RefreshData()
         {
             comboBoxType.Items.Clear();
             foreach (Area.TYPE type in Enum.GetValues(typeof(Area.TYPE)))
@@ -74,7 +76,7 @@ namespace Droid_Booking
                 }
             }
         }
-        public void ChangeLanguage()
+        public override void ChangeLanguage()
         {
             labelName.Text = GetText.Text("Name") + " : ";
             label1.Text = GetText.Text("Type") + " : ";
