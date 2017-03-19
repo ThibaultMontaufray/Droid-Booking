@@ -63,16 +63,6 @@ namespace Droid_Booking.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CenterGray {
-            get {
-                object obj = ResourceManager.GetObject("CenterGray", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap CenterGreen {
             get {
                 object obj = ResourceManager.GetObject("CenterGreen", resourceCulture);
@@ -103,9 +93,29 @@ namespace Droid_Booking.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CenterWhite {
+        internal static System.Drawing.Bitmap endGreen {
             get {
-                object obj = ResourceManager.GetObject("CenterWhite", resourceCulture);
+                object obj = ResourceManager.GetObject("endGreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap endOrange {
+            get {
+                object obj = ResourceManager.GetObject("endOrange", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap endRed {
+            get {
+                object obj = ResourceManager.GetObject("endRed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,16 +126,6 @@ namespace Droid_Booking.Properties {
         internal static System.Drawing.Bitmap lexBg {
             get {
                 object obj = ResourceManager.GetObject("lexBg", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap passeport {
-            get {
-                object obj = ResourceManager.GetObject("passeport", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,6 +186,96 @@ namespace Droid_Booking.Properties {
         internal static System.Drawing.Bitmap ShieldTileBgWhite {
             get {
                 object obj = ResourceManager.GetObject("ShieldTileBgWhite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startGreen {
+            get {
+                object obj = ResourceManager.GetObject("startGreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startGreenEndOrange {
+            get {
+                object obj = ResourceManager.GetObject("startGreenEndOrange", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startGreenEndRed {
+            get {
+                object obj = ResourceManager.GetObject("startGreenEndRed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startOrange {
+            get {
+                object obj = ResourceManager.GetObject("startOrange", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startOrangeEndGreen {
+            get {
+                object obj = ResourceManager.GetObject("startOrangeEndGreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startOrangeEndRed {
+            get {
+                object obj = ResourceManager.GetObject("startOrangeEndRed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startRed {
+            get {
+                object obj = ResourceManager.GetObject("startRed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startRedEndGreen {
+            get {
+                object obj = ResourceManager.GetObject("startRedEndGreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap startRedEndOrange {
+            get {
+                object obj = ResourceManager.GetObject("startRedEndOrange", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

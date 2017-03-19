@@ -403,6 +403,15 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Max date.
+        /// </summary>
+        public static string MaxDate {
+            get {
+                return ResourceManager.GetString("MaxDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Prix max.
         /// </summary>
         public static string MaxPrice {
@@ -417,6 +426,15 @@ namespace Droid_Booking.Properties {
         public static string Menu {
             get {
                 return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Min date.
+        /// </summary>
+        public static string MinDate {
+            get {
+                return ResourceManager.GetString("MinDate", resourceCulture);
             }
         }
         

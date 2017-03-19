@@ -74,12 +74,12 @@ namespace Droid_Booking
                 row = dataGridViewCheckIn.Rows[dataGridViewCheckIn.Rows.Count - 1];
                 row.Cells[ColumnName.Index].Value = area.Name;
                 row.Cells[ColumnType.Index].Value = area.Type;
-                row.Cells[ColumnPerson.Index].Value = string.Format("{0} {1}", user.FirstName, user.FamilyName);
+                row.Cells[ColumnPerson.Index].Value = string.Format("{0} {1}", user.FirstName.Firstname, user.FamilyName);
             }
 
             labelDate.Text = DateTime.Now.ToShortDateString();
             labelCheckIn.Text = GetText.Text("DailyCheckIn");
-            labelDepartures.Text = string.Format("0 {0}", GetText.Text("arrivals"));
+            labelDepartures.Text = string.Format("{0} {1}", dataGridViewCheckIn.Rows.Count, GetText.Text("arrivals"));
         }
         #endregion
 

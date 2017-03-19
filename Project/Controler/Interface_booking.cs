@@ -234,6 +234,9 @@ namespace Droid_Booking
                     LaunchViewCalendar();
                     break;
                 case "bookadd":
+                    LaunchViewBookAdd();
+                    break;
+                case "bookedit":
                     LaunchViewBookEdit();
                     break;
                 case "booksearch":
@@ -295,12 +298,6 @@ namespace Droid_Booking
             _viewCalendar = new ViewCalendar(this);
             _viewCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             _viewCalendar.Name = "CurrentView";
-
-            //_viewUserSearch = new ViewUserSearch(this);
-            //_viewUserSearch.Dock = DockStyle.Fill;
-            //_viewUserSearch.RequestUserDetail += _viewUserSearch_RequestUserDetail;
-            //_viewUserSearch.RequestUserEdition += _viewUserSearch_RequestUserEdition;
-            //_viewUserSearch.Name = "CurrentView";
             
             _viewAreaSearch = new PanelCustom(new ViewAreaSearch(this));
             _viewAreaSearch.Title = "Search area";
@@ -542,6 +539,11 @@ namespace Droid_Booking
             _sheet.Controls.Clear();
             if (SheetDisplayRequested != null) SheetDisplayRequested();
         }
+        private void LaunchViewBookAdd()
+        {
+            _currentbooking = new Booking();
+            DisplayControl(_viewBookEdit);
+        }
         private void LaunchViewBookEdit()
         {
             DisplayControl(_viewBookEdit);
@@ -639,7 +641,7 @@ namespace Droid_Booking
         private void LaunchDeterminePrice()
         {
             _currentPrice = null;
-            if (_currentArea != null)
+            if (_currentArea != null && _currentbooking != null)
             {
                 var lst = _prices.Where(p => p.Type.ToString().Equals(_currentArea.Type.ToString())).ToList();
                 if (lst.Count() == 0) return;
@@ -656,7 +658,14 @@ namespace Droid_Booking
                     }
                     else if (lst2.Count() == 1)
                     {
-                        _currentPrice = lst2.First();
+                        if (string.IsNullOrEmpty(_currentbooking.Place) || !_currentbooking.Place.Equals(lst2.First().Place))
+                        {
+                            _currentPrice = lst.First();
+                        }
+                        else
+                        {
+                            _currentPrice = lst2.First();
+                        }
                     }
                     else
                     {

@@ -306,4 +306,10 @@
   <data name="Occupancy" xml:space="preserve">
     <value>Taux d'occupation</value>
   </data>
+  <data name="MaxDate" xml:space="preserve">
+    <value>Max date</value>
+  </data>
+  <data name="MinDate" xml:space="preserve">
+    <value>Min date</value>
+  </data>
 </root>

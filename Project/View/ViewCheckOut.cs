@@ -72,12 +72,12 @@ namespace Droid_Booking
                 row.Cells[ColumnType.Index].Value = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Type;
 
                 person = Person.GetPersonFromId(booking.UserId, _intBoo.Persons);
-                row.Cells[ColumnPerson.Index].Value = string.Format("{0} {1}", person.FirstName, person.FamilyName);
+                if (person != null) row.Cells[ColumnPerson.Index].Value = string.Format("{0} {1}", person.FirstName.Firstname, person.FamilyName);
             }
 
             labelDate.Text = DateTime.Now.ToShortDateString();
             labelCheckOut.Text = GetText.Text("DailyCheckOut");
-            labelArrivals.Text = string.Format("0 {0}", GetText.Text("departure"));
+            labelArrivals.Text = string.Format("{0} {1}", dataGridViewCheckOut.Rows.Count, GetText.Text("departures"));
         }
         #endregion
 

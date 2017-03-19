@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="passeport" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\passeport.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="shadow_man" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shadow_man.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,8 +136,11 @@
   <data name="ServoIconReservation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ServoIconReservation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CenterGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CenterGray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="lexBg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lexBg.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShieldTileBgWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ShieldTileBgWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CenterGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CenterGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,13 +151,40 @@
   <data name="CenterRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CenterRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CenterWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CenterWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="endGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\endGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="lexBg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lexBg.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="endOrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\endOrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ShieldTileBgWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ShieldTileBgWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="endRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\endRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startGreenEndOrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startGreenEndOrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startGreenEndRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startGreenEndRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startOrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startOrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startOrangeEndGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startOrangeEndGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startOrangeEndRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startOrangeEndRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startRedEndGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startRedEndGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startRedEndOrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startRedEndOrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

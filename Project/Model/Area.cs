@@ -115,6 +115,10 @@ namespace Droid_Booking
         #endregion
 
         #region Methods public
+        public override string ToString()
+        {
+            return string.Format("{0} - {1}", _type, _name);
+        }
         public void Save(string path)
         {
             SaveFile(path);
@@ -166,6 +170,7 @@ namespace Droid_Booking
         }
         public static Area GetAreaFromId(string idArea, List<Area> areas)
         {
+            if (idArea == null || areas == null) return null;
             return areas.Where(a => a.Id.Equals(idArea)).First();
         }
         #endregion

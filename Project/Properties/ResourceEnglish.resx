@@ -133,7 +133,7 @@
     <value>arrivals</value>
   </data>
   <data name="Book" xml:space="preserve">
-    <value>Book</value>
+    <value>Booking</value>
   </data>
   <data name="CalendarView" xml:space="preserve">
     <value>Calendar view</value>
@@ -238,7 +238,7 @@
     <value>Name</value>
   </data>
   <data name="Newbook" xml:space="preserve">
-    <value>New book</value>
+    <value>New booking</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
@@ -250,7 +250,7 @@
     <value>Price</value>
   </data>
   <data name="PriceOfTheBook" xml:space="preserve">
-    <value>Price of the book</value>
+    <value>Price of the booking</value>
   </data>
   <data name="Prices" xml:space="preserve">
     <value>Prices</value>
@@ -268,7 +268,7 @@
     <value>Search area</value>
   </data>
   <data name="Searchbook" xml:space="preserve">
-    <value>Search book</value>
+    <value>Search booking</value>
   </data>
   <data name="Searchuser" xml:space="preserve">
     <value>Search user</value>
@@ -308,5 +308,11 @@
   </data>
   <data name="Occupancy" xml:space="preserve">
     <value>Occupancy</value>
+  </data>
+  <data name="MaxDate" xml:space="preserve">
+    <value>Max date</value>
+  </data>
+  <data name="MinDate" xml:space="preserve">
+    <value>Min date</value>
   </data>
 </root>

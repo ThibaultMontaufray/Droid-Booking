@@ -115,7 +115,7 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Book.
+        ///   Recherche une chaîne localisée semblable à Booking.
         /// </summary>
         public static string Book {
             get {
@@ -403,6 +403,15 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Max date.
+        /// </summary>
+        public static string MaxDate {
+            get {
+                return ResourceManager.GetString("MaxDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Max price.
         /// </summary>
         public static string MaxPrice {
@@ -417,6 +426,15 @@ namespace Droid_Booking.Properties {
         public static string Menu {
             get {
                 return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Min date.
+        /// </summary>
+        public static string MinDate {
+            get {
+                return ResourceManager.GetString("MinDate", resourceCulture);
             }
         }
         
@@ -448,7 +466,7 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à New book.
+        ///   Recherche une chaîne localisée semblable à New booking.
         /// </summary>
         public static string Newbook {
             get {
@@ -493,7 +511,7 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Price of the book.
+        ///   Recherche une chaîne localisée semblable à Price of the booking.
         /// </summary>
         public static string PriceOfTheBook {
             get {
@@ -556,7 +574,7 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Search book.
+        ///   Recherche une chaîne localisée semblable à Search booking.
         /// </summary>
         public static string Searchbook {
             get {

@@ -352,6 +352,12 @@ namespace Droid_Booking
             _intBoo.CurrentArea.Comment = textBoxDescription.Text;
             _intBoo.CurrentArea.Type = (Area.TYPE)Enum.Parse(typeof(Area.TYPE), comboBoxType.SelectedItem.ToString());
             _intBoo.CurrentArea.Save(_intBoo._directoryArea);
+            
+            if (_intBoo.Areas.Contains(_intBoo.CurrentArea))
+            {
+                _intBoo.Areas.Remove(_intBoo.CurrentArea);
+            }
+            _intBoo.Areas.Add(_intBoo.CurrentArea);
         }
         private void buttonCancel_Click(object sender, EventArgs e)
         {

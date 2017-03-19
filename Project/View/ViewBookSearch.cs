@@ -74,20 +74,12 @@ namespace Droid_Booking
         #endregion
 
         #region Methods public
-        public void RefreshData()
+        public override void RefreshData()
         {
-            comboBoxUsers.Items.Clear();
-            foreach (Person person in _intBoo.Persons)
-            {
-                comboBoxUsers.Items.Add(string.Format("{0} {1}", person.FirstName, person.FamilyName));
-            }
-            comboBoxArea.Items.Clear();
-            foreach (Area area in _intBoo.Areas)
-            {
-                comboBoxArea.Items.Add(string.Format("{0} - {1}", area.Type, area.Name));
-            }
+            LoadPeople();
+            LoadArea();
         }
-        public void ChangeLanguage()
+        public override void ChangeLanguage()
         {
             checkBoxNonCompletedPaiement.Text = GetText.Text("FilterOnNonCompletedPaiements");
             checkBoxCompletedPaiements.Text = GetText.Text("FilterOnCompletedPaiements");
@@ -95,8 +87,8 @@ namespace Droid_Booking
             label4.Text = GetText.Text("MaxPrice") + " : ";
             checkBoxNonConfirmedbooking.Text = GetText.Text("FilterOnNonConfirmedBookings");
             checkBoxConfirmedbooking.Text = GetText.Text("FilterOnConfirmedBookings");
-            label2.Text = GetText.Text("CheckOut") + " : ";
-            label1.Text = GetText.Text("CheckIn") + " : ";
+            label2.Text = GetText.Text("MinDate") + " : ";
+            label1.Text = GetText.Text("MaxDate") + " : ";
             labelArea.Text = GetText.Text("Area") + " : ";
             labelUsers.Text = GetText.Text("Users") + " : ";
             buttonClearFilter.Text = GetText.Text("ClearFilter");
@@ -125,9 +117,6 @@ namespace Droid_Booking
         #region Methods private
         private void Init()
         {
-            //numericUpDownFloor.Value = 999;
-            //textBoxColor.BackColor = Color.FromName("Control");
-
             RefreshData();
             ClearFilter();
 
@@ -289,9 +278,9 @@ namespace Droid_Booking
             this.label2.Location = new System.Drawing.Point(4, 87);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 17);
+            this.label2.Size = new System.Drawing.Size(72, 17);
             this.label2.TabIndex = 23;
-            this.label2.Text = "Check out : ";
+            this.label2.Text = "Max date : ";
             // 
             // label1
             // 
@@ -301,9 +290,9 @@ namespace Droid_Booking
             this.label1.Location = new System.Drawing.Point(4, 58);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 17);
+            this.label1.Size = new System.Drawing.Size(69, 17);
             this.label1.TabIndex = 22;
-            this.label1.Text = "Check in : ";
+            this.label1.Text = "Min date : ";
             // 
             // dateTimePickerStart
             // 
@@ -542,12 +531,34 @@ namespace Droid_Booking
             this.PerformLayout();
 
         }
+        private void LoadPeople()
+        {
+            comboBoxUsers.Items.Clear();
+            comboBoxUsers.Items.Add("All");
+            foreach (Person person in _intBoo.Persons)
+            {
+                comboBoxUsers.Items.Add(person.ToString());
+            }
+            comboBoxUsers.Sorted = true;
+            comboBoxUsers.SelectedItem = "All";
+        }
+        private void LoadArea()
+        {
+            comboBoxArea.Items.Clear();
+            comboBoxArea.Items.Add("All");
+            foreach (Area area in _intBoo.Areas)
+            {
+                comboBoxArea.Items.Add(area.ToString());
+            }
+            comboBoxArea.Sorted = true;
+            comboBoxArea.SelectedItem = "All";
+        }
         private void ClearFilter()
         {
-            comboBoxArea.Text = string.Empty;
-            comboBoxUsers.Text = string.Empty;
-            dateTimePickerStart.Value = DateTime.Now.AddMonths(-1);
-            dateTimePickerEnd.Value = DateTime.Now.AddMonths(1);
+            comboBoxArea.Text = "All";
+            comboBoxUsers.Text = "All";
+            dateTimePickerStart.Value = DateTime.Now.AddMonths(-6);
+            dateTimePickerEnd.Value = DateTime.Now.AddMonths(6);
 
             checkBoxConfirmedbooking.Checked = true;
             checkBoxCompletedPaiements.Checked = true;
@@ -559,14 +570,14 @@ namespace Droid_Booking
         }
         private void Filter()
         {
-            Area filterArea = Area.GetArea(comboBoxArea.SelectedItem, _intBoo.Areas);
-            Person filterPerson = Person.GetUserByText(comboBoxUsers.SelectedItem, _intBoo.Persons);
+            Area filterArea = comboBoxArea.SelectedItem.ToString() != "All" ? (Area) comboBoxArea.SelectedItem : null;
+            Person filterPerson = comboBoxUsers.SelectedItem.ToString() != "All" ? (Person) comboBoxUsers.SelectedItem : null;
             _filteredList = _intBoo.Bookings;
 
             if (filterArea != null) _filteredList = _filteredList.Where(f => f.AreaId.Equals(filterArea.Id)).ToList();
             if (filterPerson != null) _filteredList = _filteredList.Where(f => f.UserId.Equals(filterPerson.Id)).ToList();
-            if (!dateTimePickerEnd.Value.Equals(dateTimePickerEnd.MaxDate)) _filteredList = _filteredList.Where(f => f.CheckOut < dateTimePickerEnd.Value).ToList();
-            if (!dateTimePickerStart.Value.Equals(dateTimePickerStart.MinDate)) _filteredList = _filteredList.Where(f => f.CheckIn > dateTimePickerStart.Value).ToList();
+            if (!dateTimePickerEnd.Value.Equals(dateTimePickerEnd.MaxDate)) _filteredList = _filteredList.Where(f => f.CheckOut.Date <= dateTimePickerEnd.Value.Date).ToList();
+            if (!dateTimePickerStart.Value.Equals(dateTimePickerStart.MinDate)) _filteredList = _filteredList.Where(f => f.CheckIn.Date >= dateTimePickerStart.Value.Date).ToList();
 
             if (checkBoxCompletedPaiements.Checked && !checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => f.Paid >= f.Price).ToList();
             if (!checkBoxCompletedPaiements.Checked && checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => f.Paid < f.Price).ToList();
@@ -587,13 +598,13 @@ namespace Droid_Booking
             foreach (Booking booking in _filteredList.OrderBy(f => f.CheckIn))
             {
                 area = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas);
-                person = Person.GetUserByText(booking.UserId, _intBoo.Persons);
+                person = Person.GetPersonFromId(booking.UserId, _intBoo.Persons);
 
                 _dgvSearch.Rows.Add();
                 row = _dgvSearch.Rows[_dgvSearch.Rows.Count - 1];
                 row.Tag = booking.Id;
                 row.Cells[ColumnArea.Index].Value = area.Type + " - " + area.Name;
-                row.Cells[ColumnUser.Index].Value = person.FirstName + " - " + person.FamilyName;
+                row.Cells[ColumnUser.Index].Value = person != null ? person.ToString() : string.Empty;
                 row.Cells[ColumnConfirmed.Index].Value = booking.Confirmed;
                 row.Cells[ColumnPrice.Index].Value = booking.Price;
                 row.Cells[ColumnPaid.Index].Value = booking.Paid;

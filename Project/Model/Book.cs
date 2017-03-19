@@ -17,9 +17,15 @@ namespace Droid_Booking
         private bool _confirmed;
         private decimal _price;
         private decimal _paid;
+        private string _place;
         #endregion
 
         #region Properties
+        public string Place
+        {
+            get { return _place; }
+            set { _place = value; }
+        }
         public string Id
         {
             get { return _id; }
@@ -68,16 +74,18 @@ namespace Droid_Booking
             Random rand = new Random((int)DateTime.Now.Ticks);
             _id = string.Format("booking.{0}-{1}-{2}", rand.Next(), (int)DateTime.Now.Ticks, rand.Next());
             _confirmed = false;
+            _checkIn = DateTime.Now;
+            _checkOut = DateTime.Now.AddDays(7);
             System.Threading.Thread.Sleep(1);
         }
         public Booking(string path)
         {
-            Random rand = new Random((int)DateTime.Now.Ticks);
-            _id = string.Format("booking.{0}-{1}-{2}", rand.Next(), (int)DateTime.Now.Ticks, rand.Next());
-            _confirmed = false;
-            System.Threading.Thread.Sleep(1);
+            //Random rand = new Random((int)DateTime.Now.Ticks);
+            //_id = string.Format("booking.{0}-{1}-{2}", rand.Next(), (int)DateTime.Now.Ticks, rand.Next());
+            //_confirmed = false;
+            //System.Threading.Thread.Sleep(1);
 
-            Save(path);
+            Load(path);
         }
         #endregion
 
@@ -101,7 +109,7 @@ namespace Droid_Booking
             {
                 foreach (string file in Directory.GetFiles(pathFile))
                 {
-                    if (Path.GetFileName(file).StartsWith("book.") && Path.GetExtension(file).Equals(".xml"))
+                    if (Path.GetFileName(file).StartsWith("booking.") && Path.GetExtension(file).Equals(".xml"))
                     {
                         using (StreamReader sr = new StreamReader(file))
                         {
@@ -130,6 +138,7 @@ namespace Droid_Booking
             target._paid = source._paid;
             target._price = source._price;
             target._userId = source._userId;
+            target._place = source._place;
 
             source = null;
         }
