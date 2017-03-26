@@ -1,5 +1,6 @@
 ﻿// Log code : 06 - 00
 
+using Droid_financial;
 using Droid_People;
 using System;
 using System.Collections.Generic;
@@ -18,19 +19,19 @@ namespace Droid_Booking
     {
         #region Attribtue
         public readonly int TOP_OFFSET = 150;
-        public string _directoryCloud;
-        public string _directoryUser;
-        public string _directoryArea;
-        public string _directoryBook;
+        private string _directoryCloud;
+        private string _directoryUser;
+        private string _directoryArea;
+        private string _directoryBooking;
+        private string _directoryFinancialActivity;
 
         public event InterfaceEventHandler SheetDisplayRequested;
         public event InterfaceBookingEventHandler LanguageModified;
         public event InterfaceBookingEventHandler CreatePersonRequested;
-
-        private Panel _sheet;
+        public event InterfaceBookingEventHandler OpenFinanceProject;
+        
         private ToolStripMenuBooking _tsm;
         private ViewCalendar _viewCalendar;
-        //private ViewUserSearch _viewUserSearch;
         private PanelCustom _viewAreaSearch;
         private PanelCustom _viewAreaEdit;
         private PanelCustom _viewBookEdit;
@@ -45,15 +46,44 @@ namespace Droid_Booking
         private List<Area> _areas;
         private List<Booking> _books;
         private List<Price> _prices;
+        // TODO : implement the multiple financial project to manage year compta
         
         private Person _currentPerson;
         private Area _currentArea;
         private Booking _currentbooking;
         private Price _currentPrice;
+        private FinancialActivity _currentFinancialActivity;
         private string _workingDirectory;
         #endregion
 
         #region Properties
+        public FinancialActivity CurrentFinancialActivity
+        {
+            get { return _currentFinancialActivity; }
+            set { _currentFinancialActivity = value; }
+        }
+        public string DirectoryBooking
+        {
+            get { return _directoryBooking; }
+        }
+        public string DirectoryArea
+        {
+            get { return _directoryArea; }
+        }
+        public string DirectoryCloud
+        {
+            get { return _directoryCloud; }
+        }
+        public string DirectoryUser
+        {
+            get { return _directoryUser; }
+        }
+        public string DirectoryFinancialActivity
+        {
+            get { return _directoryFinancialActivity; }
+            set { _directoryFinancialActivity = value; }
+        }
+
         public Booking CurrentBooking
         {
             get { return _currentbooking; }
@@ -114,7 +144,7 @@ namespace Droid_Booking
             _directoryCloud = _workingDirectory;
             _directoryUser = Path.Combine(_workingDirectory, "Users");
             _directoryArea = Path.Combine(_workingDirectory, "Areas");
-            _directoryBook = Path.Combine(_workingDirectory, "Books");
+            _directoryBooking = Path.Combine(_workingDirectory, "Books");
 
             Init();
         }
@@ -278,6 +308,27 @@ namespace Droid_Booking
                 case "prices":
                     LaunchPrices();
                     break;
+                case "exportbookingcsv":
+                    LaunchBookingToCsv();
+                    break;
+                case "exportbookingxml":
+                    LaunchBookingToCsv();
+                    break;
+                case "exportbookingical":
+                    LaunchBookingToIcal();
+                    break;
+                case "exportbookingjson":
+                    LaunchBookingToJson();
+                    break;
+                case "exportareacsv":
+                    LaunchAreaToCsv();
+                    break;
+                case "exportareaxml":
+                    LaunchAreaToCsv();
+                    break;
+                case "exportareajson":
+                    LaunchAreaToJson();
+                    break;
             }
         }
         #endregion
@@ -286,6 +337,7 @@ namespace Droid_Booking
         private void Init()
         {
             _sheet = new Panel();
+            _sheet.Name = "SheetBooking";
             _sheet.BackColor = System.Drawing.Color.DimGray;
             _sheet.Dock = DockStyle.Fill;
             _sheet.BackgroundImage = Properties.Resources.ShieldTileBg;
@@ -316,6 +368,7 @@ namespace Droid_Booking
 
             ViewBookEdit vbe = new ViewBookEdit(this);
             vbe.CreatePersonRequested += Vbe_CreatePersonRequested;
+            vbe.OpenFinanceProject += Vbe_OpenFinanceProject;
             _viewBookEdit = new PanelCustom(vbe);
             _viewBookEdit.Title = "Edit booking";
             _viewBookEdit.Name = "CurrentView";
@@ -456,12 +509,24 @@ namespace Droid_Booking
                 }
             }
         }
+        //private void LoadFinancialActivity()
+        //{
+        //    _currentFinancialActivity.ListExpenses.Clear();
+
+        //    if (Directory.Exists(_directoryFinancialActivity))
+        //    {
+        //        foreach (string dirName in Directory.GetDirectories(_directoryFinancialActivity))
+        //        {
+        //            _currentFinancialActivity.ListExpenses.Add(new Expense(dirName));
+        //        }
+        //    }
+        //}
         private void LoadBooks()
         {
             _books.Clear();
-            if (Directory.Exists(_directoryBook))
+            if (Directory.Exists(_directoryBooking))
             {
-                foreach (string dirName in Directory.GetDirectories(_directoryBook))
+                foreach (string dirName in Directory.GetDirectories(_directoryBooking))
                 {
                     _books.Add(new Booking(dirName));
                 }
@@ -686,6 +751,111 @@ namespace Droid_Booking
                 }
             }
         }
+        private void LaunchBookingToCsv()
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                if (_currentbooking != null)
+                {
+                    string dump = _currentbooking.GenerateCsv();
+                    using (StreamWriter sw = new StreamWriter(Path.Combine(fbd.SelectedPath, _currentbooking.Id, ".csv")))
+                    {
+                        sw.Write(dump);
+                    }
+                }
+            }
+        }
+        private void LaunchBookingToXml()
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                if (_currentbooking != null)
+                {
+                    string dump = _currentbooking.GenerateXml();
+                    using (StreamWriter sw = new StreamWriter(Path.Combine(fbd.SelectedPath, _currentbooking.Id, ".xml")))
+                    {
+                        sw.Write(dump);
+                    }
+                }
+            }
+        }
+        private void LaunchBookingToIcal()
+        {
+            //FolderBrowserDialog fbd = new FolderBrowserDialog();
+            //if (fbd.ShowDialog() == DialogResult.OK)
+            //{
+            //    if (_currentbooking != null)
+            //    {
+            //        string dump = _currentbooking.GenerateIcal();
+            //        using (StreamWriter sw = new StreamWriter(Path.Combine(fbd.SelectedPath, _currentbooking.Id, ".ical")))
+            //        {
+            //            sw.Write(dump);
+            //        }
+            //    }
+            //}
+        }
+        private void LaunchBookingToJson()
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                if (_currentbooking != null)
+                {
+                    string dump = _currentbooking.GenerateJson();
+                    using (StreamWriter sw = new StreamWriter(Path.Combine(fbd.SelectedPath, _currentbooking.Id, ".json")))
+                    {
+                        sw.Write(dump);
+                    }
+                }
+            }
+        }
+        private void LaunchAreaToCsv()
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                if (_currentArea != null)
+                {
+                    string dump = _currentArea.GenerateCsv();
+                    using (StreamWriter sw = new StreamWriter(Path.Combine(fbd.SelectedPath, _currentbooking.Id, ".csv")))
+                    {
+                        sw.Write(dump);
+                    }
+                }
+            }
+        }
+        private void LaunchAreaToXml()
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                if (_currentArea != null)
+                {
+                    string dump = _currentArea.GenerateXml();
+                    using (StreamWriter sw = new StreamWriter(Path.Combine(fbd.SelectedPath, _currentbooking.Id, ".xml")))
+                    {
+                        sw.Write(dump);
+                    }
+                }
+            }
+        }
+        private void LaunchAreaToJson()
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                if (_currentArea != null)
+                {
+                    string dump = _currentArea.GenerateJson();
+                    using (StreamWriter sw = new StreamWriter(Path.Combine(fbd.SelectedPath, _currentbooking.Id, ".json")))
+                    {
+                        sw.Write(dump);
+                    }
+                }
+            }
+        }
         #endregion
 
         #endregion
@@ -730,6 +900,10 @@ namespace Droid_Booking
         private void Vbe_CreatePersonRequested()
         {
             if (CreatePersonRequested != null) { CreatePersonRequested(); }
+        }
+        private void Vbe_OpenFinanceProject()
+        {
+            if (OpenFinanceProject != null) { OpenFinanceProject(); }
         }
         #endregion
     }

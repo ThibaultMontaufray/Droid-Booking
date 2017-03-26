@@ -4,10 +4,11 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
-    public class ViewCheckIn : UserControl, IView
+    public class ViewCheckIn : UserControlCustom, IView
     {
         #region Attribute
         private Interface_booking _intBoo;

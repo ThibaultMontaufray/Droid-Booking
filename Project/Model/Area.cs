@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -161,7 +162,7 @@ namespace Droid_Booking
 
             foreach (Area area in areas)
             {
-                if (areaText.Equals(string.Format("{0} - {1}", area.Type, area.Name)))
+                if (areaText.Equals(area.ToString()))
                 {
                     return area;
                 }
@@ -172,6 +173,47 @@ namespace Droid_Booking
         {
             if (idArea == null || areas == null) return null;
             return areas.Where(a => a.Id.Equals(idArea)).First();
+        }
+        public string GenerateJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+        public string GenerateCsv()
+        {
+            string separator = ";";
+            string ret = string.Empty;
+            
+            PropertyInfo[] props = typeof(Area).GetProperties();
+            foreach (PropertyInfo prop in props)
+            {
+                //Console.WriteLine(this.GetType().GetProperty(prop.Name).GetValue(this));
+                if (!string.IsNullOrEmpty(ret)) { ret += separator; }
+                ret += prop.Name;
+            }
+            ret += "\r\n";
+            foreach (PropertyInfo prop in props)
+            {
+                //Console.WriteLine(this.GetType().GetProperty(prop.Name).GetValue(this));
+                if (!ret.EndsWith("\r\n")) { ret += separator; }
+                ret += this.GetType().GetProperty(prop.Name).GetValue(this);
+            }
+
+            return ret;
+        }
+        public string GenerateXml()
+        {
+            string serializedObject = string.Empty;
+
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(Area));
+            using (var sww = new StringWriter())
+            {
+                using (XmlWriter writer = XmlWriter.Create(sww))
+                {
+                    xsSubmit.Serialize(writer, this);
+                    serializedObject = sww.ToString();
+                }
+            }
+            return serializedObject;
         }
         #endregion
 
@@ -189,21 +231,6 @@ namespace Droid_Booking
 
             source = null;
         }
-        private string GenerateXml()
-        {
-            string serializedObject = string.Empty;
-
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(Area));
-            using (var sww = new StringWriter())
-            {
-                using (XmlWriter writer = XmlWriter.Create(sww))
-                {
-                    xsSubmit.Serialize(writer, this);
-                    serializedObject = sww.ToString();
-                }
-            }
-            return serializedObject;
-        }
         private void SaveFile(string path)
         {
             if (!Directory.Exists(path))
@@ -217,7 +244,7 @@ namespace Droid_Booking
             string filePath = Path.Combine(path, string.Format("{0}//{0}.xml", _id));
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
-                sw.Write(JsonConvert.SerializeObject(this));
+                sw.Write(GenerateJson());
             }
         }
         private void SaveXml(string xmlObject, string path)
@@ -226,7 +253,7 @@ namespace Droid_Booking
             {
                 Directory.CreateDirectory(path);
             }
-            string filePath = Path.Combine(path, string.Format("{0}.{1}.xml", _type, _name));
+            string filePath = Path.Combine(path, string.Format("{0}//{0}.xml", _id));
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
                 sw.Write(xmlObject);

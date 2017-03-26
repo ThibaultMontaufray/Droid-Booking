@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Tools4Libraries;
 
 namespace Droid_Booking
 {
-    public partial class ViewWelcome : UserControl, IView
+    public partial class ViewWelcome : UserControlCustom, IView
     {
         #region Attribute
         private Interface_booking _intBoo;
@@ -35,8 +36,8 @@ namespace Droid_Booking
         #region Methods public
         public void ChangeLanguage()
         {
-            labelOccTitle.Text = GetText.Text("Occupancy") + " : ";
-            labelAreas.Text = GetText.Text("AreaCapacityDetails") + " : ";
+            //labelOccTitle.Text = GetText.Text("Occupancy") + " : ";
+            //labelAreas.Text = GetText.Text("AreaCapacityDetails") + " : ";
             labelName.Text = GetText.Text("currentNationalities");
         }
         public void RefreshData()
@@ -61,33 +62,19 @@ namespace Droid_Booking
         {
             if (_intBoo != null)
             {
-                Label labelNat;
-                int posY = 30;
-
                 _nationalities.Clear();
-                panelCountries.Height = 40;
-                panelCountries.Controls.Clear();
-                panelCountries.Controls.Add(labelName);
                 foreach (Person person in _intBoo.Persons)
                 {
                     if (!_nationalities.ContainsKey(person.Nationality)) { _nationalities.Add(person.Nationality, _intBoo.Persons.Where(u => person.Nationality.Equals(u.Nationality)).Count()); }
                 }
-                worldMapView.CurrentWorldMap.ClearCustomValues();
-                foreach (var nat in _nationalities.OrderByDescending(n => n.Value))
-                {
-                    labelNat = new Label();
-                    labelNat.Text = string.Format("{0} : {1}", string.IsNullOrEmpty(nat.Key) ? "Unknown" : nat.Key, nat.Value);
-                    labelNat.Left = 5;
-                    labelNat.Top = posY;
-                    labelNat.ForeColor = System.Drawing.Color.White;
-                    labelNat.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    labelNat.AutoSize = true;
-                    panelCountries.Controls.Add(labelNat);
-                    posY += labelNat.Height + 5;
-                    panelCountries.Height += labelNat.Height + 5; ;
 
+                worldMapView.CurrentWorldMap.ClearCustomValues();
+                chartCountries.Series["Series1"].Points.Clear();
+                foreach (var nat in _nationalities.OrderBy(n => n.Value))
+                {
+                    chartCountries.Series["Series1"].Points.AddXY(nat.Key, nat.Value);
                     if (!string.IsNullOrEmpty(nat.Key))
-                    { 
+                    {
                         var country = worldMapView.CurrentWorldMap.Countries.Where(c => c.Name.Equals(nat.Key)).First();
                         country.CustomValue = nat.Value;
                     }
@@ -99,12 +86,7 @@ namespace Droid_Booking
         {
             if (_intBoo != null)
             {
-                Label labelArea;
-                int posY = 65;
-                panelStatUsers.Controls.Clear();
-                panelStatUsers.Controls.Add(labelAreas);
-                panelStatUsers.Controls.Add(labelOccupancy);
-                panelStatUsers.Controls.Add(labelOccTitle);
+                int indexPoint = 0;
                 List<Booking> currentBooks = _intBoo.Bookings.Where(b => b.CheckIn < DateTime.Now && b.CheckOut > DateTime.Now).ToList();
                 int totalCapacity = 0;
                 foreach (Area area in _intBoo.Areas)
@@ -121,30 +103,36 @@ namespace Droid_Booking
                 {
                     _areas[Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Type.ToString()] += 1;
                 }
-                if (totalCapacity != 0) { labelOccupancy.Text = string.Format("{0} / {1} ( {2} {3} % )", currentBooks.Count, totalCapacity, GetText.Text("Rate"), currentBooks.Count * 100 / totalCapacity); }
-                else labelOccupancy.Text = GetText.Text("Empty");
 
-                panelStatUsers.Height = 70;
+                chartTypeRepartition.Series["Types"].Points.Clear();
+                chartMainOccupancy.Series["Occupancy"].Points.Clear();
+                chartMainOccupancy.Series["Occupancy"].Points.AddXY("Reserved", currentBooks.Count);
+                chartMainOccupancy.Series["Occupancy"].Points.AddXY("Available", totalCapacity - currentBooks.Count);
+                chartMainOccupancy.Series["Occupancy"].Points[0].Color = System.Drawing.Color.Maroon;
+                chartMainOccupancy.Series["Occupancy"].Points[1].Color = System.Drawing.Color.DarkOrange;
+
+                chartTypeDetail.Series["Occupancy"].Points.Clear();
+                chartTypeDetail.Series["Available"].Points.Clear();
                 foreach (var area in _areasCapacity.OrderByDescending(n => n.Value))
                 {
-                    labelArea = new Label();
-                    labelArea.Text = string.Format(" - {0} : {1} / {2}", area.Key.ToLower(), _areas[area.Key], area.Value);
-                    labelArea.Left = 20;
-                    labelArea.Top = posY;
-                    labelArea.ForeColor = System.Drawing.Color.White;
-                    labelArea.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    labelArea.AutoSize = true;
-                    panelStatUsers.Controls.Add(labelArea);
-                    posY += labelArea.Height + 5;
-                    panelStatUsers.Height += labelArea.Height + 5; ;
+                    chartTypeDetail.Series["Occupancy"].Points.AddXY(area.Key.ToLower(), _areas[area.Key]);
+                    chartTypeDetail.Series["Available"].Points.AddXY(area.Key, area.Value - _areas[area.Key]);
+                    chartTypeRepartition.Series["Types"].Points.AddXY(area.Key, area.Value);
+                    //chartTypeDetail.Series["Occupancy"].Points[indexPoint].LegendText = "#VALX";//area.Key.ToLower();
+                    //chartTypeDetail.Series["Available"].Points[indexPoint].LegendText = "#VALX";//area.Key.ToLower();
+                    indexPoint++;
                 }
             }
         }
         private void AdjustWindows()
         {
+            this.Invalidate();
+            this.SuspendLayout();
             worldMapView.Top = panelStatUsers.Height + 50;
             panelCountries.Top = panelStatUsers.Height + 50;
             this.Height = (panelCountries.Height > worldMapView.Height ? panelCountries.Height : worldMapView.Height) + panelStatUsers.Height + 100;
+            this.ResumeLayout();
+            this.Invalidate();
         }
         #endregion
 

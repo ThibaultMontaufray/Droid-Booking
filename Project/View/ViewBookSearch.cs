@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Droid_People;
 using Tools4Libraries;
+using Droid_financial;
 
 namespace Droid_Booking
 {
@@ -579,13 +580,13 @@ namespace Droid_Booking
             if (!dateTimePickerEnd.Value.Equals(dateTimePickerEnd.MaxDate)) _filteredList = _filteredList.Where(f => f.CheckOut.Date <= dateTimePickerEnd.Value.Date).ToList();
             if (!dateTimePickerStart.Value.Equals(dateTimePickerStart.MinDate)) _filteredList = _filteredList.Where(f => f.CheckIn.Date >= dateTimePickerStart.Value.Date).ToList();
 
-            if (checkBoxCompletedPaiements.Checked && !checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => f.Paid >= f.Price).ToList();
-            if (!checkBoxCompletedPaiements.Checked && checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => f.Paid < f.Price).ToList();
+            if (checkBoxCompletedPaiements.Checked && !checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => Expense.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Paid >= Expense.GetExpenseFromId(f.Id, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount).ToList();
+            if (!checkBoxCompletedPaiements.Checked && checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => Expense.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Paid < Expense.GetExpenseFromId(f.Id, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount).ToList();
             if (checkBoxConfirmedbooking.Checked && !checkBoxNonConfirmedbooking.Checked) _filteredList = _filteredList.Where(f => f.Confirmed == true).ToList();
             if (!checkBoxConfirmedbooking.Checked && checkBoxNonConfirmedbooking.Checked) _filteredList = _filteredList.Where(f => f.Confirmed == false).ToList();
 
-            if (numericUpDownMaxPrice.Value != numericUpDownMaxPrice.Maximum) _filteredList = _filteredList.Where(f => f.Price <= numericUpDownMaxPrice.Value).ToList();
-            if (numericUpDownMinPrice.Value != numericUpDownMinPrice.Minimum) _filteredList = _filteredList.Where(f => f.Price >= numericUpDownMinPrice.Value).ToList();
+            if (numericUpDownMaxPrice.Value != numericUpDownMaxPrice.Maximum) _filteredList = _filteredList.Where(f => Expense.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount <= (double)numericUpDownMaxPrice.Value).ToList();
+            if (numericUpDownMinPrice.Value != numericUpDownMinPrice.Minimum) _filteredList = _filteredList.Where(f => Expense.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount >= (double)numericUpDownMinPrice.Value).ToList();
 
             RefreshDataGridView();
         }
@@ -606,8 +607,8 @@ namespace Droid_Booking
                 row.Cells[ColumnArea.Index].Value = area.Type + " - " + area.Name;
                 row.Cells[ColumnUser.Index].Value = person != null ? person.ToString() : string.Empty;
                 row.Cells[ColumnConfirmed.Index].Value = booking.Confirmed;
-                row.Cells[ColumnPrice.Index].Value = booking.Price;
-                row.Cells[ColumnPaid.Index].Value = booking.Paid;
+                row.Cells[ColumnPrice.Index].Value = Expense.GetExpenseFromId(booking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount;
+                row.Cells[ColumnPaid.Index].Value = Expense.GetExpenseFromId(booking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Paid;
                 row.Cells[ColumnCheckIn.Index].Value = booking.CheckIn.ToShortDateString();
                 row.Cells[ColumnCheckOut.Index].Value = booking.CheckOut.ToShortDateString();
                 row.Cells[ColumnEdit.Index].Value = Tools4Libraries.Resources.ResourceIconSet16Default.vcard_edit;
@@ -632,11 +633,13 @@ namespace Droid_Booking
         private void EditBook(int rowIndex)
         {
             DetectBook(rowIndex);
+            if (_intBoo.CurrentBooking != null) _intBoo.CurrentUser = Person.GetPersonFromId(_intBoo.CurrentBooking.UserId, _intBoo.Persons);
             RequestBookEdition(_intBoo.CurrentBooking);
         }
         private void DetailBook(int rowIndex)
         {
             DetectBook(rowIndex);
+            if (_intBoo.CurrentBooking != null) _intBoo.CurrentUser = Person.GetPersonFromId(_intBoo.CurrentBooking.UserId, _intBoo.Persons);
             RequestBookDetail(_intBoo.CurrentBooking);
         }
         private bool DetectBook(int rowIndex)

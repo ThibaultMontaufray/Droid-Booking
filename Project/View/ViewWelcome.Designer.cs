@@ -29,80 +29,316 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewWelcome));
-            Droid_Geography.WorldMap worldMap3 = new Droid_Geography.WorldMap();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            Droid_Geography.WorldMap worldMap1 = new Droid_Geography.WorldMap();
             this.panelStatUsers = new System.Windows.Forms.Panel();
-            this.labelOccTitle = new System.Windows.Forms.Label();
-            this.labelAreas = new System.Windows.Forms.Label();
-            this.labelOccupancy = new System.Windows.Forms.Label();
+            this.chartTypeDetail = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartTypeRepartition = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartMainOccupancy = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panelCountries = new System.Windows.Forms.Panel();
+            this.chartCountries = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.labelName = new System.Windows.Forms.Label();
             this.worldMapView = new Droid_Geography.WorldMapView();
-            this.labelOccTitle = new System.Windows.Forms.Label();
             this.panelStatUsers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTypeDetail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTypeRepartition)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartMainOccupancy)).BeginInit();
             this.panelCountries.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCountries)).BeginInit();
             this.SuspendLayout();
             // 
             // panelStatUsers
             // 
             this.panelStatUsers.BackColor = System.Drawing.Color.Transparent;
             this.panelStatUsers.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelStatUsers.BackgroundImage")));
-            this.panelStatUsers.Controls.Add(this.labelOccTitle);
-            this.panelStatUsers.Controls.Add(this.labelAreas);
-            this.panelStatUsers.Controls.Add(this.labelOccupancy);
-            this.panelStatUsers.Location = new System.Drawing.Point(275, 25);
+            this.panelStatUsers.Controls.Add(this.chartTypeDetail);
+            this.panelStatUsers.Controls.Add(this.chartTypeRepartition);
+            this.panelStatUsers.Controls.Add(this.chartMainOccupancy);
+            this.panelStatUsers.Location = new System.Drawing.Point(25, 25);
             this.panelStatUsers.Name = "panelStatUsers";
-            this.panelStatUsers.Size = new System.Drawing.Size(450, 60);
+            this.panelStatUsers.Size = new System.Drawing.Size(921, 116);
             this.panelStatUsers.TabIndex = 0;
             // 
-            // labelOccTitle
+            // chartTypeDetail
             // 
-            this.labelOccTitle.AutoSize = true;
-            this.labelOccTitle.Font = new System.Drawing.Font("Calibri", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOccTitle.ForeColor = System.Drawing.Color.White;
-            this.labelOccTitle.Location = new System.Drawing.Point(5, 5);
-            this.labelOccTitle.Name = "labelOccTitle";
-            this.labelOccTitle.Size = new System.Drawing.Size(83, 17);
-            this.labelOccTitle.TabIndex = 18;
-            this.labelOccTitle.Text = "Occupancy : ";
+            this.chartTypeDetail.BackColor = System.Drawing.Color.Transparent;
+            this.chartTypeDetail.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            this.chartTypeDetail.BorderlineColor = System.Drawing.Color.Black;
+            chartArea1.AxisX.LabelAutoFitMinFontSize = 10;
+            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.LabelStyle.Interval = 0D;
+            chartArea1.AxisX.LabelStyle.IntervalOffset = 0D;
+            chartArea1.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Auto;
+            chartArea1.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Auto;
+            chartArea1.AxisX.LabelStyle.TruncatedLabels = true;
+            chartArea1.AxisX.MaximumAutoSize = 100F;
+            chartArea1.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea1.AxisX.TitleAlignment = System.Drawing.StringAlignment.Near;
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX2.LabelAutoFitMinFontSize = 10;
+            chartArea1.AxisX2.MaximumAutoSize = 100F;
+            chartArea1.AxisX2.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea1.AxisX2.TitleForeColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.LabelAutoFitMinFontSize = 10;
+            chartArea1.AxisY.MaximumAutoSize = 100F;
+            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea1.AxisY.TitleForeColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY2.LabelAutoFitMinFontSize = 10;
+            chartArea1.AxisY2.MaximumAutoSize = 100F;
+            chartArea1.AxisY2.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea1.AxisY2.TitleForeColor = System.Drawing.Color.Gainsboro;
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            chartArea1.BackImageTransparentColor = System.Drawing.Color.Transparent;
+            chartArea1.BackSecondaryColor = System.Drawing.Color.Transparent;
+            chartArea1.BorderColor = System.Drawing.Color.Maroon;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 94F;
+            chartArea1.Position.Width = 75F;
+            chartArea1.Position.X = 3F;
+            chartArea1.Position.Y = 3F;
+            this.chartTypeDetail.ChartAreas.Add(chartArea1);
+            this.chartTypeDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Alignment = System.Drawing.StringAlignment.Far;
+            legend1.AutoFitMinFontSize = 12;
+            legend1.BackColor = System.Drawing.Color.Transparent;
+            legend1.ForeColor = System.Drawing.Color.White;
+            legend1.HeaderSeparatorColor = System.Drawing.Color.Transparent;
+            legend1.ItemColumnSeparatorColor = System.Drawing.Color.Fuchsia;
+            legend1.Name = "Legend1";
+            legend1.Position.Auto = false;
+            legend1.Position.Height = 82.05128F;
+            legend1.Position.Width = 30F;
+            legend1.Position.X = 70F;
+            legend1.Position.Y = 10F;
+            legend1.Title = "Area occupancy";
+            legend1.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend1.TitleForeColor = System.Drawing.Color.White;
+            legend1.TitleSeparatorColor = System.Drawing.Color.Maroon;
+            this.chartTypeDetail.Legends.Add(legend1);
+            this.chartTypeDetail.Location = new System.Drawing.Point(241, 0);
+            this.chartTypeDetail.Name = "chartTypeDetail";
+            this.chartTypeDetail.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Chocolate;
+            series1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedBar;
+            series1.Color = System.Drawing.Color.DarkRed;
+            series1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.IsValueShownAsLabel = true;
+            series1.LabelForeColor = System.Drawing.Color.Gainsboro;
+            series1.Legend = "Legend1";
+            series1.Name = "Occupancy";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedBar;
+            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            series2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
+            series2.IsValueShownAsLabel = true;
+            series2.Legend = "Legend1";
+            series2.Name = "Available";
+            this.chartTypeDetail.Series.Add(series1);
+            this.chartTypeDetail.Series.Add(series2);
+            this.chartTypeDetail.Size = new System.Drawing.Size(439, 116);
+            this.chartTypeDetail.TabIndex = 5;
+            this.chartTypeDetail.Text = "Expense completed";
             // 
-            // labelAreas
+            // chartTypeRepartition
             // 
-            this.labelAreas.AutoSize = true;
-            this.labelAreas.Font = new System.Drawing.Font("Calibri", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAreas.ForeColor = System.Drawing.Color.White;
-            this.labelAreas.Location = new System.Drawing.Point(5, 30);
-            this.labelAreas.Name = "labelAreas";
-            this.labelAreas.Size = new System.Drawing.Size(139, 17);
-            this.labelAreas.TabIndex = 17;
-            this.labelAreas.Text = "Area capacity details : ";
+            this.chartTypeRepartition.BackColor = System.Drawing.Color.Transparent;
+            this.chartTypeRepartition.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            this.chartTypeRepartition.BorderlineColor = System.Drawing.Color.Black;
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            chartArea2.BackImageTransparentColor = System.Drawing.Color.Transparent;
+            chartArea2.BackSecondaryColor = System.Drawing.Color.Transparent;
+            chartArea2.BorderColor = System.Drawing.Color.Maroon;
+            chartArea2.InnerPlotPosition.Auto = false;
+            chartArea2.InnerPlotPosition.Height = 94.99999F;
+            chartArea2.InnerPlotPosition.Width = 46.3125F;
+            chartArea2.InnerPlotPosition.X = 3F;
+            chartArea2.InnerPlotPosition.Y = 3F;
+            chartArea2.Name = "ChartArea1";
+            this.chartTypeRepartition.ChartAreas.Add(chartArea2);
+            this.chartTypeRepartition.Dock = System.Windows.Forms.DockStyle.Right;
+            legend2.Alignment = System.Drawing.StringAlignment.Far;
+            legend2.BackColor = System.Drawing.Color.Transparent;
+            legend2.ForeColor = System.Drawing.Color.White;
+            legend2.HeaderSeparatorColor = System.Drawing.Color.Transparent;
+            legend2.Name = "Legend1";
+            legend2.Position.Auto = false;
+            legend2.Position.Height = 82.05128F;
+            legend2.Position.Width = 43.33333F;
+            legend2.Position.X = 53.66667F;
+            legend2.Position.Y = 10F;
+            legend2.Title = "Area types";
+            legend2.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend2.TitleForeColor = System.Drawing.Color.White;
+            this.chartTypeRepartition.Legends.Add(legend2);
+            this.chartTypeRepartition.Location = new System.Drawing.Point(680, 0);
+            this.chartTypeRepartition.Name = "chartTypeRepartition";
+            this.chartTypeRepartition.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
+            series3.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            series3.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series3.Color = System.Drawing.Color.Transparent;
+            series3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series3.IsValueShownAsLabel = true;
+            series3.Legend = "Legend1";
+            series3.MarkerBorderColor = System.Drawing.Color.Transparent;
+            series3.MarkerColor = System.Drawing.Color.Transparent;
+            series3.MarkerImageTransparentColor = System.Drawing.Color.Transparent;
+            series3.Name = "Types";
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chartTypeRepartition.Series.Add(series3);
+            this.chartTypeRepartition.Size = new System.Drawing.Size(241, 116);
+            this.chartTypeRepartition.TabIndex = 4;
+            this.chartTypeRepartition.Text = "Expense completed";
             // 
-            // labelOccupancy
+            // chartMainOccupancy
             // 
-            this.labelOccupancy.AutoSize = true;
-            this.labelOccupancy.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOccupancy.ForeColor = System.Drawing.Color.White;
-            this.labelOccupancy.Location = new System.Drawing.Point(113, 5);
-            this.labelOccupancy.Name = "labelOccupancy";
-            this.labelOccupancy.Size = new System.Drawing.Size(29, 17);
-            this.labelOccupancy.TabIndex = 16;
-            this.labelOccupancy.Text = "___";
+            this.chartMainOccupancy.BackColor = System.Drawing.Color.Transparent;
+            this.chartMainOccupancy.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            this.chartMainOccupancy.BorderlineColor = System.Drawing.Color.Black;
+            chartArea3.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            chartArea3.BackImageTransparentColor = System.Drawing.Color.Transparent;
+            chartArea3.BackSecondaryColor = System.Drawing.Color.Transparent;
+            chartArea3.BorderColor = System.Drawing.Color.Maroon;
+            chartArea3.InnerPlotPosition.Auto = false;
+            chartArea3.InnerPlotPosition.Height = 94.99999F;
+            chartArea3.InnerPlotPosition.Width = 46.3125F;
+            chartArea3.InnerPlotPosition.X = 3F;
+            chartArea3.InnerPlotPosition.Y = 3F;
+            chartArea3.Name = "ChartArea1";
+            this.chartMainOccupancy.ChartAreas.Add(chartArea3);
+            this.chartMainOccupancy.Dock = System.Windows.Forms.DockStyle.Left;
+            legend3.Alignment = System.Drawing.StringAlignment.Far;
+            legend3.BackColor = System.Drawing.Color.Transparent;
+            legend3.ForeColor = System.Drawing.Color.White;
+            legend3.HeaderSeparatorColor = System.Drawing.Color.Transparent;
+            legend3.Name = "Legend1";
+            legend3.Position.Auto = false;
+            legend3.Position.Height = 82.05128F;
+            legend3.Position.Width = 43.33333F;
+            legend3.Position.X = 53.66667F;
+            legend3.Position.Y = 10F;
+            legend3.Title = "Global occupancy";
+            legend3.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend3.TitleForeColor = System.Drawing.Color.White;
+            this.chartMainOccupancy.Legends.Add(legend3);
+            this.chartMainOccupancy.Location = new System.Drawing.Point(0, 0);
+            this.chartMainOccupancy.Name = "chartMainOccupancy";
+            this.chartMainOccupancy.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
+            series4.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            series4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series4.Color = System.Drawing.Color.Transparent;
+            series4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series4.IsValueShownAsLabel = true;
+            series4.Legend = "Legend1";
+            series4.MarkerBorderColor = System.Drawing.Color.Transparent;
+            series4.MarkerColor = System.Drawing.Color.Transparent;
+            series4.MarkerImageTransparentColor = System.Drawing.Color.Transparent;
+            series4.Name = "Occupancy";
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chartMainOccupancy.Series.Add(series4);
+            this.chartMainOccupancy.Size = new System.Drawing.Size(241, 116);
+            this.chartMainOccupancy.TabIndex = 2;
+            this.chartMainOccupancy.Text = "Expense completed";
             // 
             // panelCountries
             // 
             this.panelCountries.BackColor = System.Drawing.Color.Transparent;
             this.panelCountries.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelCountries.BackgroundImage")));
+            this.panelCountries.Controls.Add(this.chartCountries);
             this.panelCountries.Controls.Add(this.labelName);
-            this.panelCountries.Location = new System.Drawing.Point(650, 110);
+            this.panelCountries.Location = new System.Drawing.Point(646, 165);
             this.panelCountries.Name = "panelCountries";
-            this.panelCountries.Size = new System.Drawing.Size(300, 40);
+            this.panelCountries.Size = new System.Drawing.Size(300, 399);
             this.panelCountries.TabIndex = 1;
+            // 
+            // chartCountries
+            // 
+            this.chartCountries.BackColor = System.Drawing.Color.Transparent;
+            this.chartCountries.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            this.chartCountries.BorderlineColor = System.Drawing.Color.Black;
+            chartArea4.AxisX.LabelAutoFitMinFontSize = 10;
+            chartArea4.AxisX.LabelStyle.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX.LabelStyle.Interval = 0D;
+            chartArea4.AxisX.LabelStyle.IntervalOffset = 0D;
+            chartArea4.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Auto;
+            chartArea4.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Auto;
+            chartArea4.AxisX.LabelStyle.TruncatedLabels = true;
+            chartArea4.AxisX.MaximumAutoSize = 100F;
+            chartArea4.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea4.AxisX.TitleAlignment = System.Drawing.StringAlignment.Near;
+            chartArea4.AxisX.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea4.AxisX.TitleForeColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX2.LabelAutoFitMinFontSize = 10;
+            chartArea4.AxisX2.MaximumAutoSize = 100F;
+            chartArea4.AxisX2.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea4.AxisX2.TitleForeColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisY.LabelAutoFitMinFontSize = 10;
+            chartArea4.AxisY.MaximumAutoSize = 100F;
+            chartArea4.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea4.AxisY.TitleForeColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisY2.LabelAutoFitMinFontSize = 10;
+            chartArea4.AxisY2.MaximumAutoSize = 100F;
+            chartArea4.AxisY2.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea4.AxisY2.TitleForeColor = System.Drawing.Color.Gainsboro;
+            chartArea4.BackColor = System.Drawing.Color.Transparent;
+            chartArea4.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
+            chartArea4.BackImageTransparentColor = System.Drawing.Color.Transparent;
+            chartArea4.BackSecondaryColor = System.Drawing.Color.Transparent;
+            chartArea4.BorderColor = System.Drawing.Color.Maroon;
+            chartArea4.IsSameFontSizeForAllAxes = true;
+            chartArea4.Name = "ChartArea1";
+            chartArea4.Position.Auto = false;
+            chartArea4.Position.Height = 94F;
+            chartArea4.Position.Width = 75F;
+            chartArea4.Position.X = 3F;
+            chartArea4.Position.Y = 3F;
+            this.chartCountries.ChartAreas.Add(chartArea4);
+            this.chartCountries.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.chartCountries.Location = new System.Drawing.Point(0, 30);
+            this.chartCountries.Name = "chartCountries";
+            this.chartCountries.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            series5.IsValueShownAsLabel = true;
+            series5.LabelForeColor = System.Drawing.Color.Gainsboro;
+            series5.Name = "Series1";
+            this.chartCountries.Series.Add(series5);
+            this.chartCountries.Size = new System.Drawing.Size(300, 369);
+            this.chartCountries.TabIndex = 5;
+            this.chartCountries.Text = "Expense completed";
             // 
             // labelName
             // 
+            this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("Calibri", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelName.ForeColor = System.Drawing.Color.White;
-            this.labelName.Location = new System.Drawing.Point(5, 5);
+            this.labelName.Location = new System.Drawing.Point(13, 10);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(129, 17);
             this.labelName.TabIndex = 4;
@@ -110,29 +346,19 @@
             // 
             // worldMapView
             // 
+            this.worldMapView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.worldMapView.BackColor = System.Drawing.Color.DimGray;
-            worldMap3.CurrentCountry = null;
-            worldMap3.Mode = Droid_Geography.WorldMap.PresentationMode.POPULATION;
-            worldMap3.RunAnimation = true;
-            worldMap3.WorkingDirectory = "C:\\Users\\amost\\AppData\\Roaming\\Servodroid\\Droid-Geography";
-            worldMap3.Zoom = 1;
-            this.worldMapView.CurrentWorldMap = worldMap3;
-            this.worldMapView.Location = new System.Drawing.Point(25, 110);
+            worldMap1.CurrentCountry = null;
+            worldMap1.Mode = Droid_Geography.WorldMap.PresentationMode.POPULATION;
+            worldMap1.RunAnimation = true;
+            worldMap1.WorkingDirectory = "C:\\Users\\amost\\AppData\\Roaming\\Servodroid\\Droid-Geography";
+            worldMap1.Zoom = 1;
+            this.worldMapView.CurrentWorldMap = worldMap1;
+            this.worldMapView.Location = new System.Drawing.Point(25, 165);
             this.worldMapView.Name = "worldMapView";
             this.worldMapView.Size = new System.Drawing.Size(600, 400);
             this.worldMapView.TabIndex = 0;
             this.worldMapView.Zoom = 0;
-            // 
-            // label1
-            // 
-            this.labelOccTitle.AutoSize = true;
-            this.labelOccTitle.Font = new System.Drawing.Font("Calibri", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOccTitle.ForeColor = System.Drawing.Color.White;
-            this.labelOccTitle.Location = new System.Drawing.Point(5, 5);
-            this.labelOccTitle.Name = "label1";
-            this.labelOccTitle.Size = new System.Drawing.Size(83, 17);
-            this.labelOccTitle.TabIndex = 18;
-            this.labelOccTitle.Text = "Occupancy : ";
             // 
             // ViewWelcome
             // 
@@ -144,11 +370,14 @@
             this.Controls.Add(this.panelCountries);
             this.Controls.Add(this.panelStatUsers);
             this.Name = "ViewWelcome";
-            this.Size = new System.Drawing.Size(987, 512);
+            this.Size = new System.Drawing.Size(987, 567);
             this.panelStatUsers.ResumeLayout(false);
-            this.panelStatUsers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTypeDetail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTypeRepartition)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartMainOccupancy)).EndInit();
             this.panelCountries.ResumeLayout(false);
             this.panelCountries.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCountries)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -156,11 +385,12 @@
         #endregion
 
         private System.Windows.Forms.Panel panelStatUsers;
-        private System.Windows.Forms.Label labelAreas;
-        private System.Windows.Forms.Label labelOccupancy;
         private System.Windows.Forms.Panel panelCountries;
         private System.Windows.Forms.Label labelName;
-        private System.Windows.Forms.Label labelOccTitle;
         private Droid_Geography.WorldMapView worldMapView;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartMainOccupancy;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartCountries;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartTypeDetail;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartTypeRepartition;
     }
 }

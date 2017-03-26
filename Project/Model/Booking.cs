@@ -3,24 +3,42 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Droid_financial;
 
 namespace Droid_Booking
 {
     public class Booking
     {
+        #region Enum
+        public enum Status
+        {
+            CREATED,   // yellow
+            CONFIRMED, // orange
+            CHECKIN,   // green
+            CHECKOUT   // gray
+        }
+        #endregion
+
         #region Attribute
+        private readonly string WORKINGDIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Assistant-Booking\";
+
         private string _id;
         private DateTime _checkIn;
         private DateTime _checkOut;
         private string _areaId;
         private string _userId;
         private bool _confirmed;
-        private decimal _price;
-        private decimal _paid;
         private string _place;
+        private Status _status;
+        private string _expenseId;
         #endregion
 
         #region Properties
+        public string ExpenseId
+        {
+            get { return _expenseId; }
+            set { _expenseId = value; }
+        }
         public string Place
         {
             get { return _place; }
@@ -30,16 +48,6 @@ namespace Droid_Booking
         {
             get { return _id; }
             set { _id = value; }
-        }
-        public decimal Paid
-        {
-            get { return _paid; }
-            set { _paid = value; }
-        }
-        public decimal Price
-        {
-            get { return _price; }
-            set { _price = value; }
         }
         public bool Confirmed
         {
@@ -66,6 +74,11 @@ namespace Droid_Booking
             get { return _areaId; }
             set { _areaId = value; }
         }
+        public Status CurrentStatus
+        {
+            get { return _status; }
+            set { _status = value; }
+        }
         #endregion
 
         #region Constructor
@@ -80,11 +93,6 @@ namespace Droid_Booking
         }
         public Booking(string path)
         {
-            //Random rand = new Random((int)DateTime.Now.Ticks);
-            //_id = string.Format("booking.{0}-{1}-{2}", rand.Next(), (int)DateTime.Now.Ticks, rand.Next());
-            //_confirmed = false;
-            //System.Threading.Thread.Sleep(1);
-
             Load(path);
         }
         #endregion
@@ -125,24 +133,7 @@ namespace Droid_Booking
                 }
             }
         }
-        #endregion
-
-        #region Methods private
-        private void Import(Booking source, Booking target)
-        {
-            target._areaId = source._areaId;
-            target._checkIn = source._checkIn;
-            target._checkOut = source._checkOut;
-            target._confirmed = source._confirmed;
-            target._id = source._id;
-            target._paid = source._paid;
-            target._price = source._price;
-            target._userId = source._userId;
-            target._place = source._place;
-
-            source = null;
-        }
-        private string GenerateXml()
+        public string GenerateXml()
         {
             string serializedObject = string.Empty;
 
@@ -156,6 +147,37 @@ namespace Droid_Booking
                 }
             }
             return serializedObject;
+        }
+        public string GenerateJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+        public string GenerateCsv()
+        {
+            string ret = string.Empty;
+            return ret;
+        }
+        public string GenerateIcal()
+        {
+            string ret = string.Empty;
+            return ret;
+        }
+        #endregion
+
+        #region Methods private
+        private void Import(Booking source, Booking target)
+        {
+            target._areaId = source._areaId;
+            target._checkIn = source._checkIn;
+            target._checkOut = source._checkOut;
+            target._confirmed = source._confirmed;
+            target._id = source._id;
+            target._userId = source._userId;
+            target._place = source._place;
+            target._status = source._status;
+            target._expenseId = source._expenseId;
+
+            source = null;
         }
         private void SaveFile(string path)
         {
@@ -179,7 +201,7 @@ namespace Droid_Booking
             {
                 Directory.CreateDirectory(path);
             }
-            string filePath = Path.Combine(path, string.Format("{0}.xml", _id));
+            string filePath = Path.Combine(path, string.Format("{0}//{0}.xml", _id));
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
                 sw.Write(xmlObject);

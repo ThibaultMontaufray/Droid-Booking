@@ -6,11 +6,21 @@ using System.Drawing;
 using Tools4Libraries;
 using Droid_People;
 using System.Reflection;
+using Droid_financial;
 
 namespace Droid_Booking
 {
-    public partial class ViewCalendar : UserControl, IView
+    public partial class ViewCalendar : UserControlCustom, IView
     {
+        #region Enum
+        public enum DisplayMode
+        {
+            STATUS,
+            OCCUPANCY,
+            PAYMENT
+        }
+        #endregion
+
         #region Attribute
         private Interface_booking _intBoo;
         private DateTime _startDate;
@@ -21,9 +31,15 @@ namespace Droid_Booking
         private int _selectedCheckOutRow;
         private Area _currentArea;
         private DateTime _currentDate;
+        private DisplayMode _currentDisplayMode;
         #endregion
 
         #region Properties
+        public DisplayMode CurrentDisplayMode
+        {
+            get { return _currentDisplayMode; }
+            set { _currentDisplayMode = value; }
+        }
         public DateTime StartDate
         {
             get { return _startDate; }
@@ -50,11 +66,11 @@ namespace Droid_Booking
         #endregion
 
         #region Methods public
-        public void ChangeLanguage()
+        public override void ChangeLanguage()
         {
 
         }
-        public void RefreshData()
+        public override void RefreshData()
         {
             LoadBookings();
             LoadFilter();
@@ -67,6 +83,7 @@ namespace Droid_Booking
         #region Methods private
         private void Init()
         {
+            _currentDisplayMode = DisplayMode.OCCUPANCY;
             _selectedCheckInRow = -1;
             _selectedCheckOutRow = -1;
             _dataGridViewPreview.Rows.Clear();
@@ -87,15 +104,13 @@ namespace Droid_Booking
             DataGridViewColumn column;
 
             _dataGridViewPreview.Columns.Clear();
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 90; i++)
             {
-                //column = new DataGridViewTextBoxColumn();
                 column = new TextAndImageColumn();
                 column.Name = "Day" + i;
-                column.HeaderText = string.Format("{0}\r\n{1}", _startDate.AddDays(i).DayOfWeek, _startDate.AddDays(i).Day);
-                column.Width = 74;
+                column.HeaderText = string.Format("{0}\r\n{1}", _startDate.AddDays(i).DayOfWeek.ToString().Substring(0, 3), _startDate.AddDays(i).Day);
+                column.Width = 30;
                 column.Tag = _startDate.AddDays(i);
-                //(column as TextAndImageColumn).Image = Properties.Resources.CenterWhite;
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
                 if (_startDate.AddDays(i).DayOfWeek == DayOfWeek.Saturday || _startDate.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
                 {
@@ -124,6 +139,22 @@ namespace Droid_Booking
         }
         private void LoadBookings()
         {
+            switch (_currentDisplayMode)
+            {
+                case DisplayMode.STATUS:
+                    LoadBookingsStatus();
+                    break;
+                case DisplayMode.PAYMENT:
+                    LoadBookingsPayment();
+                    break;
+                case DisplayMode.OCCUPANCY:
+                default:
+                    LoadBookingOccupancy();
+                    break;
+            }
+        }
+        private void LoadBookingOccupancy()
+        {
             int indexRow;
             int seuilAM, seuilPM;
             int countBookingCheckIn;
@@ -131,12 +162,12 @@ namespace Droid_Booking
             int countBookingCountinuous;
             int capacityBooking;
             int[] indexColumns;
-            
+
             foreach (Booking booking in _intBoo.Bookings)
             {
                 var res = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (((Area)r.Tag).Id).Equals(booking.AreaId) select r.Index).ToList();
                 if (res.Count > 0)
-                { 
+                {
                     indexRow = res.First();
                     indexColumns = (from c in _dataGridViewPreview.Columns.Cast<DataGridViewColumn>() where ((DateTime)c.Tag) >= booking.CheckIn && ((DateTime)c.Tag) <= booking.CheckOut.AddDays(1) select c.Index).ToArray();
 
@@ -162,17 +193,128 @@ namespace Droid_Booking
                         capacityBooking = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Capacity;
                         (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Value = string.Format("AM : {0}/{1} PM : {2}/{1}", countBookingCheckOut, capacityBooking, countBookingCheckIn);
                         
-                        // level AM
-                        if (countBookingCheckIn == capacityBooking) { seuilAM = 0; }
-                        else if (countBookingCheckIn >= capacityBooking / 2) { seuilAM = 1; }
-                        else { seuilAM = 2; }
-
-                        // level PM
-                        if (countBookingCheckOut == capacityBooking) { seuilPM = 0; }
-                        else if (countBookingCheckOut >= capacityBooking / 2) { seuilPM = 1; }
-                        else { seuilPM = 2; }
+                        if (countBookingCheckIn == capacityBooking) { seuilPM = 0; }
+                        else if (countBookingCheckIn <= capacityBooking / 2) { seuilPM = 2; }
+                        else { seuilPM = 1; }
+                        
+                        if (countBookingCheckOut == capacityBooking) { seuilAM = 0; }
+                        else if (countBookingCheckOut <= capacityBooking / 2) { seuilAM = 2; }
+                        else { seuilAM = 1; }
 
                         ProcessColoration(countBookingCheckIn, countBookingCheckOut, seuilAM, seuilPM, indexRow, indexColumn);
+                    }
+                }
+            }
+        }
+        private void LoadBookingsStatus()
+        {
+            int indexRow;
+            int seuilAM, seuilPM;
+            int countBookingCountinuous;
+            int capacityBooking;
+            int[] indexColumns;
+
+            foreach (Booking booking in _intBoo.Bookings)
+            {
+                var res = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (((Area)r.Tag).Id).Equals(booking.AreaId) select r.Index).ToList();
+                if (res.Count > 0)
+                {
+                    indexRow = res.First();
+                    indexColumns = (from c in _dataGridViewPreview.Columns.Cast<DataGridViewColumn>() where ((DateTime)c.Tag) >= booking.CheckIn && ((DateTime)c.Tag) <= booking.CheckOut.AddDays(1) select c.Index).ToArray();
+
+                    //foreach (int indexColumn in indexColumns)
+                    //{
+                    //    countBookingCountinuous = _intBoo.Bookings.Where(b =>
+                    //        b.CheckIn.Date < ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                    //        b.CheckOut.Date > ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                    //        b.AreaId.Equals(((Area)_dataGridViewPreview.Rows[indexRow].Tag).Id)).Count();
+
+                    //    countBookingCheckIn = _intBoo.Bookings.Where(b =>
+                    //        b.CheckIn.Date == ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                    //        b.CheckOut.Date > ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                    //        b.AreaId.Equals(((Area)_dataGridViewPreview.Rows[indexRow].Tag).Id)).Count();
+                    //    countBookingCheckIn += countBookingCountinuous;
+
+                    //    countBookingCheckOut = _intBoo.Bookings.Where(b =>
+                    //        b.CheckIn.Date < ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                    //        b.CheckOut.Date == ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                    //        b.AreaId.Equals(((Area)_dataGridViewPreview.Rows[indexRow].Tag).Id)).Count();
+                    //    countBookingCheckOut += countBookingCountinuous;
+
+                    //    capacityBooking = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Capacity;
+                    //    (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Value = string.Format("AM : {0}/{1} PM : {2}/{1}", countBookingCheckOut, capacityBooking, countBookingCheckIn);
+
+                    //    // level AM
+                    //    if (countBookingCheckIn == capacityBooking) { seuilAM = 0; }
+                    //    else if (countBookingCheckIn >= capacityBooking / 2) { seuilAM = 1; }
+                    //    else { seuilAM = 2; }
+
+                    //    // level PM
+                    //    if (countBookingCheckOut == capacityBooking) { seuilPM = 0; }
+                    //    else if (countBookingCheckOut >= capacityBooking / 2) { seuilPM = 1; }
+                    //    else { seuilPM = 2; }
+
+                    //    ProcessColoration(countBookingCheckIn, countBookingCheckOut, seuilAM, seuilPM, indexRow, indexColumn);
+                    //}
+                }
+            }
+        }
+        private void LoadBookingsPayment()
+        {
+            int indexRow;
+            int seuilAM, seuilPM;
+            int paidAM, paidPM;
+            int percentAM, percentPM;
+            List<Booking> bookingContinuous;
+            List<Booking> bookingCheckIn;
+            List<Booking> bookingCheckOut;
+            int[] indexColumns;
+
+            foreach (Booking booking in _intBoo.Bookings)
+            {
+                var res = (from r in _dataGridViewPreview.Rows.Cast<DataGridViewRow>() where (((Area)r.Tag).Id).Equals(booking.AreaId) select r.Index).ToList();
+                if (res.Count > 0)
+                {
+                    indexRow = res.First();
+                    indexColumns = (from c in _dataGridViewPreview.Columns.Cast<DataGridViewColumn>() where ((DateTime)c.Tag) >= booking.CheckIn && ((DateTime)c.Tag) <= booking.CheckOut.AddDays(1) select c.Index).ToArray();
+
+                    foreach (int indexColumn in indexColumns)
+                    {
+                        bookingContinuous = _intBoo.Bookings.Where(b =>
+                            b.CheckIn.Date < ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                            b.CheckOut.Date > ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                            b.AreaId.Equals(((Area)_dataGridViewPreview.Rows[indexRow].Tag).Id)).ToList();
+
+                        bookingCheckIn = _intBoo.Bookings.Where(b =>
+                            b.CheckIn.Date == ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                            b.CheckOut.Date > ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                            b.AreaId.Equals(((Area)_dataGridViewPreview.Rows[indexRow].Tag).Id)).ToList();
+                        bookingCheckIn.AddRange(bookingContinuous);
+
+                        bookingCheckOut = _intBoo.Bookings.Where(b =>
+                            b.CheckIn.Date < ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                            b.CheckOut.Date == ((DateTime)_dataGridViewPreview.Columns[indexColumn].Tag).Date &&
+                            b.AreaId.Equals(((Area)_dataGridViewPreview.Rows[indexRow].Tag).Id)).ToList();
+                        bookingCheckOut.AddRange(bookingContinuous);
+
+                        paidPM = bookingCheckIn.Where(b => Expense.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Amount == Expense.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Paid).Count();
+                        paidAM = bookingCheckOut.Where(b => Expense.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Amount == Expense.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Paid).Count();
+                        percentAM = (bookingCheckOut.Count > 0) ? ((paidAM * 100) / bookingCheckOut.Count) : 0;
+                        percentPM = (bookingCheckIn.Count > 0) ? ((paidPM * 100) / bookingCheckIn.Count) : 0;
+
+                        if (bookingCheckIn.Count > 0 && percentAM == 100) { seuilAM = 2; }
+                        else if (bookingCheckIn.Count > 0 && percentAM > 50) { seuilAM = 0; }
+                        else if (bookingCheckIn.Count > 0 ) { seuilAM = 1; }
+                        else { seuilAM = 3; }
+
+                        if (bookingCheckOut.Count > 0 && percentPM == 100) { seuilPM = 2; }
+                        else if (bookingCheckOut.Count > 0 && percentPM > 50) { seuilPM = 0; }
+                        else if (bookingCheckOut.Count > 0) { seuilPM = 1; }
+                        else { seuilPM = 3; }
+
+                        (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Value = string.Format("AM {0} - PM {1}", (bookingCheckOut.Count > 0) ? percentAM.ToString() + "%" : "N/A", (bookingCheckIn.Count > 0) ? percentPM.ToString() + "%" : "N/A");
+                        
+                        ProcessColoration(bookingCheckIn.Count, bookingCheckOut.Count, seuilAM, seuilPM, indexRow, indexColumn);
                     }
                 }
             }
@@ -188,28 +330,30 @@ namespace Droid_Booking
             {
                 // full
                 if (seuilAM == 2 && seuilPM == 2) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterGreen; }
-                if (seuilAM == 2 && seuilPM == 1) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startGreenEndOrange; }
-                if (seuilAM == 2 && seuilPM == 0) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startGreenEndRed; }
-                if (seuilAM == 1 && seuilPM == 2) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startOrangeEndGreen; }
+                if (seuilAM == 2 && seuilPM == 1) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startOrangeEndGreen; }
+                if (seuilAM == 2 && seuilPM == 0) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startRedEndGreen; }
+
+                if (seuilAM == 1 && seuilPM == 2) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startGreenEndOrange; }
                 if (seuilAM == 1 && seuilPM == 1) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterOrange; }
-                if (seuilAM == 1 && seuilPM == 0) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startOrangeEndRed; }
-                if (seuilAM == 0 && seuilPM == 2) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startRedEndGreen; }
-                if (seuilAM == 0 && seuilPM == 1) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startRedEndOrange; }
+                if (seuilAM == 1 && seuilPM == 0) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startRedEndOrange; }
+
+                if (seuilAM == 0 && seuilPM == 2) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startGreenEndRed; }
+                if (seuilAM == 0 && seuilPM == 1) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startOrangeEndRed; }
                 if (seuilAM == 0 && seuilPM == 0) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.CenterRed; }
             }
             else if (countBookingCheckIn == 0 && countBookingCheckOut != 0)
             {
                 // end only
-                if (seuilPM == 2) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.endGreen; }
-                if (seuilPM == 1) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.endOrange; }
-                if (seuilPM == 0) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.endRed; }
+                if (seuilAM == 2) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.endGreen; }
+                if (seuilAM == 1) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.endOrange; }
+                if (seuilAM == 0) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.endRed; }
             }
             else if (countBookingCheckIn != 0 && countBookingCheckOut == 0)
             {
                 // start only
-                if (seuilAM == 2) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startGreen; }
-                if (seuilAM == 1) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startOrange; }
-                if (seuilAM == 0) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startRed; }
+                if (seuilPM == 2) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startGreen; }
+                if (seuilPM == 1) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startOrange; }
+                if (seuilPM == 0) { (_dataGridViewPreview.Rows[indexRow].Cells[indexColumn] as TextAndImageCell).Image = Properties.Resources.startRed; }
             }
         }
         private void LoadCheckIn()
@@ -616,6 +760,30 @@ namespace Droid_Booking
             {
                 EditBooking((Booking)tsmItem.Tag);
             }
+        }
+        private void buttonStatus_Click(object sender, EventArgs e)
+        {
+            buttonPayment.BackColor = Color.LightGray;
+            buttonStatus.BackColor = Color.DarkGray;
+            buttonOccupancy.BackColor = Color.LightGray;
+            _currentDisplayMode = DisplayMode.STATUS;
+            LoadBookings();
+        }
+        private void buttonOccupancy_Click(object sender, EventArgs e)
+        {
+            buttonPayment.BackColor = Color.LightGray;
+            buttonStatus.BackColor = Color.LightGray;
+            buttonOccupancy.BackColor = Color.DarkGray;
+            _currentDisplayMode = DisplayMode.OCCUPANCY;
+            LoadBookings();
+        }
+        private void buttonPayment_Click(object sender, EventArgs e)
+        {
+            buttonPayment.BackColor = Color.DarkGray;
+            buttonStatus.BackColor = Color.LightGray;
+            buttonOccupancy.BackColor = Color.LightGray;
+            _currentDisplayMode = DisplayMode.PAYMENT;
+            LoadBookings();
         }
         #endregion
     }

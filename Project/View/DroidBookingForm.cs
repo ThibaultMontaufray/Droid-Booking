@@ -54,7 +54,7 @@ namespace Droid_Booking
             _intBoo.LanguageModified += _intBoo_LanguageModified;
             this.Controls.Add(_intBoo.Sheet);
 
-            _int_fin = new Interface_fnc(new System.Collections.Generic.List<string>());
+            _int_fin = new Interface_fnc(string.Empty);
 
             BuildRibbon();
         }

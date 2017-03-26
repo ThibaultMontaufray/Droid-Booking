@@ -59,10 +59,6 @@
       <HintPath>packages\Droid_deployer.1.0.9\lib\4.5.1\Droid_deployer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Droid_financial, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Droid_Financial.1.0.0\lib\4.5.1\Droid_financial.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Droid_Image, Version=1.0.6265.39373, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Droid_Image.1.0.1\lib\4.5.1\Droid_Image.dll</HintPath>
       <Private>True</Private>
@@ -134,6 +130,7 @@
       <HintPath>packages\Droid_Web.1.0.4\lib\4.5.1\System.Data.SqlServerCe.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Windows.Forms.Ribbon, Version=3.5.8.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Droid_Financial.1.0.0\lib\4.5.1\System.Windows.Forms.Ribbon.dll</HintPath>
       <Private>True</Private>
@@ -169,7 +166,7 @@
     <Compile Include="Controler\GetText.cs" />
     <Compile Include="Controler\Interface_booking.cs" />
     <Compile Include="Model\Area.cs" />
-    <Compile Include="Model\Book.cs" />
+    <Compile Include="Model\Booking.cs" />
     <Compile Include="Model\Price.cs" />
     <Compile Include="Properties\ResourceEnglish.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -319,6 +316,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Droid-Financial\Project\Droid_Financial.csproj">
+      <Project>{92850be1-bbca-4d0c-a6d0-7bdc61ab0cb5}</Project>
+      <Name>Droid_Financial</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Droid-Geography\Project\Droid-Geography.csproj">
       <Project>{530856d4-8d7f-4682-a071-f212c52d9274}</Project>
       <Name>Droid-Geography</Name>

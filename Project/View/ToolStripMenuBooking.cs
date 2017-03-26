@@ -25,10 +25,21 @@ namespace Droid_Booking
         private RibbonPanel _panelArea;
         private RibbonButton _rbAreaAdd;
         private RibbonButton _rbAreaSearch;
+        private RibbonButton _rb_importArea;
+        private RibbonButton _rb_exportArea;
+        private RibbonButton _exportAreaCsv;
+        private RibbonButton _exportAreaJson;
+        private RibbonButton _exportAreaXml;
 
         private RibbonPanel _panelbooking;
         private RibbonButton _rbBookAdd;
         private RibbonButton _rbBookSearch;
+        private RibbonButton _rb_importBooking;
+        private RibbonButton _rb_exportBooking;
+        private RibbonButton _exportBookingCsv;
+        private RibbonButton _exportBookingJson;
+        private RibbonButton _exportBookingXml;
+        private RibbonButton _exportBookingICAL;
         #endregion
 
         #region Properties
@@ -113,23 +124,6 @@ namespace Droid_Booking
             _panelView.Items.Add(_rbParameters);
             this.Panels.Add(_panelView);
         }
-        //private void BuildPanelUsers()
-        //{
-        //    _rbUserAdd = new RibbonButton("Person add");
-        //    _rbUserAdd.Image = Tools4Libraries.Resources.ResourceIconSet32Default.user_add;
-        //    _rbUserAdd.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.user_add;
-        //    _rbUserAdd.Click += _rbUserAdd_Click;
-            
-        //    _rbUserSearch = new RibbonButton("Search user");
-        //    _rbUserSearch.Image = Tools4Libraries.Resources.ResourceIconSet32Default.drive_user;
-        //    _rbUserSearch.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.drive_user;
-        //    _rbUserSearch.Click += _rbUserSearch_Click;
-
-        //    _panelPerson = new RibbonPanel("User");
-        //    _panelPerson.Items.Add(_rbUserAdd);
-        //    _panelPerson.Items.Add(_rbUserSearch);
-        //    this.Panels.Add(_panelPerson);
-        //}
         private void BuildPanelArea()
         {
             _rbAreaAdd = new RibbonButton("Add area");
@@ -142,9 +136,45 @@ namespace Droid_Booking
             _rbAreaSearch.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.layers;
             _rbAreaSearch.Click += _rbAreaSearch_Click;
 
+            _exportAreaCsv = new RibbonButton();
+            _exportAreaCsv.SmallImage = Tools4Libraries.Resources.ResourceIconSet32Default.export_excel;
+            _exportAreaCsv.Text = "CSV";
+            _exportAreaCsv.MinSizeMode = RibbonElementSizeMode.Medium;
+            _exportAreaCsv.Click += _exportAreaCsv_Click;
+
+            _exportAreaJson = new RibbonButton();
+            _exportAreaJson.SmallImage = Tools4Libraries.Resources.ResourceIconSet32Default.page_white_text;
+            _exportAreaJson.Text = "JSON";
+            _exportAreaJson.MinSizeMode = RibbonElementSizeMode.Medium;
+            _exportAreaJson.Click += _exportAreaJson_Click;
+
+            _exportAreaXml = new RibbonButton();
+            _exportAreaXml.SmallImage = Tools4Libraries.Resources.ResourceIconSet32Default.page_white_code;
+            _exportAreaXml.Text = "XML";
+            _exportAreaXml.MinSizeMode = RibbonElementSizeMode.Medium;
+            _exportAreaXml.Click += _exportAreaXml_Click;
+            
+            _rb_exportArea = new RibbonButton();
+            _rb_exportArea.Text = "Export";
+            _rb_exportArea.Image = Tools4Libraries.Resources.ResourceIconSet32Default.document_export;
+            _rb_exportArea.MinSizeMode = RibbonElementSizeMode.Large;
+            _rb_exportArea.MaxSizeMode = RibbonElementSizeMode.Large;
+            _rb_exportArea.Style = RibbonButtonStyle.SplitDropDown;
+            _rb_exportArea.DropDownItems.Add(_exportAreaJson);
+            _rb_exportArea.DropDownItems.Add(_exportAreaCsv);
+            _rb_exportArea.DropDownItems.Add(_exportAreaXml);
+            _rb_exportArea.TextAlignment = RibbonItem.RibbonItemTextAlignment.Left;
+
+            _rb_importArea = new RibbonButton("Import");
+            _rb_importArea.Image = Tools4Libraries.Resources.ResourceIconSet32Default.document_export;
+            _rb_importArea.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.document_export;
+            _rb_importArea.Click += _rb_importArea_Click;
+
             _panelArea = new RibbonPanel("Area");
             _panelArea.Items.Add(_rbAreaAdd);
             _panelArea.Items.Add(_rbAreaSearch);
+            _panelArea.Items.Add(_rb_importArea);
+            _panelArea.Items.Add(_rb_exportArea);
             this.Panels.Add(_panelArea);
         }
         private void BuildPanelBook()
@@ -159,9 +189,52 @@ namespace Droid_Booking
             _rbBookSearch.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.report_magnify;
             _rbBookSearch.Click += _rbBookSearch_Click;
 
+            _exportBookingCsv = new RibbonButton();
+            _exportBookingCsv.SmallImage = Tools4Libraries.Resources.ResourceIconSet32Default.file_extension_csv;
+            _exportBookingCsv.Text = "CSV";
+            _exportBookingCsv.MinSizeMode = RibbonElementSizeMode.Medium;
+            _exportBookingCsv.Click += _exportBookingCsv_Click;
+                   
+            _exportBookingJson = new RibbonButton();
+            _exportBookingJson.SmallImage = Tools4Libraries.Resources.ResourceIconSet32Default.page_white_text;
+            _exportBookingJson.Text = "JSON";
+            _exportBookingJson.MinSizeMode = RibbonElementSizeMode.Medium;
+            _exportBookingJson.Click += _exportBookingJson_Click;
+
+            _exportBookingXml = new RibbonButton();
+            _exportBookingXml.SmallImage = Tools4Libraries.Resources.ResourceIconSet32Default.page_white_code;
+            _exportBookingXml.Text = "XML";
+            _exportBookingXml.MinSizeMode = RibbonElementSizeMode.Medium;
+            _exportBookingXml.Click += _exportBookingXml_Click;
+
+            _exportBookingICAL = new RibbonButton();
+            _exportBookingICAL.SmallImage = Tools4Libraries.Resources.ResourceIconSet32Default.calendar;
+            _exportBookingICAL.Text = "ICal";
+            _exportBookingICAL.MinSizeMode = RibbonElementSizeMode.Medium;
+            _exportBookingICAL.Click += _exportBookingICal_Click;
+
+            _rb_exportBooking = new RibbonButton();
+            _rb_exportBooking.Text = "Export";
+            _rb_exportBooking.Image = Tools4Libraries.Resources.ResourceIconSet32Default.document_export;
+            _rb_exportBooking.MinSizeMode = RibbonElementSizeMode.Large;
+            _rb_exportBooking.MaxSizeMode = RibbonElementSizeMode.Large;
+            _rb_exportBooking.Style = RibbonButtonStyle.SplitDropDown;
+            _rb_exportBooking.DropDownItems.Add(_exportBookingCsv);
+            _rb_exportBooking.DropDownItems.Add(_exportBookingJson);
+            _rb_exportBooking.DropDownItems.Add(_exportBookingXml);
+            _rb_exportBooking.DropDownItems.Add(_exportBookingICAL);
+            _rb_exportBooking.TextAlignment = RibbonItem.RibbonItemTextAlignment.Left;
+
+            _rb_importBooking = new RibbonButton("Import");
+            _rb_importBooking.Image = Tools4Libraries.Resources.ResourceIconSet32Default.document_import;
+            _rb_importBooking.SmallImage = Tools4Libraries.Resources.ResourceIconSet16Default.document_import;
+            _rb_importBooking.Click += _rb_importBooking_Click;
+
             _panelbooking = new RibbonPanel("Book");
             _panelbooking.Items.Add(_rbBookAdd);
             _panelbooking.Items.Add(_rbBookSearch);
+            _panelbooking.Items.Add(_rb_importBooking);
+            _panelbooking.Items.Add(_rb_exportBooking);
             this.Panels.Add(_panelbooking);
         }
         #endregion
@@ -229,6 +302,51 @@ namespace Droid_Booking
         private void _rbPrices_Click(object sender, System.EventArgs e)
         {
             ToolBarEventArgs action = new ToolBarEventArgs("prices");
+            OnAction(action);
+        }
+        private void _exportAreaCsv_Click(object sender, EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("exportAreaCsv");
+            OnAction(action);
+        }
+        private void _exportAreaXml_Click(object sender, EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("exportAreaXml");
+            OnAction(action);
+        }
+        private void _exportAreaJson_Click(object sender, EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("exportAreaJson");
+            OnAction(action);
+        }
+        private void _exportBookingCsv_Click(object sender, EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("exportBookingCsv");
+            OnAction(action);
+        }
+        private void _exportBookingXml_Click(object sender, EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("exportBookingXml");
+            OnAction(action);
+        }
+        private void _exportBookingJson_Click(object sender, EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("exportBookingJson");
+            OnAction(action);
+        }
+        private void _exportBookingICal_Click(object sender, EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("exportBookingICal");
+            OnAction(action);
+        }
+        private void _rb_importBooking_Click(object sender, EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("importBooking");
+            OnAction(action);
+        }
+        private void _rb_importArea_Click(object sender, EventArgs e)
+        {
+            ToolBarEventArgs action = new ToolBarEventArgs("importArea");
             OnAction(action);
         }
         #endregion

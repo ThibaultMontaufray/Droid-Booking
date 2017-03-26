@@ -61,6 +61,10 @@
             this.checkBoxType = new System.Windows.Forms.CheckBox();
             this.buttonClearFilter = new System.Windows.Forms.Button();
             this.monthCalendar = new System.Windows.Forms.MonthCalendar();
+            this.panelDisplayMode = new System.Windows.Forms.Panel();
+            this.buttonOccupancy = new System.Windows.Forms.Button();
+            this.buttonPayment = new System.Windows.Forms.Button();
+            this.buttonStatus = new System.Windows.Forms.Button();
             this._dataGridViewPreview = new System.Windows.Forms.DataGridView();
             this.imageListCalendarCells = new System.Windows.Forms.ImageList(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,6 +83,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCapacity)).BeginInit();
             this.panelTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxType)).BeginInit();
+            this.panelDisplayMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridViewPreview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,6 +96,7 @@
             this.panel1.Controls.Add(this.panelTypes);
             this.panel1.Controls.Add(this.buttonClearFilter);
             this.panel1.Controls.Add(this.monthCalendar);
+            this.panel1.Controls.Add(this.panelDisplayMode);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -102,7 +108,7 @@
             this.pictureBoxFilter.BackColor = System.Drawing.Color.Silver;
             this.pictureBoxFilter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxFilter.BackgroundImage")));
             this.pictureBoxFilter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBoxFilter.Location = new System.Drawing.Point(9, 171);
+            this.pictureBoxFilter.Location = new System.Drawing.Point(9, 195);
             this.pictureBoxFilter.Name = "pictureBoxFilter";
             this.pictureBoxFilter.Size = new System.Drawing.Size(24, 24);
             this.pictureBoxFilter.TabIndex = 5;
@@ -117,9 +123,9 @@
             this.panelUsers.Controls.Add(this._comboBoxCurrentUsers);
             this.panelUsers.Controls.Add(this.label1);
             this.panelUsers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelUsers.Location = new System.Drawing.Point(0, 288);
+            this.panelUsers.Location = new System.Drawing.Point(0, 313);
             this.panelUsers.Name = "panelUsers";
-            this.panelUsers.Size = new System.Drawing.Size(249, 249);
+            this.panelUsers.Size = new System.Drawing.Size(249, 224);
             this.panelUsers.TabIndex = 6;
             // 
             // pictureBox3
@@ -149,8 +155,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this._dataGridViewCheckOut);
-            this.splitContainer1.Size = new System.Drawing.Size(249, 189);
-            this.splitContainer1.SplitterDistance = 93;
+            this.splitContainer1.Size = new System.Drawing.Size(249, 164);
+            this.splitContainer1.SplitterDistance = 80;
             this.splitContainer1.TabIndex = 21;
             // 
             // _dataGridViewCheckIn
@@ -173,7 +179,7 @@
             this._dataGridViewCheckIn.RowHeadersVisible = false;
             this._dataGridViewCheckIn.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this._dataGridViewCheckIn.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this._dataGridViewCheckIn.Size = new System.Drawing.Size(249, 93);
+            this._dataGridViewCheckIn.Size = new System.Drawing.Size(249, 80);
             this._dataGridViewCheckIn.TabIndex = 3;
             this._dataGridViewCheckIn.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this._dataGridViewCheckIn_CellMouseClick);
             // 
@@ -241,7 +247,7 @@
             this._dataGridViewCheckOut.RowHeadersVisible = false;
             this._dataGridViewCheckOut.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this._dataGridViewCheckOut.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this._dataGridViewCheckOut.Size = new System.Drawing.Size(249, 92);
+            this._dataGridViewCheckOut.Size = new System.Drawing.Size(249, 80);
             this._dataGridViewCheckOut.TabIndex = 20;
             this._dataGridViewCheckOut.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this._dataGridViewCheckOut_CellMouseClick);
             // 
@@ -318,7 +324,7 @@
             this.panelCapacities.Controls.Add(this.pictureBoxCapacity);
             this.panelCapacities.Controls.Add(this.checkBoxCapa);
             this.panelCapacities.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCapacities.Location = new System.Drawing.Point(0, 246);
+            this.panelCapacities.Location = new System.Drawing.Point(0, 271);
             this.panelCapacities.Name = "panelCapacities";
             this.panelCapacities.Size = new System.Drawing.Size(249, 42);
             this.panelCapacities.TabIndex = 5;
@@ -358,7 +364,7 @@
             this.panelTypes.Controls.Add(this.pictureBoxType);
             this.panelTypes.Controls.Add(this.checkBoxType);
             this.panelTypes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTypes.Location = new System.Drawing.Point(0, 204);
+            this.panelTypes.Location = new System.Drawing.Point(0, 229);
             this.panelTypes.Name = "panelTypes";
             this.panelTypes.Size = new System.Drawing.Size(249, 42);
             this.panelTypes.TabIndex = 4;
@@ -400,7 +406,7 @@
             this.buttonClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClearFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonClearFilter.ForeColor = System.Drawing.Color.Black;
-            this.buttonClearFilter.Location = new System.Drawing.Point(0, 162);
+            this.buttonClearFilter.Location = new System.Drawing.Point(0, 187);
             this.buttonClearFilter.Name = "buttonClearFilter";
             this.buttonClearFilter.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
             this.buttonClearFilter.Size = new System.Drawing.Size(249, 42);
@@ -413,12 +419,65 @@
             // monthCalendar
             // 
             this.monthCalendar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.monthCalendar.Location = new System.Drawing.Point(0, 0);
+            this.monthCalendar.Location = new System.Drawing.Point(0, 25);
             this.monthCalendar.MaxSelectionCount = 1;
             this.monthCalendar.Name = "monthCalendar";
             this.monthCalendar.ShowWeekNumbers = true;
             this.monthCalendar.TabIndex = 3;
             this.monthCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar_DateSelected);
+            // 
+            // panelDisplayMode
+            // 
+            this.panelDisplayMode.Controls.Add(this.buttonOccupancy);
+            this.panelDisplayMode.Controls.Add(this.buttonPayment);
+            this.panelDisplayMode.Controls.Add(this.buttonStatus);
+            this.panelDisplayMode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelDisplayMode.Location = new System.Drawing.Point(0, 0);
+            this.panelDisplayMode.Name = "panelDisplayMode";
+            this.panelDisplayMode.Size = new System.Drawing.Size(249, 25);
+            this.panelDisplayMode.TabIndex = 4;
+            // 
+            // buttonOccupancy
+            // 
+            this.buttonOccupancy.BackColor = System.Drawing.Color.DarkGray;
+            this.buttonOccupancy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonOccupancy.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonOccupancy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonOccupancy.Location = new System.Drawing.Point(83, 0);
+            this.buttonOccupancy.Name = "buttonOccupancy";
+            this.buttonOccupancy.Size = new System.Drawing.Size(83, 25);
+            this.buttonOccupancy.TabIndex = 2;
+            this.buttonOccupancy.Text = "Occupancy";
+            this.buttonOccupancy.UseVisualStyleBackColor = false;
+            this.buttonOccupancy.Click += new System.EventHandler(this.buttonOccupancy_Click);
+            // 
+            // buttonPayment
+            // 
+            this.buttonPayment.BackColor = System.Drawing.Color.LightGray;
+            this.buttonPayment.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonPayment.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPayment.Location = new System.Drawing.Point(166, 0);
+            this.buttonPayment.Name = "buttonPayment";
+            this.buttonPayment.Size = new System.Drawing.Size(83, 25);
+            this.buttonPayment.TabIndex = 1;
+            this.buttonPayment.Text = "Payment";
+            this.buttonPayment.UseVisualStyleBackColor = false;
+            this.buttonPayment.Click += new System.EventHandler(this.buttonPayment_Click);
+            // 
+            // buttonStatus
+            // 
+            this.buttonStatus.BackColor = System.Drawing.Color.LightGray;
+            this.buttonStatus.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonStatus.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonStatus.Location = new System.Drawing.Point(0, 0);
+            this.buttonStatus.Name = "buttonStatus";
+            this.buttonStatus.Size = new System.Drawing.Size(83, 25);
+            this.buttonStatus.TabIndex = 0;
+            this.buttonStatus.Text = "Status";
+            this.buttonStatus.UseVisualStyleBackColor = false;
+            this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
             // _dataGridViewPreview
             // 
@@ -426,12 +485,12 @@
             this._dataGridViewPreview.AllowUserToDeleteRows = false;
             this._dataGridViewPreview.AllowUserToResizeColumns = false;
             this._dataGridViewPreview.AllowUserToResizeRows = false;
-            this._dataGridViewPreview.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this._dataGridViewPreview.BackgroundColor = System.Drawing.Color.DimGray;
             this._dataGridViewPreview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this._dataGridViewPreview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Calibri", 7F);
             dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -505,6 +564,7 @@
             this.panelTypes.ResumeLayout(false);
             this.panelTypes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxType)).EndInit();
+            this.panelDisplayMode.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._dataGridViewPreview)).EndInit();
             this.ResumeLayout(false);
 
@@ -538,5 +598,9 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBoxCapacity;
         private System.Windows.Forms.PictureBox pictureBoxType;
+        private System.Windows.Forms.Panel panelDisplayMode;
+        private System.Windows.Forms.Button buttonOccupancy;
+        private System.Windows.Forms.Button buttonPayment;
+        private System.Windows.Forms.Button buttonStatus;
     }
 }

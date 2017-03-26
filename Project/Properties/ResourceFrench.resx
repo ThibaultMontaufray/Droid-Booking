@@ -312,4 +312,19 @@
   <data name="MinDate" xml:space="preserve">
     <value>Min date</value>
   </data>
+  <data name="AddPayment" xml:space="preserve">
+    <value>Ajouter paiement</value>
+  </data>
+  <data name="Cash" xml:space="preserve">
+    <value>Liquide</value>
+  </data>
+  <data name="CreditCard" xml:space="preserve">
+    <value>Carte bancaire</value>
+  </data>
+  <data name="NewPayment" xml:space="preserve">
+    <value>Nouveau paiement</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
 </root>

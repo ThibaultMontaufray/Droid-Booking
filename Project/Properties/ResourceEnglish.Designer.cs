@@ -70,6 +70,15 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add payment.
+        /// </summary>
+        public static string AddPayment {
+            get {
+                return ResourceManager.GetString("AddPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Amount paid.
         /// </summary>
         public static string AmountPaid {
@@ -151,6 +160,15 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cash.
+        /// </summary>
+        public static string Cash {
+            get {
+                return ResourceManager.GetString("Cash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Check in.
         /// </summary>
         public static string CheckIn {
@@ -223,6 +241,15 @@ namespace Droid_Booking.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Credit card.
+        /// </summary>
+        public static string CreditCard {
+            get {
+                return ResourceManager.GetString("CreditCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Current nationalities.
         /// </summary>
         public static string currentNationalities {
@@ -264,6 +291,15 @@ namespace Droid_Booking.Properties {
         public static string departures {
             get {
                 return ResourceManager.GetString("departures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -471,6 +507,15 @@ namespace Droid_Booking.Properties {
         public static string Newbook {
             get {
                 return ResourceManager.GetString("Newbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à New payment.
+        /// </summary>
+        public static string NewPayment {
+            get {
+                return ResourceManager.GetString("NewPayment", resourceCulture);
             }
         }
         
