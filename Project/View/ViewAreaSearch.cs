@@ -323,6 +323,7 @@ namespace Droid_Booking
             this._dgvSearch.Location = new System.Drawing.Point(0, 86);
             this._dgvSearch.Name = "_dgvSearch";
             this._dgvSearch.RowHeadersVisible = false;
+            this._dgvSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this._dgvSearch.Size = new System.Drawing.Size(788, 275);
             this._dgvSearch.TabIndex = 25;
             // 

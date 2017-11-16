@@ -39,28 +39,19 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            Droid_Geography.WorldMap worldMap1 = new Droid_Geography.WorldMap();
             this.panelStatUsers = new System.Windows.Forms.Panel();
             this.chartTypeDetail = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartTypeRepartition = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartMainOccupancy = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.panelCountries = new System.Windows.Forms.Panel();
-            this.chartCountries = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.labelName = new System.Windows.Forms.Label();
-            this.worldMapView = new Droid_Geography.WorldMapView();
             this.panelStatUsers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTypeDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTypeRepartition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartMainOccupancy)).BeginInit();
-            this.panelCountries.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCountries)).BeginInit();
             this.SuspendLayout();
             // 
             // panelStatUsers
             // 
-            this.panelStatUsers.BackColor = System.Drawing.Color.Transparent;
+            this.panelStatUsers.BackColor = System.Drawing.Color.Gray;
             this.panelStatUsers.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelStatUsers.BackgroundImage")));
             this.panelStatUsers.Controls.Add(this.chartTypeDetail);
             this.panelStatUsers.Controls.Add(this.chartTypeRepartition);
@@ -108,7 +99,7 @@
             chartArea1.Name = "ChartArea1";
             chartArea1.Position.Auto = false;
             chartArea1.Position.Height = 94F;
-            chartArea1.Position.Width = 75F;
+            chartArea1.Position.Width = 70F;
             chartArea1.Position.X = 3F;
             chartArea1.Position.Y = 3F;
             this.chartTypeDetail.ChartAreas.Add(chartArea1);
@@ -263,111 +254,12 @@
             this.chartMainOccupancy.TabIndex = 2;
             this.chartMainOccupancy.Text = "Expense completed";
             // 
-            // panelCountries
-            // 
-            this.panelCountries.BackColor = System.Drawing.Color.Transparent;
-            this.panelCountries.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelCountries.BackgroundImage")));
-            this.panelCountries.Controls.Add(this.chartCountries);
-            this.panelCountries.Controls.Add(this.labelName);
-            this.panelCountries.Location = new System.Drawing.Point(646, 165);
-            this.panelCountries.Name = "panelCountries";
-            this.panelCountries.Size = new System.Drawing.Size(300, 399);
-            this.panelCountries.TabIndex = 1;
-            // 
-            // chartCountries
-            // 
-            this.chartCountries.BackColor = System.Drawing.Color.Transparent;
-            this.chartCountries.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
-            this.chartCountries.BorderlineColor = System.Drawing.Color.Black;
-            chartArea4.AxisX.LabelAutoFitMinFontSize = 10;
-            chartArea4.AxisX.LabelStyle.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.Gainsboro;
-            chartArea4.AxisX.LabelStyle.Interval = 0D;
-            chartArea4.AxisX.LabelStyle.IntervalOffset = 0D;
-            chartArea4.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Auto;
-            chartArea4.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Auto;
-            chartArea4.AxisX.LabelStyle.TruncatedLabels = true;
-            chartArea4.AxisX.MaximumAutoSize = 100F;
-            chartArea4.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea4.AxisX.TitleAlignment = System.Drawing.StringAlignment.Near;
-            chartArea4.AxisX.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea4.AxisX.TitleForeColor = System.Drawing.Color.Gainsboro;
-            chartArea4.AxisX2.LabelAutoFitMinFontSize = 10;
-            chartArea4.AxisX2.MaximumAutoSize = 100F;
-            chartArea4.AxisX2.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea4.AxisX2.TitleForeColor = System.Drawing.Color.Gainsboro;
-            chartArea4.AxisY.LabelAutoFitMinFontSize = 10;
-            chartArea4.AxisY.MaximumAutoSize = 100F;
-            chartArea4.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea4.AxisY.TitleForeColor = System.Drawing.Color.Gainsboro;
-            chartArea4.AxisY2.LabelAutoFitMinFontSize = 10;
-            chartArea4.AxisY2.MaximumAutoSize = 100F;
-            chartArea4.AxisY2.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea4.AxisY2.TitleForeColor = System.Drawing.Color.Gainsboro;
-            chartArea4.BackColor = System.Drawing.Color.Transparent;
-            chartArea4.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left;
-            chartArea4.BackImageTransparentColor = System.Drawing.Color.Transparent;
-            chartArea4.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea4.BorderColor = System.Drawing.Color.Maroon;
-            chartArea4.IsSameFontSizeForAllAxes = true;
-            chartArea4.Name = "ChartArea1";
-            chartArea4.Position.Auto = false;
-            chartArea4.Position.Height = 94F;
-            chartArea4.Position.Width = 75F;
-            chartArea4.Position.X = 3F;
-            chartArea4.Position.Y = 3F;
-            this.chartCountries.ChartAreas.Add(chartArea4);
-            this.chartCountries.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.chartCountries.Location = new System.Drawing.Point(0, 30);
-            this.chartCountries.Name = "chartCountries";
-            this.chartCountries.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            series5.IsValueShownAsLabel = true;
-            series5.LabelForeColor = System.Drawing.Color.Gainsboro;
-            series5.Name = "Series1";
-            this.chartCountries.Series.Add(series5);
-            this.chartCountries.Size = new System.Drawing.Size(300, 369);
-            this.chartCountries.TabIndex = 5;
-            this.chartCountries.Text = "Expense completed";
-            // 
-            // labelName
-            // 
-            this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelName.AutoSize = true;
-            this.labelName.Font = new System.Drawing.Font("Calibri", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelName.ForeColor = System.Drawing.Color.White;
-            this.labelName.Location = new System.Drawing.Point(13, 10);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(129, 17);
-            this.labelName.TabIndex = 4;
-            this.labelName.Text = "Current nationalities";
-            // 
-            // worldMapView
-            // 
-            this.worldMapView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.worldMapView.BackColor = System.Drawing.Color.DimGray;
-            worldMap1.CurrentCountry = null;
-            worldMap1.Mode = Droid_Geography.WorldMap.PresentationMode.POPULATION;
-            worldMap1.RunAnimation = true;
-            worldMap1.WorkingDirectory = "C:\\Users\\amost\\AppData\\Roaming\\Servodroid\\Droid-Geography";
-            worldMap1.Zoom = 1;
-            this.worldMapView.CurrentWorldMap = worldMap1;
-            this.worldMapView.Location = new System.Drawing.Point(25, 165);
-            this.worldMapView.Name = "worldMapView";
-            this.worldMapView.Size = new System.Drawing.Size(600, 400);
-            this.worldMapView.TabIndex = 0;
-            this.worldMapView.Zoom = 0;
-            // 
             // ViewWelcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Controls.Add(this.worldMapView);
-            this.Controls.Add(this.panelCountries);
             this.Controls.Add(this.panelStatUsers);
             this.Name = "ViewWelcome";
             this.Size = new System.Drawing.Size(987, 567);
@@ -375,9 +267,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartTypeDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTypeRepartition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartMainOccupancy)).EndInit();
-            this.panelCountries.ResumeLayout(false);
-            this.panelCountries.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCountries)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -385,11 +274,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panelStatUsers;
-        private System.Windows.Forms.Panel panelCountries;
-        private System.Windows.Forms.Label labelName;
-        private Droid_Geography.WorldMapView worldMapView;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartMainOccupancy;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartCountries;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartTypeDetail;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartTypeRepartition;
     }

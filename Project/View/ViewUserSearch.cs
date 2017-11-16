@@ -182,7 +182,7 @@ namespace Droid_Booking
             this._dgvSearchPerson.MultiSelect = false;
             this._dgvSearchPerson.Name = "_dgvSearchPerson";
             this._dgvSearchPerson.RowHeadersVisible = false;
-            this._dgvSearchPerson.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this._dgvSearchPerson.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this._dgvSearchPerson.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._dgvSearchPerson.Size = new System.Drawing.Size(1027, 269);
             this._dgvSearchPerson.TabIndex = 24;

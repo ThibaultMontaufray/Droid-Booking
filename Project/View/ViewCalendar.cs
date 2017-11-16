@@ -209,9 +209,9 @@ namespace Droid_Booking
         private void LoadBookingsStatus()
         {
             int indexRow;
-            int seuilAM, seuilPM;
-            int countBookingCountinuous;
-            int capacityBooking;
+            //int seuilAM, seuilPM;
+            //int countBookingCountinuous;
+            //int capacityBooking;
             int[] indexColumns;
 
             foreach (Booking booking in _intBoo.Bookings)

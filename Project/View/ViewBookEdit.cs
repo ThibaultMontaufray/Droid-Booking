@@ -649,17 +649,17 @@ namespace Droid_Booking
             try
             {
                 Expense exp = Expense.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses);
-                Area filterArea = (comboBoxArea.IsAccessible && !string.IsNullOrEmpty(comboBoxArea.Text)) ? (Area)comboBoxArea.SelectedItem : null;
-                Person filterPerson = (comboBoxPerson.IsAccessible && !string.IsNullOrEmpty(comboBoxPerson.Text)) ? (Person)comboBoxPerson.SelectedItem : null;
+                Area filterArea = (!string.IsNullOrEmpty(comboBoxArea.Text)) ? (Area)comboBoxArea.SelectedItem : null;
+                Person filterPerson = (!string.IsNullOrEmpty(comboBoxPerson.Text)) ? (Person)comboBoxPerson.SelectedItem : null;
 
                 if (filterArea != null) _intBoo.CurrentBooking.AreaId = filterArea.Id;
                 if (filterPerson != null) _intBoo.CurrentBooking.UserId = filterPerson.Id;
                 _intBoo.CurrentBooking.CheckIn = dateTimePickerCheckIn.Value;
                 _intBoo.CurrentBooking.CheckOut = dateTimePickerCheckOut.Value;
                 _intBoo.CurrentBooking.Confirmed = checkBoxConfirmed.Checked;
-                _intBoo.CurrentBooking.Place = (comboBoxPlace.IsAccessible && comboBoxPlace.SelectedItem == null) ? string.Empty : comboBoxPlace.SelectedItem.ToString();
+                _intBoo.CurrentBooking.Place = (comboBoxPlace.SelectedItem == null) ? string.Empty : comboBoxPlace.SelectedItem.ToString();
 
-                exp.Amount = (textBoxPrice.IsAccessible && string.IsNullOrEmpty(textBoxPrice.Text)) ? 0 : double.Parse(textBoxPrice.Text);
+                exp.Amount = (string.IsNullOrEmpty(textBoxPrice.Text)) ? 0 : double.Parse(textBoxPrice.Text);
                 exp.StartDate = dateTimePickerCheckIn.Value;
                 exp.EndDate = dateTimePickerCheckOut.Value;
 
@@ -689,6 +689,8 @@ namespace Droid_Booking
         {
             DataGridViewRow row;
             Movement mov = new Movement();
+
+            _intBoo.CurrentUser = (Person)comboBoxPerson.SelectedItem;
             mov.Amount = double.Parse(textBoxNewPayment.Text);
             mov.UserId = _intBoo.CurrentUser.Id;
             mov.Date = DateTime.Now;

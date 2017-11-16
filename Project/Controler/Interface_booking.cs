@@ -119,11 +119,6 @@ namespace Droid_Booking
             get { return _prices; }
             set { _prices = value; }
         }
-        public Panel Sheet
-        {
-            get { return _sheet; }
-            set { _sheet = value; }
-        }
         public ToolStripMenuBooking Tsm
         {
             get { return _tsm; }

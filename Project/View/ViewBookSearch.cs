@@ -408,7 +408,7 @@ namespace Droid_Booking
             this._dgvSearch.Name = "_dgvSearch";
             this._dgvSearch.ReadOnly = true;
             this._dgvSearch.RowHeadersVisible = false;
-            this._dgvSearch.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this._dgvSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this._dgvSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._dgvSearch.Size = new System.Drawing.Size(861, 292);
             this._dgvSearch.TabIndex = 1;
@@ -604,7 +604,7 @@ namespace Droid_Booking
                 _dgvSearch.Rows.Add();
                 row = _dgvSearch.Rows[_dgvSearch.Rows.Count - 1];
                 row.Tag = booking.Id;
-                row.Cells[ColumnArea.Index].Value = area.Type + " - " + area.Name;
+                row.Cells[ColumnArea.Index].Value = area != null ? area.ToString() : string.Empty ;
                 row.Cells[ColumnUser.Index].Value = person != null ? person.ToString() : string.Empty;
                 row.Cells[ColumnConfirmed.Index].Value = booking.Confirmed;
                 row.Cells[ColumnPrice.Index].Value = Expense.GetExpenseFromId(booking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount;
