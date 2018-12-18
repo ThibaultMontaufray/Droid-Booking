@@ -1,4 +1,4 @@
-﻿using Droid_People;
+﻿using Droid.People;
 using System;
 using System.Drawing;
 using System.Drawing.Printing;
@@ -6,12 +6,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Tools4Libraries;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public class ViewCheckOut : UserControlCustom, IView
     {
         #region Attribute
-        private Interface_booking _intBoo;
+        private InterfaceBooking _intBoo;
         
         private PrintDocument printdoc1 = new PrintDocument();
         private PrintPreviewDialog previewdlg = new PrintPreviewDialog();
@@ -41,7 +41,7 @@ namespace Droid_Booking
             InitializeComponent();
             Init();
         }
-        public ViewCheckOut(Interface_booking intBoo)
+        public ViewCheckOut(InterfaceBooking intBoo)
         {
             _intBoo = intBoo;
 
@@ -59,7 +59,7 @@ namespace Droid_Booking
 
             RefreshData();
         }
-        public void RefreshData()
+        public override void RefreshData()
         {
             Person person;
             DataGridViewRow row;
@@ -73,7 +73,7 @@ namespace Droid_Booking
                 row.Cells[ColumnType.Index].Value = Area.GetAreaFromId(booking.AreaId, _intBoo.Areas).Type;
 
                 person = Person.GetPersonFromId(booking.UserId, _intBoo.Persons);
-                if (person != null) row.Cells[ColumnPerson.Index].Value = string.Format("{0} {1}", person.FirstName.Firstname, person.FamilyName);
+                if (person != null) row.Cells[ColumnPerson.Index].Value = string.Format("{0} {1}", person.FirstName.Value, person.Name);
             }
 
             labelDate.Text = DateTime.Now.ToShortDateString();

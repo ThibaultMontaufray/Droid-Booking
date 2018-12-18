@@ -3,14 +3,14 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Tools4Libraries;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public partial class ViewSettings : UserControlCustom, IView
     {
         #region Attribute
-        public override event UserControlCustomEventHandler HeightChanged;
+        public new event UserControlCustomEventHandler HeightChanged;
 
-        private Interface_booking _intBoo;
+        private InterfaceBooking _intBoo;
 
         private IContainer components = null;
         private PictureBox pictureBoxFlag;
@@ -30,7 +30,7 @@ namespace Droid_Booking
             InitializeComponent();
             Init();
         }
-        public ViewSettings(Interface_booking intBoo)
+        public ViewSettings(InterfaceBooking intBoo)
         {
             _intBoo = intBoo;
 

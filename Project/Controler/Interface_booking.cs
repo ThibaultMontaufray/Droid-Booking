@@ -1,7 +1,7 @@
 ﻿// Log code : 06 - 00
 
-using Droid_financial;
-using Droid_People;
+using Droid.financial;
+using Droid.People;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,11 +11,11 @@ using System.Xml;
 using System.Xml.Serialization;
 using Tools4Libraries;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public delegate void InterfaceEventHandler();
     public delegate void InterfaceBookingEventHandler();
-    public class Interface_booking : GPInterface
+    public class InterfaceBooking : GPInterface
     {
         #region Attribtue
         public readonly int TOP_OFFSET = 150;
@@ -30,7 +30,7 @@ namespace Droid_Booking
         public event InterfaceBookingEventHandler CreatePersonRequested;
         public event InterfaceBookingEventHandler OpenFinanceProject;
         
-        private ToolStripMenuBooking _tsm;
+        private new ToolStripMenuBooking _tsm;
         private ViewCalendar _viewCalendar;
         private PanelCustom _viewAreaSearch;
         private PanelCustom _viewAreaEdit;
@@ -132,7 +132,7 @@ namespace Droid_Booking
         #endregion
 
         #region Constructor
-        public Interface_booking(string workingDirectory)
+        public InterfaceBooking(string workingDirectory)
         {
             _workingDirectory = workingDirectory;
 
@@ -208,7 +208,7 @@ namespace Droid_Booking
         {
 
         }
-        public override void Resize()
+        public new void Resize()
         {
             foreach (Control ctrl in _sheet.Controls)
             {
@@ -218,11 +218,11 @@ namespace Droid_Booking
                 }
             }
         }
-        public override void Refresh()
+        public new void Refresh()
         {
 
         }
-        public override void GlobalAction(object sender, EventArgs e)
+        public new void GlobalAction(object sender, EventArgs e)
         {
             ToolBarEventArgs tbea = e as ToolBarEventArgs;
             string action = tbea.EventText;
@@ -248,7 +248,7 @@ namespace Droid_Booking
             }
             if (LanguageModified != null) LanguageModified();
         }
-        public void GoAction(string act)
+        public override void GoAction(string act)
         {
             switch (act.ToLower())
             {
@@ -331,7 +331,7 @@ namespace Droid_Booking
         #region Methods private
         private void Init()
         {
-            _sheet = new Panel();
+            _sheet = new PanelScrollableCustom();
             _sheet.Name = "SheetBooking";
             _sheet.BackColor = System.Drawing.Color.DimGray;
             _sheet.Dock = DockStyle.Fill;
@@ -506,13 +506,13 @@ namespace Droid_Booking
         }
         //private void LoadFinancialActivity()
         //{
-        //    _currentFinancialActivity.ListExpenses.Clear();
+        //    _currentFinancialActivity.ListCRE.Clear();
 
         //    if (Directory.Exists(_directoryFinancialActivity))
         //    {
         //        foreach (string dirName in Directory.GetDirectories(_directoryFinancialActivity))
         //        {
-        //            _currentFinancialActivity.ListExpenses.Add(new Expense(dirName));
+        //            _currentFinancialActivity.ListCRE.Add(new Expense(dirName));
         //        }
         //    }
         //}

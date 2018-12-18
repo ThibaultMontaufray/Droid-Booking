@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using Tools4Libraries;
-using Droid_People;
+using Droid.People;
 using System.Reflection;
-using Droid_financial;
+using Droid.financial;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public partial class ViewCalendar : UserControlCustom, IView
     {
@@ -22,7 +22,7 @@ namespace Droid_Booking
         #endregion
 
         #region Attribute
-        private Interface_booking _intBoo;
+        private InterfaceBooking _intBoo;
         private DateTime _startDate;
         private bool _lockCheckBox;
         private List<Area.TYPE> _filterType;
@@ -54,7 +54,7 @@ namespace Droid_Booking
             InitializeComponent();
             Init();
         }
-        public ViewCalendar(Interface_booking intBoo)
+        public ViewCalendar(InterfaceBooking intBoo)
         {
             _startDate = DateTime.MinValue;
             _intBoo = intBoo;
@@ -133,7 +133,7 @@ namespace Droid_Booking
                 row.DefaultCellStyle.BackColor = Color.FromArgb(255, 64, 64, 64);
                 headerWidth = area.Type.ToString().Length * 15 + area.Name.Length * 15;
                 if (_dataGridViewPreview.RowHeadersWidth < headerWidth) { _dataGridViewPreview.RowHeadersWidth = headerWidth; }
-                Image[] parameters = new Image[_dataGridViewPreview.Columns.Count];
+                System.Drawing.Image[] parameters = new System.Drawing.Image[_dataGridViewPreview.Columns.Count];
                 _dataGridViewPreview.Rows.Add(row);
             }
         }
@@ -297,8 +297,8 @@ namespace Droid_Booking
                             b.AreaId.Equals(((Area)_dataGridViewPreview.Rows[indexRow].Tag).Id)).ToList();
                         bookingCheckOut.AddRange(bookingContinuous);
 
-                        paidPM = bookingCheckIn.Where(b => Expense.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Amount == Expense.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Paid).Count();
-                        paidAM = bookingCheckOut.Where(b => Expense.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Amount == Expense.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Paid).Count();
+                        paidPM = bookingCheckIn.Where(b => CRE.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE).Amount == CRE.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE).Paid).Count();
+                        paidAM = bookingCheckOut.Where(b => CRE.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE).Amount == CRE.GetExpenseFromId(b.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE).Paid).Count();
                         percentAM = (bookingCheckOut.Count > 0) ? ((paidAM * 100) / bookingCheckOut.Count) : 0;
                         percentPM = (bookingCheckIn.Count > 0) ? ((paidPM * 100) / bookingCheckIn.Count) : 0;
 

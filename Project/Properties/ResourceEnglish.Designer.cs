@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Droid_Booking.Properties {
+namespace Droid.Booking.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Droid_Booking.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Droid_Booking.Properties.ResourceEnglish", typeof(ResourceEnglish).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Droid.Booking.Properties.ResourceEnglish", typeof(ResourceEnglish).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public partial class GUI : Form
     {

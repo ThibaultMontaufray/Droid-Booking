@@ -7,21 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Droid_People;
+using Droid.People;
 using Tools4Libraries;
-using Droid_financial;
+using Droid.financial;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public delegate void ViewBookEventHandler(object o);
     public partial class ViewBookSearch : UserControlCustom, IView
     {
         #region Attribute
-        public override event UserControlCustomEventHandler HeightChanged;
+        public event UserControlCustomEventHandler HeightChanged;
         public event ViewUserEventHandler RequestBookDetail;
         public event ViewUserEventHandler RequestBookEdition;
 
-        private Interface_booking _intBoo;
+        private InterfaceBooking _intBoo;
         private List<Booking> _filteredList;
 
         private IContainer components = null;
@@ -65,7 +65,7 @@ namespace Droid_Booking
             InitializeComponent();
             Init();
         }
-        public ViewBookSearch(Interface_booking intBoo)
+        public ViewBookSearch(InterfaceBooking intBoo)
         {
             _intBoo = intBoo;
 
@@ -580,13 +580,13 @@ namespace Droid_Booking
             if (!dateTimePickerEnd.Value.Equals(dateTimePickerEnd.MaxDate)) _filteredList = _filteredList.Where(f => f.CheckOut.Date <= dateTimePickerEnd.Value.Date).ToList();
             if (!dateTimePickerStart.Value.Equals(dateTimePickerStart.MinDate)) _filteredList = _filteredList.Where(f => f.CheckIn.Date >= dateTimePickerStart.Value.Date).ToList();
 
-            if (checkBoxCompletedPaiements.Checked && !checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => Expense.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Paid >= Expense.GetExpenseFromId(f.Id, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount).ToList();
-            if (!checkBoxCompletedPaiements.Checked && checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => Expense.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Paid < Expense.GetExpenseFromId(f.Id, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount).ToList();
+            if (checkBoxCompletedPaiements.Checked && !checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => CRE.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE)?.Paid >= CRE.GetExpenseFromId(f.Id, _intBoo.CurrentFinancialActivity.ListCRE)?.Amount).ToList();
+            if (!checkBoxCompletedPaiements.Checked && checkBoxNonCompletedPaiement.Checked) _filteredList = _filteredList.Where(f => CRE.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE)?.Paid < CRE.GetExpenseFromId(f.Id, _intBoo.CurrentFinancialActivity.ListCRE)?.Amount).ToList();
             if (checkBoxConfirmedbooking.Checked && !checkBoxNonConfirmedbooking.Checked) _filteredList = _filteredList.Where(f => f.Confirmed == true).ToList();
             if (!checkBoxConfirmedbooking.Checked && checkBoxNonConfirmedbooking.Checked) _filteredList = _filteredList.Where(f => f.Confirmed == false).ToList();
 
-            if (numericUpDownMaxPrice.Value != numericUpDownMaxPrice.Maximum) _filteredList = _filteredList.Where(f => Expense.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount <= (double)numericUpDownMaxPrice.Value).ToList();
-            if (numericUpDownMinPrice.Value != numericUpDownMinPrice.Minimum) _filteredList = _filteredList.Where(f => Expense.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount >= (double)numericUpDownMinPrice.Value).ToList();
+            if (numericUpDownMaxPrice.Value != numericUpDownMaxPrice.Maximum) _filteredList = _filteredList.Where(f => CRE.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE)?.Amount <= (double)numericUpDownMaxPrice.Value).ToList();
+            if (numericUpDownMinPrice.Value != numericUpDownMinPrice.Minimum) _filteredList = _filteredList.Where(f => CRE.GetExpenseFromId(f.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE)?.Amount >= (double)numericUpDownMinPrice.Value).ToList();
 
             RefreshDataGridView();
         }
@@ -607,8 +607,8 @@ namespace Droid_Booking
                 row.Cells[ColumnArea.Index].Value = area != null ? area.ToString() : string.Empty ;
                 row.Cells[ColumnUser.Index].Value = person != null ? person.ToString() : string.Empty;
                 row.Cells[ColumnConfirmed.Index].Value = booking.Confirmed;
-                row.Cells[ColumnPrice.Index].Value = Expense.GetExpenseFromId(booking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount;
-                row.Cells[ColumnPaid.Index].Value = Expense.GetExpenseFromId(booking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Paid;
+                row.Cells[ColumnPrice.Index].Value = CRE.GetExpenseFromId(booking.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE)?.Amount;
+                row.Cells[ColumnPaid.Index].Value = CRE.GetExpenseFromId(booking.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE)?.Paid;
                 row.Cells[ColumnCheckIn.Index].Value = booking.CheckIn.ToShortDateString();
                 row.Cells[ColumnCheckOut.Index].Value = booking.CheckOut.ToShortDateString();
                 row.Cells[ColumnEdit.Index].Value = Tools4Libraries.Resources.ResourceIconSet16Default.vcard_edit;

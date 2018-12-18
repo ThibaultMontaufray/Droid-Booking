@@ -2,11 +2,11 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public class TextAndImageColumn : DataGridViewTextBoxColumn
     {
-        private Image imageValue;
+        private System.Drawing.Image imageValue;
         private Size imageSize;
 
         public TextAndImageColumn()
@@ -23,7 +23,7 @@ namespace Droid_Booking
             return c;
         }
 
-        public Image Image
+        public System.Drawing.Image Image
         {
             get { return this.imageValue; }
             set
@@ -57,7 +57,7 @@ namespace Droid_Booking
 
     public class TextAndImageCell : DataGridViewTextBoxCell
     {
-        private Image imageValue;
+        private System.Drawing.Image imageValue;
         private Size imageSize;
 
         public override object Clone()
@@ -68,7 +68,7 @@ namespace Droid_Booking
             return c;
         }
 
-        public Image Image
+        public System.Drawing.Image Image
         {
             get
             {

@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Tools4Libraries;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public class ToolStripMenuBooking : RibbonTab
     {

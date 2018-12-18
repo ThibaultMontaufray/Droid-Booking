@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public class Area
     {

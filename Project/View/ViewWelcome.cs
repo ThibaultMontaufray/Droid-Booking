@@ -1,4 +1,4 @@
-﻿using Droid_People;
+﻿using Droid.People;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,12 +7,12 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Tools4Libraries;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public partial class ViewWelcome : UserControlCustom, IView
     {
         #region Attribute
-        private Interface_booking _intBoo;
+        private InterfaceBooking _intBoo;
         private Dictionary<string, int> _areas;
         private Dictionary<string, int> _areasCapacity;
         #endregion
@@ -25,7 +25,7 @@ namespace Droid_Booking
         {
             InitializeComponent();
         }
-        public ViewWelcome(Interface_booking intBoo)
+        public ViewWelcome(InterfaceBooking intBoo)
         {
             _intBoo = intBoo;
             InitializeComponent();

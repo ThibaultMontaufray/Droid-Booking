@@ -4,14 +4,14 @@ using System.Drawing;
 using System.Windows.Forms;
 using Tools4Libraries;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public partial class ViewAreaEdit : UserControlCustom, IView
     {
         #region Attribute
-        public override event UserControlCustomEventHandler HeightChanged;
+        public new event UserControlCustomEventHandler HeightChanged;
 
-        private Interface_booking _intBoo;
+        private InterfaceBooking _intBoo;
 
         private IContainer components = null;
         private Label labelName;
@@ -40,7 +40,7 @@ namespace Droid_Booking
         {
             InitializeComponent();
         }
-        public ViewAreaEdit(Interface_booking intBoo)
+        public ViewAreaEdit(InterfaceBooking intBoo)
         {
             _intBoo = intBoo;
 

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Droid_Booking.Properties {
+namespace Droid.Booking.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

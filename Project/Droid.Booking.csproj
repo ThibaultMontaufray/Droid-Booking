@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\OpenCvSharp-AnyCPU.2.4.10.20170306\build\OpenCvSharp-AnyCPU.props" Condition="Exists('..\..\packages\OpenCvSharp-AnyCPU.2.4.10.20170306\build\OpenCvSharp-AnyCPU.props')" />
   <Import Project="packages\OpenCvSharp-AnyCPU.2.4.10.20160316\build\OpenCvSharp-AnyCPU.props" Condition="Exists('packages\OpenCvSharp-AnyCPU.2.4.10.20160316\build\OpenCvSharp-AnyCPU.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -8,9 +9,9 @@
     <ProjectGuid>{CD6FE1EC-B569-4D9B-8D6E-8749F75C6999}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Droid_Booking</RootNamespace>
-    <AssemblyName>Droid_Booking</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>Droid.Booking</RootNamespace>
+    <AssemblyName>Droid.Booking</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -42,6 +43,70 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TobiProject|AnyCPU'">
+    <OutputPath>bin\TobiProject\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Droid|AnyCPU'">
+    <OutputPath>bin\Droid\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\AnyCPU\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\AnyCPU\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TobiProject|AnyCPU'">
+    <OutputPath>bin\AnyCPU\TobiProject\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Droid|AnyCPU'">
+    <OutputPath>bin\AnyCPU\Droid\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TobiProject|x86'">
+    <OutputPath>bin\x86\TobiProject\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Droid|x86'">
+    <OutputPath>bin\x86\Droid\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aspose.OCR, Version=3.6.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <HintPath>packages\Droid_Financial.1.0.0\lib\4.5.1\Aspose.OCR.dll</HintPath>
@@ -52,7 +117,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ControlzEx, Version=2.0.1.61, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>packages\ControlzEx.2.0.1.61\lib\net45\ControlzEx.dll</HintPath>
+      <HintPath>..\..\packages\ControlzEx.2.0.1.61\lib\net45\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Droid_deployer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -72,7 +137,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
-      <HintPath>packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+      <HintPath>..\..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.9.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
@@ -80,7 +145,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Octokit, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -88,36 +153,37 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
-      <HintPath>packages\OpenCvSharp-AnyCPU.2.4.10.20160316\lib\net45\OpenCvSharp.dll</HintPath>
+      <HintPath>..\..\packages\OpenCvSharp-AnyCPU.2.4.10.20170306\lib\net45\OpenCvSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OpenCvSharp.Blob, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
-      <HintPath>packages\OpenCvSharp-AnyCPU.2.4.10.20160316\lib\net45\OpenCvSharp.Blob.dll</HintPath>
+      <HintPath>..\..\packages\OpenCvSharp-AnyCPU.2.4.10.20170306\lib\net45\OpenCvSharp.Blob.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OpenCvSharp.CPlusPlus, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
-      <HintPath>packages\OpenCvSharp-AnyCPU.2.4.10.20160316\lib\net45\OpenCvSharp.CPlusPlus.dll</HintPath>
+      <HintPath>..\..\packages\OpenCvSharp-AnyCPU.2.4.10.20170306\lib\net45\OpenCvSharp.CPlusPlus.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OpenCvSharp.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
-      <HintPath>packages\OpenCvSharp-AnyCPU.2.4.10.20160316\lib\net45\OpenCvSharp.Extensions.dll</HintPath>
+      <HintPath>..\..\packages\OpenCvSharp-AnyCPU.2.4.10.20170306\lib\net45\OpenCvSharp.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OpenCvSharp.UserInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
-      <HintPath>packages\OpenCvSharp-AnyCPU.2.4.10.20160316\lib\net45\OpenCvSharp.UserInterface.dll</HintPath>
+      <HintPath>..\..\packages\OpenCvSharp-AnyCPU.2.4.10.20170306\lib\net45\OpenCvSharp.UserInterface.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>packages\OpenTK.1.1.2349.61993\lib\NET40\OpenTK.dll</HintPath>
+      <HintPath>..\..\packages\OpenTK.1.1.2349.61993\lib\NET40\OpenTK.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>packages\OpenTK.GLControl.1.1.2349.61993\lib\NET40\OpenTK.GLControl.dll</HintPath>
+      <HintPath>..\..\packages\OpenTK.GLControl.1.1.2349.61993\lib\NET40\OpenTK.GLControl.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="QRCoder, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\QRCoder.1.1.7\lib\net40\QRCoder.dll</HintPath>
+      <HintPath>..\..\packages\QRCoder.1.1.7\lib\net40\QRCoder.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -132,11 +198,11 @@
     </Reference>
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Windows.Forms.Ribbon, Version=3.5.8.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Droid_Financial.1.0.0\lib\4.5.1\System.Windows.Forms.Ribbon.dll</HintPath>
+      <HintPath>..\..\packages\officeribbon.3.5.8.4\lib\net20\System.Windows.Forms.Ribbon.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\ControlzEx.2.0.1.61\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\packages\ControlzEx.2.0.1.61\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -149,16 +215,16 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\QRCoder.1.1.7\lib\net40\UnityEngine.dll</HintPath>
+      <HintPath>..\..\packages\QRCoder.1.1.7\lib\net40\UnityEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
-      <HintPath>packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+      <HintPath>..\..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="zxing, Version=1.0.4727.18517, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ZXing.2.1.1\lib\net20\zxing.dll</HintPath>
+      <HintPath>..\..\packages\ZXing.2.1.1\lib\net20\zxing.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -316,9 +382,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Droid-Financial\Project\Droid_Financial.csproj">
+    <ProjectReference Include="..\..\Droid-Financial\Project\Droid.Financial.csproj">
       <Project>{92850be1-bbca-4d0c-a6d0-7bdc61ab0cb5}</Project>
-      <Name>Droid_Financial</Name>
+      <Name>Droid.Financial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Droid-Image\Project\Droid.Image.csproj">
+      <Project>{9fd7aaf3-3236-474a-9017-be10bf369e7e}</Project>
+      <Name>Droid.Image</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Droid-People\Project\Droid.People.csproj">
+      <Project>{d91dab8b-5727-425a-bb7c-5b76ece077dd}</Project>
+      <Name>Droid.People</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Droid-Web\Project\Droid.Web.csproj">
+      <Project>{4da97551-8f83-4b71-81ca-6971d1d393fd}</Project>
+      <Name>Droid.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Tools4Libraries\Tools4Libraries.csproj">
       <Project>{aad2b1be-9b2d-455d-8dd4-64e4e84dd985}</Project>
@@ -343,7 +421,6 @@
     <None Include="Resources\ServoIconReservation.ico" />
     <None Include="Resources\CenterGray.png" />
     <None Include="Resources\CenterWhite.png" />
-    <Content Include="License-LGPL.txt" />
     <None Include="Resources\lexBg.jpg" />
     <None Include="Resources\ShieldTileBgWhite.png" />
     <None Include="Resources\bgMain.png" />
@@ -386,6 +463,7 @@
     <None Include="Resources\startRed.png" />
     <None Include="Resources\startRedEndGreen.png" />
     <None Include="Resources\startRedEndOrange.png" />
+    <Content Include="License-LGPL.txt" />
     <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -398,6 +476,7 @@
       <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\OpenCvSharp-AnyCPU.2.4.10.20160316\build\OpenCvSharp-AnyCPU.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\OpenCvSharp-AnyCPU.2.4.10.20160316\build\OpenCvSharp-AnyCPU.props'))" />
+    <Error Condition="!Exists('..\..\packages\OpenCvSharp-AnyCPU.2.4.10.20170306\build\OpenCvSharp-AnyCPU.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\OpenCvSharp-AnyCPU.2.4.10.20170306\build\OpenCvSharp-AnyCPU.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

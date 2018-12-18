@@ -1,7 +1,7 @@
-﻿//using Droid_People;
+﻿//using Droid.People;
 //using System.Windows.Forms;
 
-//namespace Droid_Booking
+//namespace Droid.Booking
 //{
 //    public partial class ViewUserDetail : UserControl, IView
 //    {
@@ -88,7 +88,7 @@
 //            this.labelId = new System.Windows.Forms.Label();
 //            this.labelMail = new System.Windows.Forms.Label();
 //            this.labelGender = new System.Windows.Forms.Label();
-//            this.panelShield1 = new Droid_Booking.PanelShield();
+//            this.panelShield1 = new Droid.Booking.PanelShield();
 //            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 //            this.SuspendLayout();
 //            // 

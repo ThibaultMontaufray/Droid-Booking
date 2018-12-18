@@ -7,21 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Droid_People;
+using Droid.People;
 using Tools4Libraries;
-using Droid_financial;
+using Droid.financial;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public delegate void ViewBookEditEventHandler();
     public partial class ViewBookEdit : UserControlCustom, IView
     {
         #region Attribute
-        public override event UserControlCustomEventHandler HeightChanged;
+        public new event UserControlCustomEventHandler HeightChanged;
         public event ViewBookEditEventHandler CreatePersonRequested;
         public event ViewBookEditEventHandler OpenFinanceProject;
 
-        private Interface_booking _intBoo;
+        private InterfaceBooking _intBoo;
 
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.DateTimePicker dateTimePickerCheckIn;
@@ -65,7 +65,7 @@ namespace Droid_Booking
             InitializeComponent();
             Init();
         }
-        public ViewBookEdit(Interface_booking intBoo)
+        public ViewBookEdit(InterfaceBooking intBoo)
         {
             _intBoo = intBoo;
 
@@ -86,7 +86,7 @@ namespace Droid_Booking
                     comboBoxPlace.SelectedItem = _intBoo.CurrentBooking.Place;
                     dateTimePickerCheckOut.Value = _intBoo.CurrentBooking.CheckOut;
                     dateTimePickerCheckIn.Value = _intBoo.CurrentBooking.CheckIn;
-                    textBoxPrice.Text = Expense.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses)?.Amount.ToString();
+                    textBoxPrice.Text = CRE.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE)?.Amount.ToString();
                     checkBoxConfirmed.Checked = _intBoo.CurrentBooking.Confirmed;
                     comboBoxArea.SelectedItem = Area.GetAreaFromId(_intBoo.CurrentBooking.AreaId, _intBoo.Areas);
                     LoadPayment();
@@ -141,17 +141,17 @@ namespace Droid_Booking
             DataGridViewRow row;
 
             _dataGridViewMovement.Rows.Clear();
-            var expense = Expense.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses);
+            var expense = CRE.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE);
             if (expense != null)
             { 
                 foreach (Movement mov in expense.Movements)
                 {
                     _dataGridViewMovement.Rows.Add();
                     row = _dataGridViewMovement.Rows[_dataGridViewMovement.Rows.Count - 1];
-                    row.Cells[ColumnUser.Index].Value = Person.GetPersonFromId(mov.UserId, _intBoo.Persons);
-                    row.Cells[ColumnSupport.Index].Value = mov.Type;
+                    row.Cells[ColumnUser.Index].Value = Person.GetPersonFromId(mov.UserId?.FirstOrDefault(), _intBoo.Persons);
+                    row.Cells[ColumnSupport.Index].Value = mov.Gop;
                     row.Cells[ColumnAmount.Index].Value = mov.Amount;
-                    row.Cells[ColumnDate.Index].Value = mov.Date.ToShortDateString();
+                    row.Cells[ColumnDate.Index].Value = mov.StartDate.ToShortDateString();
                     row.Cells[ColumnEdit.Index].Value = Tools4Libraries.Resources.ResourceIconSet16Default.cog_edit;
                     row.Cells[ColumnDelete.Index].Value = Tools4Libraries.Resources.ResourceIconSet16Default.cross;
                 }
@@ -641,14 +641,14 @@ namespace Droid_Booking
             }
             if (string.IsNullOrEmpty(_intBoo.CurrentBooking.ExpenseId))
             {
-                Expense exp = new Expense();
+                CRE exp = new CRE();
                 _intBoo.CurrentBooking.ExpenseId = exp.Id;
-                _intBoo.CurrentFinancialActivity.ListExpenses.Add(exp);
+                _intBoo.CurrentFinancialActivity.ListCRE.Add(exp);
             }
 
             try
             {
-                Expense exp = Expense.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses);
+                CRE exp = CRE.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE);
                 Area filterArea = (!string.IsNullOrEmpty(comboBoxArea.Text)) ? (Area)comboBoxArea.SelectedItem : null;
                 Person filterPerson = (!string.IsNullOrEmpty(comboBoxPerson.Text)) ? (Person)comboBoxPerson.SelectedItem : null;
 
@@ -663,15 +663,15 @@ namespace Droid_Booking
                 exp.StartDate = dateTimePickerCheckIn.Value;
                 exp.EndDate = dateTimePickerCheckOut.Value;
 
-                Expense.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Movements.Clear();
+                CRE.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE).Movements.Clear();
                 foreach (DataGridViewRow row in _dataGridViewMovement.Rows)
                 {
                     mov = new Movement();
-                    mov.Date = DateTime.Parse(row.Cells[ColumnDate.Index].Value.ToString());
-                    mov.UserId = Person.GetUserByText(row.Cells[ColumnUser.Index].Value, _intBoo.Persons)?.Id;
-                    mov.Amount = double.Parse(row.Cells[ColumnAmount.Index].Value.ToString());
-                    mov.Type = (Movement.PaymentType)Enum.Parse(typeof(Movement.PaymentType), row.Cells[ColumnSupport.Index].Value.ToString());
-                    Expense.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Movements.Add(mov);
+                    mov.StartDate = DateTime.Parse(row.Cells[ColumnDate.Index].Value.ToString());
+                    mov.UserId.Add(Person.GetUserByText(row.Cells[ColumnUser.Index].Value, _intBoo.Persons)?.Id);
+                    mov.Amount = float.Parse(row.Cells[ColumnAmount.Index].Value.ToString());
+                    mov.Gop = (Movement.GOP)Enum.Parse(typeof(Movement.GOP), row.Cells[ColumnSupport.Index].Value.ToString());
+                    CRE.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE).Movements.Add(mov);
                 }
             }
             catch (Exception)
@@ -691,33 +691,33 @@ namespace Droid_Booking
             Movement mov = new Movement();
 
             _intBoo.CurrentUser = (Person)comboBoxPerson.SelectedItem;
-            mov.Amount = double.Parse(textBoxNewPayment.Text);
-            mov.UserId = _intBoo.CurrentUser.Id;
-            mov.Date = DateTime.Now;
-            mov.Type = Movement.GetPaymentType(comboBoxCash.SelectedItem.ToString());
+            mov.Amount = float.Parse(textBoxNewPayment.Text);
+            mov.UserId.Add(_intBoo.CurrentUser.Id);
+            mov.StartDate = DateTime.Now;
+            mov.Gop = (Movement.GOP)Enum.Parse(typeof(Movement.GOP), comboBoxCash.SelectedItem.ToString());
 
             if (_intBoo.CurrentBooking.ExpenseId == null)
             {
-                Expense exp = new Expense();
+                CRE exp = new CRE();
                 exp.StartDate = _intBoo.CurrentBooking.CheckIn;
                 exp.EndDate = _intBoo.CurrentBooking.CheckOut;
                 exp.Description = textBoxDescription.Text;
                 //exp.Save(_intBoo.CurrentFinancialActivity.PathActivity);
                 exp.Movements.Add(mov);
                 _intBoo.CurrentBooking.ExpenseId = exp.Id;
-                _intBoo.CurrentFinancialActivity.ListExpenses.Add(exp);
+                _intBoo.CurrentFinancialActivity.ListCRE.Add(exp);
             }
             else
-            { 
-                Expense.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListExpenses).Movements.Add(mov);
+            {
+                CRE.GetExpenseFromId(_intBoo.CurrentBooking.ExpenseId, _intBoo.CurrentFinancialActivity.ListCRE).Movements.Add(mov);
             }
 
             _dataGridViewMovement.Rows.Add();
             row = _dataGridViewMovement.Rows[_dataGridViewMovement.Rows.Count - 1];
             row.Cells[ColumnUser.Index].Value = (Person)comboBoxPerson.SelectedItem;
-            row.Cells[ColumnSupport.Index].Value = mov.Type;
+            row.Cells[ColumnSupport.Index].Value = mov.Gop;
             row.Cells[ColumnAmount.Index].Value = mov.Amount;
-            row.Cells[ColumnDate.Index].Value = mov.Date.ToShortDateString();
+            row.Cells[ColumnDate.Index].Value = mov.StartDate.ToShortDateString();
             row.Cells[ColumnEdit.Index].Value = Tools4Libraries.Resources.ResourceIconSet16Default.cog_edit;
             row.Cells[ColumnDelete.Index].Value = Tools4Libraries.Resources.ResourceIconSet16Default.cross;
 

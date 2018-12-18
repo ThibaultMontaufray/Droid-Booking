@@ -1,4 +1,4 @@
-﻿namespace Droid_Booking
+﻿namespace Droid.Booking
 {
     partial class ViewCalendar
     {

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tools4Libraries;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public partial class ViewAreaSearch : UserControlCustom, IView
     {
         #region Attribute
-        public override event UserControlCustomEventHandler HeightChanged;
-        private Interface_booking _intBoo;
+        public event UserControlCustomEventHandler HeightChanged;
+        private InterfaceBooking _intBoo;
         private List<Area> _filterdArea;
         
         private IContainer components = null;
@@ -52,7 +52,7 @@ namespace Droid_Booking
             InitializeComponent();
             Init();
         }
-        public ViewAreaSearch(Interface_booking intBoo)
+        public ViewAreaSearch(InterfaceBooking intBoo)
         {
             _intBoo = intBoo;
 

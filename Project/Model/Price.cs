@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public class Price
     {

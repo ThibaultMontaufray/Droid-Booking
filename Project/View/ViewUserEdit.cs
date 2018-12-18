@@ -1,9 +1,9 @@
-﻿//using Droid_People;
+﻿//using Droid.People;
 //using System;
 //using System.Drawing;
 //using System.Windows.Forms;
 
-//namespace Droid_Booking
+//namespace Droid.Booking
 //{
 //    public partial class ViewUserEdit : UserControl, IView
 //    {
@@ -151,8 +151,8 @@
 //            this.buttonCancel = new System.Windows.Forms.Button();
 //            this.pictureBoxPasport = new System.Windows.Forms.PictureBox();
 //            this.pictureBox = new System.Windows.Forms.PictureBox();
-//            this.panelShield2 = new Droid_Booking.PanelShield();
-//            this.panelShield1 = new Droid_Booking.PanelShield();
+//            this.panelShield2 = new Droid.Booking.PanelShield();
+//            this.panelShield1 = new Droid.Booking.PanelShield();
 //            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPasport)).BeginInit();
 //            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 //            this.SuspendLayout();
@@ -325,7 +325,7 @@
 //            // pictureBoxPasesport
 //            // 
 //            this.pictureBoxPasport.BackColor = System.Drawing.Color.DimGray;
-//            this.pictureBoxPasport.BackgroundImage = global::Droid_Booking.Properties.Resources.passeport;
+//            this.pictureBoxPasport.BackgroundImage = global::Droid.Booking.Properties.Resources.passeport;
 //            this.pictureBoxPasport.Location = new System.Drawing.Point(651, 20);
 //            this.pictureBoxPasport.Name = "pictureBoxPasesport";
 //            this.pictureBoxPasport.Size = new System.Drawing.Size(320, 430);

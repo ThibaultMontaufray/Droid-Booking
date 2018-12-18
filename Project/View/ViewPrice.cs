@@ -4,12 +4,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Tools4Libraries;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public class ViewPrice : UserControlCustom, IView
     {
         #region Attribute
-        public override event UserControlCustomEventHandler HeightChanged;
+        public new event UserControlCustomEventHandler HeightChanged;
 
         private Label labelType;
         private ComboBox comboBoxType;
@@ -45,7 +45,7 @@ namespace Droid_Booking
         private DataGridViewImageColumn ColumnDown;
         private DataGridViewImageColumn ColumnDelete;
         private DataGridViewTextBoxColumn ColumnPrioritu;
-        private Interface_booking _intBoo;
+        private InterfaceBooking _intBoo;
         #endregion
 
         #region Properties
@@ -57,7 +57,7 @@ namespace Droid_Booking
             InitializeComponent();
             Init();
         }
-        public ViewPrice(Interface_booking intBoo)
+        public ViewPrice(InterfaceBooking intBoo)
         {
             _intBoo = intBoo;
 

@@ -3,9 +3,9 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using Droid_financial;
+using Droid.financial;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public class Booking
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     static class Program
     {

@@ -1,14 +1,14 @@
-﻿using Droid_financial;
+﻿using Droid.financial;
 using System;
 using System.Windows.Forms;
 
-namespace Droid_Booking
+namespace Droid.Booking
 {
     public partial class DroidBookingForm : Form
     {
         #region Attribute
-        private Interface_booking _intBoo;
-        private Interface_fnc _int_fin;
+        private InterfaceBooking _intBoo;
+        private InterfaceFinance _int_fin;
 
         private Ribbon _ribbon;
         private RibbonButton _btn_open;
@@ -16,12 +16,12 @@ namespace Droid_Booking
         #endregion
 
         #region Properties
-        public Interface_booking IntBooking
+        public InterfaceBooking IntBooking
         {
             get { return _intBoo; }
             set { _intBoo = value; }
         }
-        public Interface_fnc IntFinance
+        public InterfaceFinance IntFinance
         {
             get { return _int_fin; }
             set { _int_fin = value; }
@@ -50,11 +50,11 @@ namespace Droid_Booking
         #region Methods private
         private void Init()
         {
-            _intBoo = new Interface_booking(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\");
+            _intBoo = new InterfaceBooking(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Servodroid\Droid-Booking\Cloud\");
             _intBoo.LanguageModified += _intBoo_LanguageModified;
             this.Controls.Add(_intBoo.Sheet);
 
-            _int_fin = new Interface_fnc(string.Empty);
+            _int_fin = new InterfaceFinance(string.Empty);
 
             BuildRibbon();
         }
